@@ -78,6 +78,21 @@ wiki/
 │   ├── use_cases.md           ← which list for which job
 │   └── custom_generation.md   ← crunch, cewl, etc.
 │
+├── definitions/               ← pentest-oriented concept definitions (protocols, flags, auth, terms)
+│   ├── _overview.md           ← index of all definition pages
+│   ├── network_protocols.md   ← TCP, UDP, ICMP, SCTP, ARP, QUIC — what they are and why they matter
+│   ├── tcp_flags.md           ← SYN, ACK, FIN, RST, PSH, URG — scanning and exploit implications
+│   ├── auth_protocols.md      ← NTLM, Kerberos, LDAP, OAuth, SAML, JWT, Basic/Digest
+│   └── security_terminology.md ← CVE, CVSS, RCE, LFI, SSRF, IDOR, SQLi, XSS, XXE, SSTI, etc.
+│
+├── shell_commands/            ← quick-reference command sheets by shell environment
+│   ├── bash.md                ← Linux/bash: enumeration, file ops, transfers, networking, privesc
+│   ├── cmd.md                 ← Windows CMD: net, ipconfig, whoami, wmic, reg, tasklist, netstat
+│   └── powershell.md          ← PowerShell: enumeration, execution policy, downloads, remoting
+│
+├── ports/                     ← port reference: what runs there, what to look for, pentest notes
+│   └── common_ports.md        ← master table: all common ports organized by service category
+│
 ├── protocols/                 ← protocol reference pages (linked from enumeration + attack)
 │   ├── smb.md
 │   ├── ldap.md
@@ -158,16 +173,34 @@ wiki/
         │   ├── attacking_the_application_*.md (4 files)
         │   ├── attacking_the_system_*.md (3 files)
         │   └── mcp_*.md (5 files — intro through mitigations)
-        └── ai_data_attacks/               ← HTB Academy: AI Data Attacks
-            ├── introduction_to_ai_data.md
-            ├── introduction_to_ai_data_attacks.md
-            ├── introduction_to_trojan_attacks.md
-            ├── label_attacks_*.md (5 files — baseline, label flipping, targeted, evaluation)
-            ├── feature_attacks_*.md (5 files — baseline, clean label, target selection, attack, evaluation)
-            ├── trojan_attacks_*.md (5 files — CNN arch, data prep, components, training, evaluation)
-            ├── pickels_and_steganography_*.md (4 files — training, tools, attack, execute)
-            ├── pickels_and_tensor_steganography.md
-            └── skills_assessment.md
+        ├── ai_data_attacks/               ← HTB Academy: AI Data Attacks
+        │   ├── introduction_to_ai_data.md
+        │   ├── introduction_to_ai_data_attacks.md
+        │   ├── introduction_to_trojan_attacks.md
+        │   ├── label_attacks_*.md (5 files — baseline, label flipping, targeted, evaluation)
+        │   ├── feature_attacks_*.md (5 files — baseline, clean label, target selection, attack, evaluation)
+        │   ├── trojan_attacks_*.md (5 files — CNN arch, data prep, components, training, evaluation)
+        │   ├── pickels_and_steganography_*.md (4 files — training, tools, attack, execute)
+        │   ├── pickels_and_tensor_steganography.md
+        │   └── skills_assessment.md
+        └── attacking_common_services/     ← HTB Academy: Attacking Common Services
+            ├── interacting_with_common_services.md
+            ├── protocol_specific_attacks_*.md (3 files — concept, misconfigurations, sensitive info)
+            ├── ftp_attacking_ftp.md
+            ├── ftp_latest_ftp_vulnerabilities.md
+            ├── smb_attacking_smb.md
+            ├── smb_latest_smb_vulnerabilities.md
+            ├── dns_attacking_dns.md
+            ├── dns_latest_dns_vulnerabilities.md
+            ├── smtp_attacking_email_services.md
+            ├── smtp_latest_email_service_vulnerabilities.md
+            ├── rdp_attacking_rdp.md
+            ├── rdp_latest_rdp_vulnerabilities.md
+            ├── sql_attacking_sql_databases.md
+            ├── sql_latest_sql_vulnerabilities.md
+            ├── lab_easy_attacking_common_services.md
+            ├── lab_medium_attacking_common_services.md
+            └── lab_hard_attacking_common_services.md
 ```
 
 **Raw source rules:**
@@ -236,6 +269,9 @@ Use only these top-level tag categories. Add sub-tags with a slash: `recon/osint
 | `protocol` | Protocol reference pages |
 | `lab` | Lab write-ups and CTF notes |
 | `concept` | Methodology, principles, theory |
+| `definition` | Terminology, protocol definitions, concept glossaries |
+| `shell` | Shell command references (bash, cmd, PowerShell) |
+| `reference` | Quick-reference tables (ports, flags, syntax) |
 
 ---
 
@@ -380,6 +416,9 @@ These plugins and settings work well with this wiki:
 - Tables: prefer for flags, options, and comparisons
 - Never duplicate content — if a technique applies to both `enumeration/smb.md` and `attack/lateral_movement.md`, write it once in the most specific location and link from the other
 - Protocol pages in `protocols/` are reference-only; technique pages in `enumeration/` and `attack/` link to them
+- Definition pages explain *what something is* and *why a pentester cares*; keep them factual and cross-link to the enumeration/attack pages that use the concept
+- Shell command pages are quick-reference sheets, not tutorials; include the command, a one-line description, and a brief example — no prose explanations
+- The ports page is a lookup table; include port, protocol (TCP/UDP), service, and a "pentester's interest" column
 
 ---
 
@@ -395,3 +434,6 @@ When starting from the existing module sources, create these pages in priority o
 6. Tool pages for every tool mentioned across the modules
 7. `tools/_overview.md` — comparison table
 8. `wordlists/_overview.md` and `wordlists/use_cases.md`
+9. `definitions/` pages — network_protocols, tcp_flags, auth_protocols, security_terminology
+10. `shell_commands/` pages — bash.md, cmd.md, powershell.md
+11. `ports/common_ports.md` — master port reference table

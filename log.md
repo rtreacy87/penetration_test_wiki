@@ -1,5 +1,13 @@
 # Wiki Log
 
+## [2026-05-11] structure | Added definitions/, shell_commands/, ports/ sections
+Pages created: 10 (definitions/_overview, network_protocols, tcp_flags, auth_protocols, security_terminology; ports/common_ports; shell_commands/bash, cmd, powershell). Pages updated: 3 (CLAUDE.md schema, index.md, log.md).
+Key additions: TCP/UDP/ICMP/SCTP/ARP/QUIC reference with pentester context; TCP flag → scan-type inference table; NTLM/Kerberos/OAuth/SAML/JWT attack paths; CVE/CVSS/RCE/LFI/SSRF/XSS/SSTI terminology; 80+ port quick-reference table with pentester interest column; bash/cmd/PowerShell command sheets covering enum, file transfer, cred hunting, reverse shells, lateral movement.
+
+## [2026-05-11] ingest | HTB Academy — Attacking Common Services (raw/attacking_common_services/)
+Files read: 19. Pages created: 10 (attack/ftp, attack/smb, attack/dns, attack/smtp, attack/rdp, attack/sql_databases, tools/responder, tools/medusa, tools/hydra, tools/crowbar). Pages updated: 6 (attack/_overview, enumeration/smb, enumeration/ftp, enumeration/dns, enumeration/smtp, index.md).
+Key additions: FTP bounce + CVE-2022-22836, SMB Responder/NTLM relay + CVE-2020-0796 SMBGhost, DNS subdomain takeover + cache poisoning, SMTP O365spray + CVE-2020-7247 OpenSMTPD RCE, RDP tscon session hijacking + BlueKeep CVE-2019-0708, MSSQL xp_cmdshell/xp_dirtree/IMPERSONATE/linked server lateral movement.
+
 ## [2026-05-10] ingest | HTB Academy — AI Data Attacks (raw/ai_data_attacks/)
 Files read: 25. Pages created: 5. Pages updated: 3 (_overview, index, CLAUDE.md).
 Key additions: data poisoning hub (pipeline stage mapping, OWASP LLM03/LLM05), label flipping + targeted label attacks (decision boundary math, implementation), clean label attacks (feature-perturbation without label changes), trojan/backdoor attacks (GTSRB CNN, 100% ASR at 10% poison rate), model steganography (pickle __reduce__ RCE + IEEE 754 LSB encoding, reverse shell chain).

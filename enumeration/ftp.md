@@ -123,8 +123,10 @@ openssl s_client -connect 10.129.14.136:21 -starttls ftp
 
 ## Related Pages
 
+- [[attack/ftp]] — exploitation: anonymous login, Medusa brute force, bounce attack, CVE-2022-22836
 - [[enumeration/_overview]]
-- [[tools/crackmapexec]]
+- [[tools/medusa]]
+- [[tools/nmap]]
 
 ## Sources
 

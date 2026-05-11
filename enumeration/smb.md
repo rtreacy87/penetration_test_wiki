@@ -149,11 +149,13 @@ samrdump.py 10.129.14.128
 
 ## Related Pages
 
+- [[attack/smb]] — exploitation: null sessions, password spray, RCE, PTH, Responder, NTLM relay
 - [[tools/smbclient]]
 - [[tools/rpcclient]]
 - [[tools/enum4linux]]
 - [[tools/crackmapexec]]
 - [[tools/impacket]]
+- [[tools/responder]]
 - [[enumeration/_overview]]
 
 ## Sources

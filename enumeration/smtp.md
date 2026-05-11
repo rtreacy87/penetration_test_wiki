@@ -126,9 +126,11 @@ CONNECT 10.129.14.128:25 HTTP/1.0
 
 ## Related Pages
 
+- [[attack/smtp]] — exploitation: user enum, O365spray, open relay abuse, CVE-2020-7247 OpenSMTPD RCE
 - [[enumeration/_overview]]
 - [[enumeration/imap_pop3]]
 - [[enumeration/dns]]
+- [[tools/hydra]]
 
 ## Sources
 

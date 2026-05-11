@@ -1,6 +1,6 @@
 # Wiki Index
 
-_Last updated: 2026-05-10 — 62 pages total_
+_Last updated: 2026-05-11 — 86 pages total_
 
 ---
 
@@ -34,7 +34,7 @@ _Last updated: 2026-05-10 — 62 pages total_
 
 ## Attack
 
-- [[attack/_overview]] — Map of all attack categories: network, Linux privesc, web, AI/ML. `attack` `concept`
+- [[attack/_overview]] — Map of all attack categories: network, common services (FTP/SMB/DNS/SMTP/RDP/SQL), Linux privesc, web, AI/ML. `attack` `concept`
 
 ### Linux Privilege Escalation
 
@@ -47,6 +47,15 @@ _Last updated: 2026-05-10 — 62 pages total_
 ### Network Attacks
 
 - [[attack/network/firewall_evasion]] — Nmap-based firewall/IDS evasion: fragmentation, decoys, source port, timing. `attack` `attack/network`
+
+### Common Services Attacks
+
+- [[attack/ftp]] — Anonymous login, Medusa brute force, FTP bounce scan, CVE-2022-22836 CoreFTP path traversal. `attack` `attack/network`
+- [[attack/smb]] — Null sessions, CME spray, psexec/smbexec RCE, SAM dump, PTH, Responder LLMNR, NTLM relay, CVE-2020-0796. `attack` `attack/network`
+- [[attack/dns]] — AXFR exploitation, subdomain enum (subfinder/subbrute), CNAME subdomain takeover, DNS cache poisoning. `attack` `attack/network`
+- [[attack/smtp]] — VRFY/RCPT user enum, O365spray, Hydra spraying, swaks open relay abuse, CVE-2020-7247 OpenSMTPD RCE. `attack` `attack/network`
+- [[attack/rdp]] — Crowbar/Hydra password spray, tscon session hijacking, xfreerdp PTH, CVE-2019-0708 BlueKeep. `attack` `attack/network`
+- [[attack/sql_databases]] — xp_cmdshell RCE, OUTFILE webshell, xp_dirtree NTLMv2 theft, IMPERSONATE privesc, linked server pivot. `attack` `attack/network`
 
 ### AI / LLM Attacks
 
@@ -85,6 +94,34 @@ _Last updated: 2026-05-10 — 62 pages total_
 - [[tools/odat]] — Oracle attack tool: SID enum, auth brute-force, web shell upload. `tool`
 - [[tools/linpeas]] — Automated Linux privilege escalation enumeration; color-coded output. `tool`
 - [[tools/pspy]] — Unprivileged process monitor; catches cron and credential leaks. `tool`
+- [[tools/responder]] — LLMNR/NBT-NS poisoner; captures NTLMv2 hashes from Windows broadcast auth. `tool`
+- [[tools/medusa]] — Parallel brute-forcer; more reliable than Hydra for FTP/SSH. `tool`
+- [[tools/hydra]] — Versatile network login brute-forcer; 50+ protocols, go-to for HTTP/RDP/SMTP/POP3. `tool`
+- [[tools/crowbar]] — RDP-focused brute-forcer; more reliable than Hydra for RDP password spraying. `tool`
+
+---
+
+## Definitions
+
+- [[definitions/_overview]] — Index of all definition pages: protocols, flags, auth, security terms. `definition` `concept`
+- [[definitions/network_protocols]] — TCP, UDP, ICMP, SCTP, ARP, QUIC — behavior and pentester relevance for each. `definition` `concept`
+- [[definitions/tcp_flags]] — SYN/ACK/FIN/RST/PSH/URG — three-way handshake, port state inference, scan type selection. `definition` `reference`
+- [[definitions/auth_protocols]] — NTLM, Kerberos, LDAP, OAuth, SAML, JWT — how they work and how they fail. `definition` `concept`
+- [[definitions/security_terminology]] — CVE/CVSS, RCE, LFI, SSRF, IDOR, SQLi, XSS, SSTI, lateral movement, persistence, defense terms. `definition` `concept`
+
+---
+
+## Ports
+
+- [[ports/common_ports]] — Master port reference: remote access, file transfer, web, email, databases, directory services, infrastructure. `reference` `enumeration`
+
+---
+
+## Shell Commands
+
+- [[shell_commands/bash]] — Linux bash: system enum, file search, creds hunting, reverse shells, file transfer, listener. `shell` `reference`
+- [[shell_commands/cmd]] — Windows CMD: whoami/net/wmic, registry, file transfer (certutil/bitsadmin), RDP session hijack. `shell` `reference`
+- [[shell_commands/powershell]] — PowerShell: AD enum, file transfer, WinRM remoting, AMSI bypass, reverse shell. `shell` `reference`
 
 ---
 

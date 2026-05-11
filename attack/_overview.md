@@ -1,8 +1,8 @@
 ---
 tags: [attack, concept]
 module: multi
-last_updated: 2026-05-10
-source_count: 4
+last_updated: 2026-05-11
+source_count: 6
 ---
 
 # Attack Overview
@@ -43,6 +43,16 @@ Techniques targeting AI systems, LLMs, and ML models.
   - [[attack/ai/denial_of_ml_service]] — Sponge examples and DoML techniques
   - [[attack/ai/model_reverse_engineering]] — Model extraction / stealing attacks
   - [[attack/ai/mcp_security]] — MCP protocol attack surface and mitigations
+
+### Common services attacks
+Exploitation techniques for FTP, SMB, DNS, SMTP, RDP, and SQL — protocol-specific attacks after initial enumeration.
+
+- [[attack/ftp]] — Anonymous login, Medusa brute force, FTP bounce, CVE-2022-22836 path traversal RCE
+- [[attack/smb]] — Null sessions, CME password spray, psexec/smbexec RCE, SAM dump, PTH, Responder LLMNR, NTLM relay, CVE-2020-0796
+- [[attack/dns]] — AXFR zone transfer, subdomain enum, subdomain takeover (CNAME), DNS cache poisoning
+- [[attack/smtp]] — VRFY/RCPT user enum, O365spray, Hydra spraying, open relay + swaks, CVE-2020-7247 OpenSMTPD RCE
+- [[attack/rdp]] — Crowbar/Hydra spraying, session hijacking (tscon), Pass-the-Hash (xfreerdp), CVE-2019-0708 BlueKeep
+- [[attack/sql_databases]] — xp_cmdshell RCE, file read/write, xp_dirtree hash stealing, IMPERSONATE privesc, linked server lateral movement
 
 ### Web attacks
 _(pages to be added)_

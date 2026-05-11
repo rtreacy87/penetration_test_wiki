@@ -131,6 +131,7 @@ host -l inlanefreight.htb ns.inlanefreight.htb  # zone transfer attempt
 
 ## Related Pages
 
+- [[attack/dns]] — exploitation: zone transfer abuse, subdomain takeover, DNS cache poisoning
 - [[recon/osint/domain_information]]
 - [[tools/dig]]
 - [[tools/dnsenum]]
