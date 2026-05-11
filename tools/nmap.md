@@ -96,17 +96,17 @@ sudo nmap 10.129.2.18 -sn --packet-trace
 
 ### TCP Scan Comparison
 
-| Scan | Flag | Mechanism | Stealth | Notes |
-|------|------|-----------|---------|-------|
-| SYN (half-open) | `-sS` | Sends SYN, reads SYN-ACK/RST, sends RST | High | Default with root; fastest; does not complete handshake |
-| Connect | `-sT` | Full three-way handshake | Low | Default without root; logged by services; most accurate |
-| ACK | `-sA` | Sends ACK only; reads RST | High | Does not determine open/closed; useful for firewall mapping |
-| Window | `-sW` | ACK scan + analyses TCP window field | Medium | May reveal open vs. closed in some OSes |
-| Maimon | `-sM` | FIN/ACK probe | Medium | Some BSD systems respond unexpectedly |
-| Null | `-sN` | No flags set | High | Closed ports return RST; open ports drop packet |
-| FIN | `-sF` | FIN flag only | High | Same logic as Null scan |
-| Xmas | `-sX` | FIN, PSH, URG flags | High | Same logic as Null scan |
-| Idle | `-sI <zombie>` | Uses zombie host IP ID sequence | Very high | Requires a suitable idle host |
+| Scan             | Flag           | Mechanism                               | Stealth   | Notes                                                       |
+| ---------------- | -------------- | --------------------------------------- | --------- | ----------------------------------------------------------- |
+| SCTP (half-open) | `-sS`          | Sends SYN, reads SYN-ACK/RST, sends RST | High      | Default with root; fastest; does not complete handshake     |
+| Connect          | `-sT`          | Full three-way handshake                | Low       | Default without root; logged by services; most accurate     |
+| ACK              | `-sA`          | Sends ACK only; reads RST               | High      | Does not determine open/closed; useful for firewall mapping |
+| Window           | `-sW`          | ACK scan + analyses TCP window field    | Medium    | May reveal open vs. closed in some OSes                     |
+| Maimon           | `-sM`          | FIN/ACK probe                           | Medium    | Some BSD systems respond unexpectedly                       |
+| Null             | `-sN`          | No flags set                            | High      | Closed ports return RST; open ports drop packet             |
+| FIN              | `-sF`          | FIN flag only                           | High      | Same logic as Null scan                                     |
+| Xmas             | `-sX`          | FIN, PSH, URG flags                     | High      | Same logic as Null scan                                     |
+| Idle             | `-sI <zombie>` | Uses zombie host IP ID sequence         | Very high | Requires a suitable idle host                               |
 
 ### Other Scan Types
 
