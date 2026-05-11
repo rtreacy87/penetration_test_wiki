@@ -1,6 +1,6 @@
 # Wiki Index
 
-_Last updated: 2026-05-10 — 57 pages total_
+_Last updated: 2026-05-10 — 62 pages total_
 
 ---
 
@@ -50,7 +50,7 @@ _Last updated: 2026-05-10 — 57 pages total_
 
 ### AI / LLM Attacks
 
-- [[attack/ai/_overview]] — Full map of AI attack surface: injection, jailbreaking, adversarial ML, MCP, system attacks. `attack` `attack/ai` `concept`
+- [[attack/ai/_overview]] — Full map of AI attack surface: injection, jailbreaking, adversarial ML, data poisoning, MCP, system attacks. `attack` `attack/ai` `concept`
 - [[attack/ai/prompt_injection]] — Direct and indirect prompt injection: 6 direct strategies, 3 indirect scenarios, payload examples. `attack` `attack/ai`
 - [[attack/ai/jailbreaking]] — 7 jailbreak technique families: DAN, roleplay, token smuggling, adversarial suffix, IMM. `attack` `attack/ai`
 - [[attack/ai/prompt_injection_mitigations]] — Defenses across 7 control layers: prompt engineering through guardrail LLMs. `attack` `attack/ai` `concept`
@@ -61,6 +61,11 @@ _Last updated: 2026-05-10 — 57 pages total_
 - [[attack/ai/denial_of_ml_service]] — DoML: sponge examples, resource exhaustion via adversarial inputs, genetic algorithm. `attack` `attack/ai`
 - [[attack/ai/model_reverse_engineering]] — Model extraction: query-based stealing, membership inference, surrogate training. `attack` `attack/ai`
 - [[attack/ai/mcp_security]] — MCP protocol: architecture, malicious servers, vulnerable servers, tool poisoning, mitigations. `attack` `attack/ai` `protocol`
+- [[attack/ai/data_poisoning]] — Hub: AI pipeline attack surface, OWASP LLM03/LLM05 mapping, all data attack types. `attack` `attack/ai` `concept`
+- [[attack/ai/label_flipping]] — Label flipping and targeted label attacks: decision boundary math, flip_labels implementation, evaluation. `attack` `attack/ai`
+- [[attack/ai/clean_label_attacks]] — Feature-perturbation poisoning: target selection, perturbation vector, one-step boundary shift without touching labels. `attack` `attack/ai`
+- [[attack/ai/trojan_attacks]] — Backdoor attacks: trigger embedding, CNN architecture, Clean Accuracy vs ASR (100% on GTSRB Stop→Speed 60). `attack` `attack/ai`
+- [[attack/ai/model_steganography]] — Pickle `__reduce__` RCE + tensor LSB steganography: full reverse shell chain via malicious `.pth` file. `attack` `attack/ai`
 
 ---
 

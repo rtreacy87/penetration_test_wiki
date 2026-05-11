@@ -7,7 +7,7 @@ source_count: 12
 
 # AI / LLM Attack Surface Overview
 
-A structured map of offensive techniques targeting Large Language Model (LLM) applications, covering prompt injection, jailbreaking, model fingerprinting, and architectural weaknesses.
+A structured map of offensive techniques targeting AI/ML systems: prompt injection, jailbreaking, adversarial ML, data poisoning, model artifact attacks, and architectural weaknesses.
 
 ## Overview
 
@@ -89,12 +89,33 @@ Models that accept image, audio, or video input introduce additional prompt inje
 
 ---
 
+---
+
+## Data Poisoning and Model Artifact Attacks
+
+These attacks target the training pipeline and stored model artifacts rather than inference. They corrupt what the model *learns* before it is deployed.
+
+| Attack | OWASP | What it does |
+|--------|-------|-------------|
+| [[attack/ai/data_poisoning]] (hub) | LLM03, LLM05 | Overview of all pipeline attack stages |
+| [[attack/ai/label_flipping]] | LLM03 | Flip training labels to degrade accuracy or cause directed misclassification |
+| [[attack/ai/clean_label_attacks]] | LLM03 | Perturb feature values while keeping labels plausible; targeted and stealthy |
+| [[attack/ai/trojan_attacks]] | LLM03 | Embed dormant backdoor triggered by a specific input pattern (100% ASR on GTSRB) |
+| [[attack/ai/model_steganography]] | LLM05 | Hide reverse shell in weight tensor LSBs; execute via pickle `__reduce__` on load |
+
+---
+
 ## Related Pages
 - [[attack/ai/prompt_injection]]
 - [[attack/ai/jailbreaking]]
 - [[attack/ai/prompt_injection_mitigations]]
 - [[attack/ai/attacking_ai_systems]]
 - [[attack/ai/adversarial_examples]]
+- [[attack/ai/data_poisoning]]
+- [[attack/ai/label_flipping]]
+- [[attack/ai/clean_label_attacks]]
+- [[attack/ai/trojan_attacks]]
+- [[attack/ai/model_steganography]]
 - [[tools/garak]]
 - [[tools/llmmap]]
 

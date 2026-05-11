@@ -1,5 +1,9 @@
 # Wiki Log
 
+## [2026-05-10] ingest | HTB Academy — AI Data Attacks (raw/ai_data_attacks/)
+Files read: 25. Pages created: 5. Pages updated: 3 (_overview, index, CLAUDE.md).
+Key additions: data poisoning hub (pipeline stage mapping, OWASP LLM03/LLM05), label flipping + targeted label attacks (decision boundary math, implementation), clean label attacks (feature-perturbation without label changes), trojan/backdoor attacks (GTSRB CNN, 100% ASR at 10% poison rate), model steganography (pickle __reduce__ RCE + IEEE 754 LSB encoding, reverse shell chain).
+
 ## [2026-05-10] ingest | Full wiki build — 6 modules ingested simultaneously
 
 Files read: 106. Pages created: 57. Pages updated: 0.

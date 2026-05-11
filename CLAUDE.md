@@ -158,7 +158,16 @@ wiki/
         │   ├── attacking_the_application_*.md (4 files)
         │   ├── attacking_the_system_*.md (3 files)
         │   └── mcp_*.md (5 files — intro through mitigations)
-        └── ...
+        └── ai_data_attacks/               ← HTB Academy: AI Data Attacks
+            ├── introduction_to_ai_data.md
+            ├── introduction_to_ai_data_attacks.md
+            ├── introduction_to_trojan_attacks.md
+            ├── label_attacks_*.md (5 files — baseline, label flipping, targeted, evaluation)
+            ├── feature_attacks_*.md (5 files — baseline, clean label, target selection, attack, evaluation)
+            ├── trojan_attacks_*.md (5 files — CNN arch, data prep, components, training, evaluation)
+            ├── pickels_and_steganography_*.md (4 files — training, tools, attack, execute)
+            ├── pickels_and_tensor_steganography.md
+            └── skills_assessment.md
 ```
 
 **Raw source rules:**
