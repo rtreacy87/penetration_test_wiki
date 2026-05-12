@@ -1,5 +1,13 @@
 # Wiki Log
 
+## [2026-05-11] update | Added GitHub repo links to wordlist pages; fixed rockyou.txt.gz issue
+Pages updated: 2 (wordlists/_overview, wordlists/use_cases).
+Key additions: Corrected rockyou.txt entry to show it ships as .gz on Kali/Parrot and requires gunzip; added three extraction options (gunzip from apt package, extract from seclists apt package, extract from git clone). Added GitHub links to all wordlist sources — SecLists, PayloadsAllTheThings, FuzzDB, Assetnote (github.com/assetnote/wordlists), Kaonashi, Probable-Wordlists, Rockyou2021, OneRuleToRuleThemAll (NotSoSecure). Added prominent warning callout in use_cases.md about rockyou.txt.gz needing decompression before use. Fixed SecLists table to show rockyou ships as .tar.gz inside SecLists.
+
+## [2026-05-11] update | Expanded wordlist section — sources, install paths, per-tool recommendations
+Pages updated: 2 (wordlists/_overview, wordlists/use_cases).
+Key additions: _overview now covers installation paths for Kali and Parrot (SecLists, rockyou, dirb, dirbuster, wfuzz, Metasploit, John), web sources (SecLists GitHub, PayloadsAllTheThings, FuzzDB, Assetnote, CrackStation, WeakPass, Probable-Wordlists, Rockyou2021), and download commands. use_cases expanded to cover every major tool (Hydra, Medusa, CrackMapExec, Gobuster, ffuf, Feroxbuster, dnsenum/fierce, onesixtyone, Hashcat/John, Metasploit auxiliary modules, Nmap NSE brute scripts, WPScan) with per-service wordlist tables (FTP username+password lists, SSH, SMTP, SMB, SNMP, HTTP, MySQL, MSSQL, RDP, IPMI, Oracle), and a dedicated default credential files section with -C usage.
+
 ## [2026-05-11] update | Added Version Detection & Exploit Research sections to all enumeration pages
 Pages updated: 13 (dns, ftp, imap_pop3, ipmi, linux_remote_mgmt, mssql, mysql, nfs, oracle_tns, smb, smtp, snmp, windows_remote_mgmt).
 Key additions: Each page now has a dedicated "Version Detection & Exploit Research" section covering: how to extract the version/banner pre-authentication, a table of version-detection commands, searchsploit/Metasploit search syntax, and a Notable CVEs table with CVE numbers, affected versions, and impact. Highlights include BlueKeep/DejaBlue (RDP), EternalBlue/SMBGhost/SambaCry (SMB), regreSSHion CVE-2024-6387 (SSH), OpenSMTPD CVE-2020-7247 (SMTP), Exim CVE-2019-10149 (SMTP), vsFTPd backdoor CVE-2011-2523 (FTP), MySQL CVE-2012-2122 auth bypass, TNS Poison CVE-2012-1675 (Oracle), IPMI RAKP design flaw.

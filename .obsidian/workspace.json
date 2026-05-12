@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "enumeration/mysql.md",
+                "file": "attack/smb.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "mysql"
+              "title": "smb"
             }
           }
         ]
@@ -182,24 +182,28 @@
   },
   "active": "1e097e1ef8fa2900",
   "lastOpenFiles": [
+    "wordlists/use_cases.md",
+    "wordlists/use_cases.md.tmp.495011.270811af3295",
+    "wordlists/_overview.md.tmp.495011.c0f3d3cbc33c",
+    "wordlists/_overview.md.tmp.495011.8c613887783d",
+    "wordlists/_overview.md.tmp.495011.2a5e72ac8408",
+    "tools/hydra.md",
+    "log.md.tmp.495011.e62030226d2e",
+    "wordlists/use_cases.md.tmp.495011.7c622b76a421",
+    "wordlists/_overview.md.tmp.495011.e0879b3bf55d",
+    "attack/ftp.md",
+    "tools/nmap.md",
     "enumeration/ftp.md",
+    "enumeration/nfs.md",
+    "enumeration/mysql.md",
     "ports/common_ports.md",
     "log.md.tmp.495011.5f1aaad75985",
     "enumeration/windows_remote_mgmt.md.tmp.495011.ea4d4432e71a",
     "enumeration/snmp.md.tmp.495011.c6e73a0efd45",
-    "enumeration/smtp.md.tmp.495011.492b2ee93b57",
-    "attack/ftp.md",
-    "enumeration/smb.md.tmp.495011.389390e60721",
-    "enumeration/oracle_tns.md.tmp.495011.930b07ba52a4",
-    "enumeration/nfs.md.tmp.495011.1b2063014b42",
-    "enumeration/mysql.md.tmp.495011.972b63a65666",
-    "enumeration/mssql.md.tmp.495011.33e83c0456b6",
-    "enumeration/linux_remote_mgmt.md.tmp.495011.553f1f0981ef",
     "enumeration/ipmi.md",
     "enumeration/imap_pop3.md",
     "enumeration/dns.md",
     "labs/htb/footprinting_easy.md",
-    "tools/nmap.md",
     "definitions/tcp_flags.md",
     "definitions/security_terminology.md",
     "definitions/network_protocols.md",
@@ -213,10 +217,6 @@
     "attack/ai/clean_label_attacks.md",
     "attack/ai/attacking_ai_systems.md",
     "tools/odat.md",
-    "index.md",
-    "tools/linpeas.md",
-    "tools/crowbar.md",
-    "attack/smb.md",
     "Untitled.canvas"
   ]
 }
