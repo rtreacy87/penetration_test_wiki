@@ -80,8 +80,8 @@ curl http://10.129.203.7/webshell.php?c=dir
 ## Related pages
 
 - [[enumeration/ftp]]
-- [[tools/medusa]]
-- [[tools/nmap]]
+- [[tools/attack/medusa]]
+- [[tools/enumeration/nmap]]
 - [[wordlists/use_cases]]
 
 ## Sources

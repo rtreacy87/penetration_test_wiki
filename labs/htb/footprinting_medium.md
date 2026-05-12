@@ -126,9 +126,9 @@ SNMP can reveal running processes, installed software, and sometimes credentials
 - [[enumeration/smb]]
 - [[enumeration/nfs]]
 - [[enumeration/snmp]]
-- [[tools/smbclient]]
-- [[tools/onesixtyone]]
-- [[tools/snmpwalk]]
+- [[tools/enumeration/smbclient]]
+- [[tools/enumeration/onesixtyone]]
+- [[tools/enumeration/snmpwalk]]
 
 ## Sources
 

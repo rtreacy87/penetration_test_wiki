@@ -178,8 +178,8 @@ msf6> search type:auxiliary name:mssql
 ## Related Pages
 
 - [[enumeration/_overview]]
-- [[tools/impacket]]
-- [[tools/netexec]]
+- [[tools/utility/impacket]]
+- [[tools/attack/netexec]]
 
 ## Sources
 

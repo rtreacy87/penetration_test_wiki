@@ -87,8 +87,8 @@ Ask yourself at every step:
 - [[recon/osint/cloud_resources]]
 - [[recon/osint/staff_enumeration]]
 - [[enumeration/_overview]]
-- [[tools/dnsenum]]
-- [[tools/dig]]
+- [[tools/enumeration/dnsenum]]
+- [[tools/enumeration/dig]]
 
 ## Sources
 

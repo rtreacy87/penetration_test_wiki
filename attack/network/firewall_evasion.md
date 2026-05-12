@@ -208,7 +208,7 @@ Once IPS presence is confirmed, all further scanning must be done quietly — lo
 
 ## Related Pages
 
-- [[tools/nmap]]
+- [[tools/enumeration/nmap]]
 - [[tools/netcat]]
 - [[enumeration/dns]]
 

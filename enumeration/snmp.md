@@ -178,8 +178,8 @@ msf6> search type:exploit name:snmp
 
 ## Related Pages
 
-- [[tools/snmpwalk]]
-- [[tools/onesixtyone]]
+- [[tools/enumeration/snmpwalk]]
+- [[tools/enumeration/onesixtyone]]
 - [[enumeration/_overview]]
 
 ## Sources

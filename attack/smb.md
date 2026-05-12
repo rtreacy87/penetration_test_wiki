@@ -158,11 +158,11 @@ nmap -p445 --script smb-protocols 10.129.14.128
 ## Related pages
 
 - [[enumeration/smb]]
-- [[tools/netexec]]
-- [[tools/impacket]]
-- [[tools/smbclient]]
-- [[tools/enum4linux]]
-- [[tools/responder]]
+- [[tools/attack/netexec]]
+- [[tools/utility/impacket]]
+- [[tools/enumeration/smbclient]]
+- [[tools/enumeration/enum4linux]]
+- [[tools/attack/responder]]
 - [[attack/rdp]] — PTH applies to RDP too
 - [[attack/sql_databases]] — MSSQL can also steal NTLMv2 hashes via xp_dirtree
 

@@ -71,13 +71,28 @@ snmpwalk -v2c -c public 10.129.14.128 | grep -i "user\|login\|account"
 - Output from a full walk can be thousands of lines — always pipe to grep or tee to a file.
 - Installed packages (`.1.3.6.1.2.1.25.6.3.1.2.*`) reveal the complete software inventory including version numbers — useful for identifying vulnerable software without touching the application.
 - Running processes (`.1.3.6.1.2.1.25.4`) show what services are active, including internal services not exposed on the network.
-- If no community string is known, use [[tools/onesixtyone]] first to brute-force it, then use snmpwalk.
+- If no community string is known, use [[tools/enumeration/onesixtyone]] first to brute-force it, then use snmpwalk.
 - System contact (OID `.1.3.6.1.2.1.1.4.0`) often contains an email address — useful for staff enumeration.
+
+## Installation
+
+```bash
+# Check if installed
+snmpwalk --version 2>/dev/null | head -1 || echo "not installed"
+
+# Install — part of the snmp package
+sudo apt install snmp snmp-mibs-downloader -y
+
+# Verify
+snmpwalk --version
+```
+
+> **Note:** `snmp-mibs-downloader` provides MIB files for human-readable OID names. Without it, snmpwalk output uses numeric OIDs only.
 
 ## Related Pages
 
 - [[enumeration/snmp]]
-- [[tools/onesixtyone]]
+- [[tools/enumeration/onesixtyone]]
 
 ## Sources
 

@@ -19,7 +19,7 @@ Authentication mechanisms a pentester encounters — how they work, where they a
 3. Client hashes its password with the challenge → sends `AUTHENTICATE` (the NTLMv2 response)
 
 **Pentester relevance:**
-- NTLMv2 hashes can be captured over the network with [[tools/responder]] (LLMNR poisoning)
+- NTLMv2 hashes can be captured over the network with [[tools/attack/responder]] (LLMNR poisoning)
 - Captured hashes are crackable with Hashcat mode 5600
 - Hashes can be *relayed* to authenticate to another host without cracking (if target has no SMB signing)
 - NT hash alone can be used for Pass-the-Hash against SMB, RDP, WMI

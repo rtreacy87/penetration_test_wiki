@@ -222,10 +222,28 @@ msf6> search author:hdm
 - **CreateSession option (MSF 6.4+):** `smb_login` can open an interactive session immediately after finding valid credentials — set `CreateSession true` to enable.
 - **Database:** MSF stores all results in a PostgreSQL database. Start with `msfdb init` and query with `creds`, `hosts`, `services`, and `loot` commands in the console.
 
+## Installation
+
+```bash
+# Check if installed
+msfconsole --version 2>/dev/null | head -1 || echo "not installed"
+
+# Install (Kali / Parrot — usually pre-installed)
+sudo apt install metasploit-framework -y
+
+# Update modules and framework
+sudo msfupdate
+
+# Verify
+msfconsole --version
+```
+
+Note: on first run, msfconsole initialises the database. This can take 30–60 seconds. If PostgreSQL errors appear: `sudo service postgresql start && msfdb init`.
+
 ## Related Pages
 
-- [[tools/netexec]] — when to use CME vs MSF
-- [[tools/hydra]] — faster for non-SMB brute-force
+- [[tools/attack/netexec]] — when to use CME vs MSF
+- [[tools/attack/hydra]] — faster for non-SMB brute-force
 - [[enumeration/smb]]
 - [[enumeration/windows_remote_mgmt]]
 - [[attack/smb]]

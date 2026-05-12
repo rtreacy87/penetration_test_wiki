@@ -177,7 +177,7 @@ msf6> search cve:2020-7247
 - [[enumeration/_overview]]
 - [[enumeration/imap_pop3]]
 - [[enumeration/dns]]
-- [[tools/hydra]]
+- [[tools/attack/hydra]]
 
 ## Sources
 

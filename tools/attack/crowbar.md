@@ -16,9 +16,14 @@ Crowbar fills a gap where Hydra's RDP module is unreliable. Its primary use case
 ## Installation
 
 ```bash
-apt install crowbar
-# or
-pip3 install crowbar
+# Check if installed
+crowbar --version 2>/dev/null || crowbar -h 2>/dev/null | head -1 || echo "not installed"
+
+# Install (Kali / Parrot)
+sudo apt install crowbar -y
+
+# Verify
+crowbar --version 2>/dev/null || crowbar -h 2>&1 | head -2
 ```
 
 ## Common usage
@@ -63,7 +68,7 @@ RDP-SUCCESS : 10.129.14.128:3389 - administrator:password123
 ## Related pages
 
 - [[attack/rdp]]
-- [[tools/hydra]]
+- [[tools/attack/hydra]]
 
 ## Sources
 

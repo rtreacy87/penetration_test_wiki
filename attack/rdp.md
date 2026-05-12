@@ -123,9 +123,9 @@ nmap -p3389 --script rdp-vuln-ms12-020 10.129.14.128
 ## Related pages
 
 - [[enumeration/windows_remote_mgmt]]
-- [[tools/hydra]]
+- [[tools/attack/hydra]]
 - [[attack/smb]] — same NT hashes work for SMB PTH
-- [[tools/netexec]]
+- [[tools/attack/netexec]]
 
 ## Sources
 

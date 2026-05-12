@@ -194,7 +194,7 @@ msf6> search type:auxiliary name:oracle
 ## Related Pages
 
 - [[enumeration/_overview]]
-- [[tools/odat]]
+- [[tools/attack/odat]]
 - [[enumeration/mysql]]
 - [[enumeration/mssql]]
 

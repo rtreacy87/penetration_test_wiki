@@ -113,11 +113,32 @@ nohup ./linpeas.sh > /tmp/linpeas.out 2>&1 &
 - The script checks for the GTFOBins API online (requires internet); air-gapped targets will skip this check
 - On very busy systems, the process spawning from linPEAS may be noticeable in logs; use pspy to check for process monitoring before running
 
+## Installation
+
+linpeas is not installed system-wide — it is downloaded per-engagement and uploaded to the target.
+
+```bash
+# Check if downloaded to the local staging area
+ls /opt/PEASS-ng/linPEAS/linpeas.sh 2>/dev/null || echo "not staged"
+
+# Download / update — fetches the latest release from GitHub
+sudo mkdir -p /opt/PEASS-ng/linPEAS
+sudo curl -L \
+  https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh \
+  -o /opt/PEASS-ng/linPEAS/linpeas.sh
+sudo chmod +x /opt/PEASS-ng/linPEAS/linpeas.sh
+
+# Verify
+ls -lh /opt/PEASS-ng/linPEAS/linpeas.sh
+```
+
+> **Note:** linpeas is run ON THE TARGET, not the attacker. Transfer it via curl, wget, scp, or python HTTP server. It does not need to be installed on Kali itself.
+
 ## Related Pages
 
 - [[attack/linux_privilege_escalation]]
 - [[attack/linux_privesc_enumeration]]
-- [[tools/pspy]]
+- [[tools/enumeration/pspy]]
 
 ## Sources
 

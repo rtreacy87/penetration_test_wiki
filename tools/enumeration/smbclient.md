@@ -71,12 +71,25 @@ smb: \> quit              # Exit
 - `SMB1 disabled` message in list output is normal — smbclient defaults to SMB2+.
 - Null session (`-N`) without `-L` will prompt for a password; always combine with `-L` or supply credentials.
 
+## Installation
+
+```bash
+# Check if installed
+smbclient --version 2>/dev/null | head -1 || echo "not installed"
+
+# Install (Kali / Parrot)
+sudo apt install smbclient -y
+
+# Verify
+smbclient --version
+```
+
 ## Related Pages
 
 - [[enumeration/smb]]
-- [[tools/enum4linux]]
-- [[tools/rpcclient]]
-- [[tools/netexec]]
+- [[tools/enumeration/enum4linux]]
+- [[tools/enumeration/rpcclient]]
+- [[tools/attack/netexec]]
 
 ## Sources
 

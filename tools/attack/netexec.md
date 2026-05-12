@@ -22,7 +22,7 @@ NetExec automates credential testing across SMB, WinRM, MSSQL, LDAP, SSH, RDP, F
 - Execute commands and dump hashes after admin access is established
 - Pass-the-hash and pass-the-ticket attacks
 
-**Not ideal for:** brute-forcing a large wordlist (e.g., rockyou.txt) against one account. Use [[tools/metasploit]] `smb_login` with `STOP_ON_SUCCESS` for that.
+**Not ideal for:** brute-forcing a large wordlist (e.g., rockyou.txt) against one account. Use [[tools/attack/metasploit]] `smb_login` with `STOP_ON_SUCCESS` for that.
 
 ```bash
 # Install
@@ -269,15 +269,30 @@ If `nxc` is not available but `crackmapexec` is installed, the syntax is identic
 - **Always check `--pass-pol` before spraying.** If the policy sets lockout at 3 attempts, spray with only 2 passwords per round to stay safe.
 - **`(Pwn3d!)` = local admin.** Immediately attempt `--sam` or `-x 'whoami /all'` on these hosts.
 - **nxc stores all results in a database.** Query with `nxc smb --creds` or use the `nxcdb` CLI to review historical results.
-- **Large wordlists (rockyou) belong in MSF, not nxc.** nxc is optimized for fast, parallel credential testing — not sequential brute-forcing of 14M passwords. See [[tools/metasploit]] for that workflow.
+- **Large wordlists (rockyou) belong in MSF, not nxc.** nxc is optimized for fast, parallel credential testing — not sequential brute-forcing of 14M passwords. See [[tools/attack/metasploit]] for that workflow.
 - **Thread count:** default 100 threads is noisy. Reduce to 5–10 for stealth or when testing against a single host.
+
+## Installation
+
+```bash
+# Check if installed
+nxc --version 2>/dev/null || echo "not installed"
+
+# Install (Kali / Parrot)
+sudo apt install netexec -y
+
+# Verify
+nxc --version
+```
+
+Note: the binary is `nxc`, not `netexec`. `crackmapexec` is the deprecated predecessor — see [[tools/utility/crackmapexec]].
 
 ## Related Pages
 
 - [[enumeration/smb]]
 - [[attack/smb]]
 - [[enumeration/windows_remote_mgmt]]
-- [[tools/metasploit]] — smb_login for large-wordlist brute-force
-- [[tools/crackmapexec]] — legacy predecessor (identical syntax)
-- [[tools/impacket]]
-- [[tools/responder]]
+- [[tools/attack/metasploit]] — smb_login for large-wordlist brute-force
+- [[tools/utility/crackmapexec]] — legacy predecessor (identical syntax)
+- [[tools/utility/impacket]]
+- [[tools/attack/responder]]

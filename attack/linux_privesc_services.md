@@ -34,7 +34,7 @@ crontab -l
 find / -path /proc -prune -o -type f -perm -o+w 2>/dev/null
 
 # Watch for cron execution without reading crontab
-# Use pspy — see [[tools/pspy]]
+# Use pspy — see [[tools/enumeration/pspy]]
 ./pspy64 -pf -i 1000
 ```
 
@@ -404,8 +404,8 @@ id   # uid=0(root)
 - [[attack/linux_privesc_enumeration]]
 - [[attack/linux_privesc_sudo_suid]]
 - [[attack/linux_privesc_kernel]]
-- [[tools/pspy]]
-- [[tools/linpeas]]
+- [[tools/enumeration/pspy]]
+- [[tools/enumeration/linpeas]]
 
 ## Sources
 

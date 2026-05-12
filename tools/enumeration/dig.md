@@ -108,10 +108,23 @@ ns.inlanefreight.htb.    604800    IN    A    10.129.34.136
 - **TCP mode** (`+tcp`): Use for zone transfers and large responses that exceed UDP 512-byte limit.
 - **`CH TXT version.bind`**: The BIND server must have this record configured. Not always present but worth trying.
 
+## Installation
+
+```bash
+# Check if installed
+dig -v 2>&1 | head -1 || echo "not installed"
+
+# Install — dig is part of the dnsutils / bind9-dnsutils package
+sudo apt install dnsutils -y
+
+# Verify
+dig -v
+```
+
 ## Related Pages
 
 - [[enumeration/dns]]
-- [[tools/dnsenum]]
+- [[tools/enumeration/dnsenum]]
 - [[recon/osint/domain_information]]
 
 ## Sources

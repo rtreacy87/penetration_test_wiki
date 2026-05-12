@@ -81,12 +81,27 @@ pip3 install -r requirements.txt
 - "Random user session" message means the server allows sessions with arbitrary usernames — run again with a random user for potentially more results.
 - The original `enum4linux` (Perl) is available in Kali by default but produces less reliable output. Prefer enum4linux-ng when possible.
 
+## Installation
+
+```bash
+# Check if installed
+enum4linux-ng --version 2>/dev/null || enum4linux-ng -h 2>/dev/null | head -1 || echo "not installed"
+
+# Install — enum4linux-ng is the maintained replacement for enum4linux
+sudo apt install enum4linux-ng -y
+
+# Verify
+enum4linux-ng --version
+```
+
+> **Note:** `enum4linux-ng` replaces the original `enum4linux`. Both accept `-A` for all checks.
+
 ## Related Pages
 
 - [[enumeration/smb]]
-- [[tools/smbclient]]
-- [[tools/rpcclient]]
-- [[tools/netexec]]
+- [[tools/enumeration/smbclient]]
+- [[tools/enumeration/rpcclient]]
+- [[tools/attack/netexec]]
 
 ## Sources
 

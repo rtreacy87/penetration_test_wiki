@@ -11,7 +11,7 @@ Comprehensive reference for escalating from a low-privileged shell to root on Li
 
 ## Overview
 
-Linux privilege escalation (privesc) is the process of gaining elevated access on a system after initial foothold. The goal is almost always to become `root` (UID 0). Success depends heavily on thorough enumeration — you need to understand the environment before exploiting it. Automated tools like [[tools/linpeas]] will find many issues quickly, but manual enumeration builds the understanding needed to adapt when tools fail.
+Linux privilege escalation (privesc) is the process of gaining elevated access on a system after initial foothold. The goal is almost always to become `root` (UID 0). Success depends heavily on thorough enumeration — you need to understand the environment before exploiting it. Automated tools like [[tools/enumeration/linpeas]] will find many issues quickly, but manual enumeration builds the understanding needed to adapt when tools fail.
 
 The major attack categories, roughly in order of ease and frequency:
 
@@ -29,11 +29,11 @@ The major attack categories, roughly in order of ease and frequency:
 
 ## Methodology
 
-1. Run [[tools/linpeas]] immediately on landing — collect output for review
+1. Run [[tools/enumeration/linpeas]] immediately on landing — collect output for review
 2. Manually enumerate environment (OS, kernel, users, PATH, network)
 3. Check sudo rights (`sudo -l`) — often the fastest win
 4. Find SUID/SGID binaries and capabilities
-5. Enumerate cron jobs with [[tools/pspy]]
+5. Enumerate cron jobs with [[tools/enumeration/pspy]]
 6. Check group memberships (docker, lxd, disk, adm)
 7. Hunt credentials in configs, history, web roots
 8. Check running services and installed package versions
@@ -58,7 +58,7 @@ Fine-grained kernel privileges assigned to binaries. `cap_dac_override` lets a b
 Membership in `docker`, `lxd`, `disk`, or `adm` groups provides escalation paths without any other vulnerability. See [[attack/linux_privesc_services]].
 
 ### Cron Job Abuse
-World-writable scripts run by root cron jobs are the classic win. [[tools/pspy]] reveals cron execution without root access. Wildcard injection via `tar` is another cron vector. See [[attack/linux_privesc_services]].
+World-writable scripts run by root cron jobs are the classic win. [[tools/enumeration/pspy]] reveals cron execution without root access. Wildcard injection via `tar` is another cron vector. See [[attack/linux_privesc_services]].
 
 ### Service-Based Escalation
 Docker socket access, LXD container escape, Kubernetes kubelet API, logrotate (logrotten exploit), vulnerable service versions (Screen 4.5.0), weak NFS exports, tmux session hijacking. See [[attack/linux_privesc_services]].
@@ -107,8 +107,8 @@ sudo -V | head -1
 
 | Tool | Purpose | Page |
 |---|---|---|
-| linpeas.sh | Automated privesc enumeration | [[tools/linpeas]] |
-| pspy | Unprivileged process/cron monitor | [[tools/pspy]] |
+| linpeas.sh | Automated privesc enumeration | [[tools/enumeration/linpeas]] |
+| pspy | Unprivileged process/cron monitor | [[tools/enumeration/pspy]] |
 | GTFOBins | SUID/sudo binary exploitation reference | https://gtfobins.github.io |
 | logrotten | Logrotate exploit | GitHub |
 | kubeletctl | Kubernetes kubelet interaction | GitHub |
@@ -127,8 +127,8 @@ sudo -V | head -1
 - [[attack/linux_privesc_sudo_suid]]
 - [[attack/linux_privesc_services]]
 - [[attack/linux_privesc_kernel]]
-- [[tools/linpeas]]
-- [[tools/pspy]]
+- [[tools/enumeration/linpeas]]
+- [[tools/enumeration/pspy]]
 
 ## Sources
 

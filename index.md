@@ -1,6 +1,6 @@
 # Wiki Index
 
-_Last updated: 2026-05-11 — 88 pages total_
+_Last updated: 2026-05-12 — 90 pages total_
 
 ---
 
@@ -81,25 +81,35 @@ _Last updated: 2026-05-11 — 88 pages total_
 ## Tools
 
 - [[tools/_overview]] — Tool selection guide: comparison tables by function and decision tree by scenario. `tool` `concept`
-- [[tools/nmap]] — Port scanning, service detection, NSE scripts, OS detection, performance, firewall evasion. `tool`
-- [[tools/netexec]] — NetExec (nxc): credential spray, validation, PTH, and enumeration across SMB/WinRM/MSSQL/LDAP/SSH. Primary successor to CrackMapExec. `tool`
-- [[tools/metasploit]] — msfconsole: module framework for exploitation, smb_login/ssh_login/ftp_login brute-force, Meterpreter sessions. `tool`
-- [[tools/crackmapexec]] — Legacy predecessor to NetExec; identical syntax, no longer maintained. `tool`
-- [[tools/impacket]] — Suite: mssqlclient, psexec, secretsdump, wmiexec, GetUserSPNs, samrdump. `tool`
-- [[tools/smbclient]] — SMB share browsing, file operations, null session syntax. `tool`
-- [[tools/enum4linux]] — enum4linux-ng: SMB/NetBIOS user/group/share enumeration. `tool`
-- [[tools/rpcclient]] — RPC enumeration commands, RID brute-force, queryuser/enumdomusers. `tool`
-- [[tools/snmpwalk]] — MIB tree walking, key OID subtrees, community string usage. `tool`
-- [[tools/onesixtyone]] — SNMP community string brute-force; use before snmpwalk. `tool`
-- [[tools/dig]] — DNS query tool: all record types, AXFR syntax, output format, bash brute-force loop. `tool`
-- [[tools/dnsenum]] — DNS enumeration: NS/MX/AXFR/brute-force in one run. `tool`
-- [[tools/odat]] — Oracle attack tool: SID enum, auth brute-force, web shell upload. `tool`
-- [[tools/linpeas]] — Automated Linux privilege escalation enumeration; color-coded output. `tool`
-- [[tools/pspy]] — Unprivileged process monitor; catches cron and credential leaks. `tool`
-- [[tools/responder]] — LLMNR/NBT-NS poisoner; captures NTLMv2 hashes from Windows broadcast auth. `tool`
-- [[tools/medusa]] — Parallel brute-forcer; more reliable than Hydra for FTP/SSH. `tool`
-- [[tools/hydra]] — Versatile network login brute-forcer; 50+ protocols, go-to for HTTP/RDP/SMTP/POP3. `tool`
-- [[tools/crowbar]] — RDP-focused brute-forcer; more reliable than Hydra for RDP password spraying. `tool`
+
+### Utility
+
+- [[tools/utility/sqlcmd]] — Microsoft SQL Server CLI; batch mode (`GO`), non-interactive `-Q`, install via Microsoft repo on Linux. `tool`
+- [[tools/utility/impacket]] — Suite: mssqlclient, psexec, secretsdump, wmiexec, GetUserSPNs, samrdump, smbserver. `tool`
+- [[tools/utility/crackmapexec]] — LEGACY: predecessor to NetExec; identical syntax, no longer maintained; includes removal instructions. `tool`
+
+### Enumeration
+
+- [[tools/enumeration/nmap]] — Port scanning, service detection, NSE scripts, OS detection, performance, firewall evasion. `tool`
+- [[tools/enumeration/smbclient]] — SMB share browsing, file operations, null session syntax. `tool`
+- [[tools/enumeration/enum4linux]] — enum4linux-ng: SMB/NetBIOS user/group/share enumeration. `tool`
+- [[tools/enumeration/rpcclient]] — RPC enumeration commands, RID brute-force, queryuser/enumdomusers. `tool`
+- [[tools/enumeration/snmpwalk]] — MIB tree walking, key OID subtrees, community string usage. `tool`
+- [[tools/enumeration/onesixtyone]] — SNMP community string brute-force; use before snmpwalk. `tool`
+- [[tools/enumeration/dig]] — DNS query tool: all record types, AXFR syntax, output format, bash brute-force loop. `tool`
+- [[tools/enumeration/dnsenum]] — DNS enumeration: NS/MX/AXFR/brute-force in one run. `tool`
+- [[tools/enumeration/linpeas]] — Automated Linux privilege escalation enumeration; staged to /opt, run on target. `tool`
+- [[tools/enumeration/pspy]] — Unprivileged process monitor; catches cron and credential leaks; run on target. `tool`
+
+### Attack
+
+- [[tools/attack/netexec]] — NetExec (nxc): credential spray, validation, PTH, and enumeration across SMB/WinRM/MSSQL/LDAP/SSH. `tool`
+- [[tools/attack/metasploit]] — msfconsole: module framework for exploitation, smb_login/ssh_login/ftp_login brute-force, Meterpreter. `tool`
+- [[tools/attack/responder]] — LLMNR/NBT-NS poisoner; captures NTLMv2 hashes from Windows broadcast auth. `tool`
+- [[tools/attack/medusa]] — Parallel brute-forcer; more reliable than Hydra for FTP/SSH. `tool`
+- [[tools/attack/hydra]] — Versatile network login brute-forcer; 50+ protocols, go-to for HTTP/RDP/SMTP/POP3. `tool`
+- [[tools/attack/crowbar]] — RDP-focused brute-forcer; more reliable than Hydra for RDP password spraying. `tool`
+- [[tools/attack/odat]] — Oracle attack tool: SID enum, auth brute-force, web shell upload. `tool`
 
 ---
 
@@ -137,6 +147,13 @@ _Last updated: 2026-05-11 — 88 pages total_
 ## Labs
 
 - [[labs/_overview]] — Lab write-up index by platform and difficulty. `lab` `concept`
+
+### Footprinting
+
 - [[labs/htb/footprinting_easy]] — DNS zone transfer + NFS SSH key extraction → flag. `lab`
 - [[labs/htb/footprinting_medium]] — Multi-service (FTP/SMB/NFS/SNMP) chaining to obtain credentials. `lab`
 - [[labs/htb/footprinting_hard]] — IPMI hash dump → crack → database credential extraction. `lab`
+
+### Attacking Common Services
+
+- [[labs/htb/attacking_common_services/mssql_hash_theft_and_db_enumeration]] — xp_dirtree NTLMv2 hash theft → crack mssqlsvc password → flagDB schema walk → encrypted admin credential → flag. `lab`

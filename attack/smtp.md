@@ -141,8 +141,8 @@ nc -lvnp 4444
 ## Related pages
 
 - [[enumeration/smtp]]
-- [[tools/hydra]]
-- [[tools/nmap]]
+- [[tools/attack/hydra]]
+- [[tools/enumeration/nmap]]
 - [[attack/smb]] — captured SMTP credentials often reused on SMB
 
 ## Sources

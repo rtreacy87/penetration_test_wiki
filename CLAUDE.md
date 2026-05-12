@@ -60,17 +60,31 @@ wiki/
 │   │   └── ...
 │   └── ...
 │
-├── tools/                     ← one page per tool
+├── tools/                     ← one page per tool, split into three subfolders
 │   ├── _overview.md           ← tool comparison table, when to use what
-│   ├── nmap.md
-│   ├── gobuster.md
-│   ├── ffuf.md
-│   ├── enum4linux.md
-│   ├── netcat.md
-│   ├── metasploit.md
-│   ├── hydra.md
-│   ├── impacket.md
-│   └── ...
+│   ├── utility/               ← general-purpose clients and frameworks
+│   │   ├── sqlcmd.md          ← Microsoft SQL Server CLI client
+│   │   ├── impacket.md        ← Impacket suite (mssqlclient, psexec, secretsdump, smbserver…)
+│   │   └── crackmapexec.md    ← LEGACY — superseded by NetExec; includes removal instructions
+│   ├── enumeration/           ← tools primarily used for discovery and information gathering
+│   │   ├── nmap.md
+│   │   ├── smbclient.md
+│   │   ├── enum4linux.md
+│   │   ├── rpcclient.md
+│   │   ├── snmpwalk.md
+│   │   ├── onesixtyone.md
+│   │   ├── dig.md
+│   │   ├── dnsenum.md
+│   │   ├── linpeas.md
+│   │   └── pspy.md
+│   └── attack/                ← tools primarily used for exploitation and credential attacks
+│       ├── netexec.md         ← primary credential spray / PTH / enumeration tool
+│       ├── metasploit.md
+│       ├── responder.md
+│       ├── medusa.md
+│       ├── hydra.md
+│       ├── crowbar.md
+│       └── odat.md
 │
 ├── wordlists/                 ← wordlist reference, not the lists themselves
 │   ├── _overview.md
@@ -100,16 +114,21 @@ wiki/
 │   ├── rdp.md
 │   └── ...
 │
-├── labs/                      ← lab write-ups, CTF notes, engagement notes
+├── labs/                      ← publishable lab write-ups, CTF notes, engagement notes
 │   ├── _overview.md
 │   ├── htb/
-│   │   └── ...
+│   │   ├── <module>/          ← one subfolder per HTB module (mirrors raw/lab/<module>/ when it exists)
+│   │   │   └── <lab>.md       ← write-up without flags or raw answers
+│   │   └── ...                ← older flat-file write-ups (footprinting labs) remain directly here
 │   └── thm/
 │       └── ...
 │
 └── raw/                       ← immutable source documents (you read, never modify)
     ├── assets/                ← images clipped with Obsidian Web Clipper
-    └── modules/               ← one subfolder per course module
+    ├── lab/                   ← GITIGNORED — private lab solutions, never linked from wiki pages
+    │   └── <module>/          ← subfolder per HTB module; name must match labs/htb/<module>/
+    │       └── *.md           ← raw solution files (flags, step-by-step answers)
+    └── modules/               ← one subfolder per course module (read-only source material)
         ├── footprinting/      ← HTB Academy: Footprinting module
         │   ├── host_based_enumeration_dns.md
         │   ├── host_based_enumeration_ftp.md
@@ -315,16 +334,55 @@ When the human drops one file into `raw/` and says "ingest this":
 
 ### Add a new tool page
 
-When a new tool is encountered in any source, create `tools/<toolname>.md` with:
-- what it does
-- install/usage syntax
+Tools are stored in three subfolders under `tools/`:
+- `tools/utility/` — general-purpose clients and frameworks (sqlcmd, impacket, legacy tools)
+- `tools/enumeration/` — tools primarily for discovery (nmap, smbclient, dig, linpeas, pspy, etc.)
+- `tools/attack/` — tools primarily for exploitation (netexec, metasploit, responder, hydra, etc.)
+
+When a new tool is encountered in any source, create `tools/<category>/<toolname>.md` with:
+- what it does (one-sentence summary + Overview section)
+- `## Installation` section (see format below — mandatory on all tool pages)
+- usage/syntax with examples
 - common flags table
 - typical use cases (link to the relevant enumeration or attack page)
-- example command lines
+- `## Gotchas & Notes` for edge cases
+- `## Related Pages` wikilinks
+
+**Installation section format (Kali / Parrot):**
+```markdown
+## Installation
+
+```bash
+# Check if installed
+<command --version or which command>
+
+# Install (Kali / Parrot)
+sudo apt install <package> -y
+
+# Verify
+<command --version>
+```
+```
+
+Additional rules:
+- For tools that are deprecated/legacy (e.g., crackmapexec), include removal instructions and point to the replacement
+- For tools that run on the TARGET rather than the attacker (e.g., linpeas, pspy), note this and show the download/staging commands instead of apt install
+- For tools requiring external repos (e.g., sqlcmd via Microsoft repo), show the full repo-add + install sequence
+- Assume Kali or Parrot OS. Do not include macOS or Windows install instructions unless the tool is Windows-only
 
 ### Add a new lab write-up
 
-Store under `labs/htb/` or `labs/thm/`. Use this structure:
+**Directory convention:** Lab write-ups are stored under `labs/htb/<module>/` where `<module>` matches the subfolder name in `raw/lab/<module>/` (if a private solution file exists). If no `raw/lab/<module>/` folder exists for that lab, store directly under `labs/htb/`.
+
+Example: `raw/lab/attacking_common_services/attacking_sql_lab.md` → write-up at `labs/htb/attacking_common_services/<labname>.md`
+
+**Private solution files (`raw/lab/`):**
+- `raw/lab/` is gitignored and never published
+- When a `raw/lab/<module>/` file exists for the lab being written, read it for context (flags, exact answers, step details) to inform the write-up
+- Never link to `raw/lab/` files from any wiki page — they are not part of the published wiki
+- Never include raw flags or verbatim answers in the published write-up under `labs/htb/`
+
+**Write-up structure:**
 - Target info (OS, difficulty, IP)
 - Recon steps taken (with commands)
 - Enumeration findings
@@ -370,7 +428,7 @@ _Last updated: YYYY-MM-DD — N pages total_
 - ...
 
 ## Tools
-- [[tools/nmap]] — Port scanning, service detection, NSE scripts. `tool`
+- [[tools/enumeration/nmap]] — Port scanning, service detection, NSE scripts. `tool`
 - ...
 ```
 
@@ -384,7 +442,7 @@ Append-only. Newest entries at the top.
 # Wiki Log
 
 ## [YYYY-MM-DD] query | "How do I enumerate SMB shares without credentials?"
-Synthesized from: [[enumeration/smb]], [[tools/enum4linux]], [[tools/smbclient]]
+Synthesized from: [[enumeration/smb]], [[tools/enumeration/enum4linux]], [[tools/enumeration/smbclient]]
 
 ## [YYYY-MM-DD] ingest | HTB Academy — Footprinting Module
 Pages created: 11. Pages updated: 3. Key additions: IPMI enumeration, Oracle TNS, IMAP/POP3.
@@ -411,7 +469,7 @@ These plugins and settings work well with this wiki:
 ## Conventions
 
 - File names: `lowercase_with_underscores.md`
-- Wikilinks: always use the short relative path: `[[tools/nmap]]` not `[[nmap]]`
+- Wikilinks: always use the short relative path: `[[tools/enumeration/nmap]]` not `[[nmap]]`
 - Commands: always in fenced code blocks with the shell type: ` ```bash `
 - Tables: prefer for flags, options, and comparisons
 - Never duplicate content — if a technique applies to both `enumeration/smb.md` and `attack/lateral_movement.md`, write it once in the most specific location and link from the other

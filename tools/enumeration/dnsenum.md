@@ -72,10 +72,23 @@ dnsenum --enum inlanefreight.com -f /usr/share/seclists/Discovery/DNS/subdomains
 - Output with `-o` writes a clean subdomain list; useful as input for subsequent tools.
 - dnsenum is single-threaded by default (5 threads with `--threads`). For large wordlists, consider using the bash loop approach with dig for more control.
 
+## Installation
+
+```bash
+# Check if installed
+dnsenum --version 2>/dev/null || dnsenum -h 2>/dev/null | head -1 || echo "not installed"
+
+# Install (Kali / Parrot)
+sudo apt install dnsenum -y
+
+# Verify
+dnsenum --help 2>&1 | head -3
+```
+
 ## Related Pages
 
 - [[enumeration/dns]]
-- [[tools/dig]]
+- [[tools/enumeration/dig]]
 - [[recon/osint/domain_information]]
 
 ## Sources

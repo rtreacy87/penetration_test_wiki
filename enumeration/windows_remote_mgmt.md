@@ -192,8 +192,8 @@ msf6> search type:exploit name:winrm
 - [[enumeration/_overview]]
 - [[enumeration/linux_remote_mgmt]]
 - [[enumeration/smb]]
-- [[tools/netexec]]
-- [[tools/impacket]]
+- [[tools/attack/netexec]]
+- [[tools/utility/impacket]]
 
 ## Sources
 

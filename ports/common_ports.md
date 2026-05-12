@@ -141,5 +141,5 @@ nmap -sU --top-ports 20 10.129.14.128
 - [[definitions/network_protocols]]
 - [[definitions/tcp_flags]]
 - [[enumeration/_overview]]
-- [[tools/nmap]]
+- [[tools/enumeration/nmap]]
 - [[attack/_overview]]

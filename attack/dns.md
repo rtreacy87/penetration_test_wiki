@@ -119,8 +119,8 @@ dns.spoof on
 ## Related pages
 
 - [[enumeration/dns]]
-- [[tools/dig]]
-- [[tools/dnsenum]]
+- [[tools/enumeration/dig]]
+- [[tools/enumeration/dnsenum]]
 - [[recon/osint/domain_information]]
 
 ## Sources

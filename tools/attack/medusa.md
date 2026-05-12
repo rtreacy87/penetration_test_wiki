@@ -16,7 +16,14 @@ Medusa is a fast, modular brute-force tool similar to Hydra but with better para
 ## Installation
 
 ```bash
-apt install medusa
+# Check if installed
+medusa --version 2>/dev/null | head -1 || echo "not installed"
+
+# Install (Kali / Parrot)
+sudo apt install medusa -y
+
+# Verify
+medusa --version
 ```
 
 ## Common usage
@@ -59,12 +66,12 @@ Common modules: `ftp`, `ssh`, `smb`, `http`, `https`, `imap`, `pop3`, `mssql`, `
 
 - `-f` stops immediately on success; omit it when you want all valid credentials
 - FTP brute force may be slower against servers with connection-rate limiting; reduce with `-t 2`
-- Compare to [[tools/hydra]] — Hydra is more commonly shown in HTB walkthroughs but Medusa handles FTP more reliably
+- Compare to [[tools/attack/hydra]] — Hydra is more commonly shown in HTB walkthroughs but Medusa handles FTP more reliably
 
 ## Related pages
 
 - [[attack/ftp]]
-- [[tools/hydra]]
+- [[tools/attack/hydra]]
 - [[wordlists/use_cases]]
 
 ## Sources

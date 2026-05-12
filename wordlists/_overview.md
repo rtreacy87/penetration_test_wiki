@@ -231,7 +231,7 @@ username-anarchy "John Smith" > john_variants.txt
 
 - [[wordlists/use_cases]] — per-tool and per-service wordlist selection
 - [[enumeration/_overview]]
-- [[tools/nmap]]
-- [[tools/hydra]]
+- [[tools/enumeration/nmap]]
+- [[tools/attack/hydra]]
 - [[tools/gobuster]]
 - [[tools/ffuf]]

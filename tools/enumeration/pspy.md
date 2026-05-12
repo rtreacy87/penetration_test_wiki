@@ -135,12 +135,34 @@ From this output, you can see:
 - pspy does not show processes that completed before it started — run it before the next cron cycle
 - The binary is statically linked so it works across different glibc versions; verify the arch (32 vs 64 bit) matches the target
 
+## Installation
+
+pspy is not installed system-wide — it is a standalone binary downloaded and uploaded to the target.
+
+```bash
+# Check if downloaded to the local staging area
+ls /opt/pspy/ 2>/dev/null || echo "not staged"
+
+# Download both architectures (64-bit and 32-bit)
+sudo mkdir -p /opt/pspy
+sudo curl -L https://github.com/DominicBreuker/pspy/releases/latest/download/pspy64 \
+    -o /opt/pspy/pspy64
+sudo curl -L https://github.com/DominicBreuker/pspy/releases/latest/download/pspy32 \
+    -o /opt/pspy/pspy32
+sudo chmod +x /opt/pspy/pspy64 /opt/pspy/pspy32
+
+# Verify
+ls -lh /opt/pspy/
+```
+
+> **Note:** pspy is run ON THE TARGET as an unprivileged user, not on Kali. Determine target architecture with `uname -m` (x86_64 → pspy64, i686 → pspy32) before uploading.
+
 ## Related Pages
 
 - [[attack/linux_privilege_escalation]]
 - [[attack/linux_privesc_enumeration]]
 - [[attack/linux_privesc_services]]
-- [[tools/linpeas]]
+- [[tools/enumeration/linpeas]]
 
 ## Sources
 

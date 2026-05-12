@@ -77,5 +77,5 @@ Encapsulate other protocols for VPN or point-to-point tunneling.
 - [[definitions/tcp_flags]]
 - [[definitions/auth_protocols]]
 - [[ports/common_ports]]
-- [[tools/nmap]]
+- [[tools/enumeration/nmap]]
 - [[enumeration/_overview]]

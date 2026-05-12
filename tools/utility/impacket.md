@@ -123,12 +123,28 @@ GetUserSPNs.py domain.local/user:password -dc-ip 10.129.14.128 -request
 - **mssqlclient.py** is the best option for MSSQL interaction from Linux. It supports Windows auth (NTLM) which is critical for AD-integrated databases.
 - **LM:NT hash format**: When passing hashes, supply in `aad3b435b51404eeaad3b435b51404ee:NTHASH` format. The LM portion can be all zeros.
 
+## Installation
+
+```bash
+# Check if installed (check for the scripts wrapper package)
+impacket-mssqlclient --help 2>/dev/null | head -1 || echo "not installed"
+
+# Install (Kali/Parrot — both the library and the scripts)
+sudo apt install python3-impacket impacket-scripts -y
+
+# Verify key tools are on PATH
+which impacket-mssqlclient impacket-psexec impacket-secretsdump impacket-smbserver
+
+# Install from pip (if apt version is outdated)
+pip3 install impacket
+```
+
 ## Related Pages
 
 - [[enumeration/smb]]
 - [[enumeration/mssql]]
 - [[enumeration/windows_remote_mgmt]]
-- [[tools/netexec]]
+- [[tools/attack/netexec]]
 
 ## Sources
 

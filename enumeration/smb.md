@@ -198,12 +198,12 @@ msf6> search type:exploit name:smb
 ## Related Pages
 
 - [[attack/smb]] — exploitation: null sessions, password spray, RCE, PTH, Responder, NTLM relay
-- [[tools/smbclient]]
-- [[tools/rpcclient]]
-- [[tools/enum4linux]]
-- [[tools/netexec]]
-- [[tools/impacket]]
-- [[tools/responder]]
+- [[tools/enumeration/smbclient]]
+- [[tools/enumeration/rpcclient]]
+- [[tools/enumeration/enum4linux]]
+- [[tools/attack/netexec]]
+- [[tools/utility/impacket]]
+- [[tools/attack/responder]]
 - [[enumeration/_overview]]
 
 ## Sources

@@ -289,10 +289,11 @@ EXECUTE('EXEC xp_cmdshell ''whoami''') AT [10.0.0.12\SQLEXPRESS];
 
 - [[enumeration/mssql]]
 - [[enumeration/mysql]]
-- [[tools/impacket]]
-- [[tools/netexec]]
-- [[tools/responder]]
+- [[tools/utility/impacket]]
+- [[tools/attack/netexec]]
+- [[tools/attack/responder]]
 - [[attack/smb]] — NTLM relay and hash cracking
+- [[labs/htb/attacking_common_services/mssql_hash_theft_and_db_enumeration]] — full walkthrough: xp_dirtree NTLMv2 theft → crack mssqlsvc password → flagDB schema enumeration → flag
 
 ## Sources
 

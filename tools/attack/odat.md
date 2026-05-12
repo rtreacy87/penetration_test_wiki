@@ -15,21 +15,6 @@ ODAT (by Quentin Hardy) automates common Oracle Database attack techniques. It r
 
 GitHub: `https://github.com/quentinhardy/odat`
 
-### Installation
-
-```bash
-sudo apt-get install -y build-essential python3-dev libaio1
-git clone https://github.com/quentinhardy/odat.git
-cd odat/
-pip install python-libnmap
-git submodule init && git submodule update
-sudo apt-get install python3-scapy -y
-sudo pip3 install colorlog termcolor passlib python-libnmap pycryptodome
-
-# Fix sqlplus shared library error
-sudo sh -c "echo /usr/lib/oracle/12.2/client64/lib > /etc/ld.so.conf.d/oracle-instantclient.conf"
-sudo ldconfig
-```
 
 ## Commands / Syntax
 
@@ -120,6 +105,24 @@ sudo ldconfig
 - **Web shell upload**: If the Oracle server runs a web server, upload a web shell to the web root via utlfile and verify with curl.
 - **PL/SQL Exclusion List**: If ODAT modules fail unexpectedly, the target may have a `PlsqlExclusionList` blocking specific packages.
 - The `sidguesser` module uses a built-in SID wordlist — always try `XE`, `ORCL`, `PROD`, `DEV`, and `TEST` as common SIDs manually if the tool doesn't find them.
+
+## Installation
+
+```bash
+# Check if installed
+odat --help 2>/dev/null | head -1 || echo "not installed"
+
+# Install (Kali / Parrot)
+sudo apt install odat -y
+
+# Install from pip (if apt version is outdated)
+pip3 install odat
+
+# Verify
+odat --help 2>&1 | head -3
+```
+
+Note: odat requires Oracle Instant Client to function. On Kali, the apt package bundles it. If installed via pip, install Instant Client separately from Oracle's site.
 
 ## Related Pages
 

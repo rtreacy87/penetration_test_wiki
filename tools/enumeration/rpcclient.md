@@ -76,12 +76,25 @@ rpcclient$> lsaenumsid                      # Enumerate SIDs
 - **Not all commands require admin**: `queryuser`, `netshareenumall`, and `enumdomusers` typically work with null sessions on misconfigured Samba servers.
 - `srvinfo` reveals OS version — useful for identifying outdated systems.
 
+## Installation
+
+```bash
+# Check if installed
+rpcclient --version 2>/dev/null | head -1 || echo "not installed"
+
+# Install — rpcclient is part of the samba-common-bin package
+sudo apt install samba-common-bin -y
+
+# Verify
+rpcclient --version
+```
+
 ## Related Pages
 
 - [[enumeration/smb]]
-- [[tools/smbclient]]
-- [[tools/enum4linux]]
-- [[tools/netexec]]
+- [[tools/enumeration/smbclient]]
+- [[tools/enumeration/enum4linux]]
+- [[tools/attack/netexec]]
 
 ## Sources
 

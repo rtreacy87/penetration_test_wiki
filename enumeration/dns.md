@@ -168,8 +168,8 @@ msf6> search type:exploit name:named
 
 - [[attack/dns]] — exploitation: zone transfer abuse, subdomain takeover, DNS cache poisoning
 - [[recon/osint/domain_information]]
-- [[tools/dig]]
-- [[tools/dnsenum]]
+- [[tools/enumeration/dig]]
+- [[tools/enumeration/dnsenum]]
 - [[enumeration/_overview]]
 
 ## Sources

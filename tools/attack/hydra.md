@@ -16,7 +16,14 @@ Hydra is the standard brute-force tool in most HTB walkthroughs and real engagem
 ## Installation
 
 ```bash
-apt install hydra
+# Check if installed
+hydra -V 2>/dev/null | head -1 || echo "not installed"
+
+# Install (Kali / Parrot — usually pre-installed)
+sudo apt install hydra -y
+
+# Verify
+hydra -V
 ```
 
 ## Common usage
@@ -69,8 +76,8 @@ hydra -l admin -P passwords.txt 10.129.203.7 http-post-form \
 
 ## Gotchas & notes
 
-- Hydra's `rdp` module is experimental; [[tools/crowbar]] is more reliable for RDP-specific spraying
-- For FTP, [[tools/medusa]] has a more stable module
+- Hydra's `rdp` module is experimental; [[tools/attack/crowbar]] is more reliable for RDP-specific spraying
+- For FTP, [[tools/attack/medusa]] has a more stable module
 - Always check lockout policy before running; `-f` prevents excess attempts once found
 - `http-post-form` format: `"/path:POST_body:failure_string"` — the failure string is what appears on a bad login
 
@@ -79,8 +86,8 @@ hydra -l admin -P passwords.txt 10.129.203.7 http-post-form \
 - [[attack/smtp]]
 - [[attack/rdp]]
 - [[attack/ftp]]
-- [[tools/medusa]]
-- [[tools/crowbar]]
+- [[tools/attack/medusa]]
+- [[tools/attack/crowbar]]
 - [[wordlists/use_cases]]
 
 ## Sources

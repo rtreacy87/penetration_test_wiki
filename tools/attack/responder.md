@@ -15,11 +15,18 @@ When a Windows host attempts to resolve a name that DNS cannot answer, it falls 
 
 ## Installation
 
-Pre-installed on Kali/Parrot. Clone from source:
-
 ```bash
-git clone https://github.com/lgandx/Responder
+# Check if installed
+responder --version 2>/dev/null | head -1 || which responder 2>/dev/null || echo "not installed"
+
+# Install (Kali / Parrot — usually pre-installed)
+sudo apt install responder -y
+
+# Verify
+responder --version
 ```
+
+Note: Responder must run as root (needs to bind port 445). Always specify the interface with `-I` (e.g., `-I tun0` for VPN, `-I eth0` for LAN).
 
 ## Basic usage
 
@@ -82,8 +89,8 @@ sudo impacket-ntlmrelayx --no-http-server -smb2support -t 10.129.14.130
 
 - [[attack/smb]]
 - [[attack/sql_databases]] — xp_dirtree triggers hash capture
-- [[tools/impacket]] — ntlmrelayx for relay attacks
-- [[tools/netexec]]
+- [[tools/utility/impacket]] — ntlmrelayx for relay attacks
+- [[tools/attack/netexec]]
 
 ## Sources
 

@@ -547,11 +547,11 @@ hydra -C $SL/Passwords/Default-Credentials/ftp-betterdefaultpasslist.txt \
 ## Related Pages
 
 - [[wordlists/_overview]] — installation paths, sources, custom generation
-- [[tools/hydra]]
+- [[tools/attack/hydra]]
 - [[tools/gobuster]]
 - [[tools/ffuf]]
-- [[tools/medusa]]
-- [[tools/netexec]]
+- [[tools/attack/medusa]]
+- [[tools/attack/netexec]]
 - [[enumeration/snmp]]
 - [[enumeration/dns]]
 - [[enumeration/ftp]]

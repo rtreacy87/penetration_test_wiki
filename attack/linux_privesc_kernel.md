@@ -403,7 +403,7 @@ ls -la /usr/lib/python3.*
 - [[attack/linux_privesc_enumeration]]
 - [[attack/linux_privesc_sudo_suid]]
 - [[attack/linux_privesc_services]]
-- [[tools/linpeas]]
+- [[tools/enumeration/linpeas]]
 
 ## Sources
 

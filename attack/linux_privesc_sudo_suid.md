@@ -293,7 +293,7 @@ getent group disk
 - [[attack/linux_privesc_enumeration]]
 - [[attack/linux_privesc_services]]
 - [[attack/linux_privesc_kernel]]
-- [[tools/linpeas]]
+- [[tools/enumeration/linpeas]]
 
 ## Sources
 

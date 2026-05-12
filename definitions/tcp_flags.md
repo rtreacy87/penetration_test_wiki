@@ -71,6 +71,6 @@ Understanding the handshake is foundational for port scanning — different resp
 ## Related pages
 
 - [[definitions/network_protocols]]
-- [[tools/nmap]]
+- [[tools/enumeration/nmap]]
 - [[attack/network/firewall_evasion]]
 - [[ports/common_ports]]

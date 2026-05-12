@@ -163,8 +163,8 @@ msf6> search cve:2011-2523
 
 - [[attack/ftp]] — exploitation: anonymous login, Medusa brute force, bounce attack, CVE-2022-22836
 - [[enumeration/_overview]]
-- [[tools/medusa]]
-- [[tools/nmap]]
+- [[tools/attack/medusa]]
+- [[tools/enumeration/nmap]]
 
 ## Sources
 

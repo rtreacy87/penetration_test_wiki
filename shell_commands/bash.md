@@ -219,5 +219,5 @@ done
 - [[shell_commands/powershell]]
 - [[attack/linux_privilege_escalation]]
 - [[attack/linux_privesc_enumeration]]
-- [[tools/linpeas]]
-- [[tools/pspy]]
+- [[tools/enumeration/linpeas]]
+- [[tools/enumeration/pspy]]

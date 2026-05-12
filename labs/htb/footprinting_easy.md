@@ -126,7 +126,7 @@ cat /flag.txt
 
 - [[enumeration/dns]]
 - [[enumeration/nfs]]
-- [[tools/dig]]
+- [[tools/enumeration/dig]]
 
 ## Sources
 

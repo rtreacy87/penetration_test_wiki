@@ -7,9 +7,9 @@ source_count: 1
 
 # crackmapexec (cme) — LEGACY
 
-> **CrackMapExec is no longer actively maintained.** Use [[tools/netexec]] (`nxc`) instead — it is the direct successor with identical syntax. Replace `crackmapexec` with `nxc` in every command below and they work as-is.
+> **CrackMapExec is no longer actively maintained.** Use [[tools/attack/netexec]] (`nxc`) instead — it is the direct successor with identical syntax. Replace `crackmapexec` with `nxc` in every command below and they work as-is.
 
-CrackMapExec was a post-exploitation and enumeration tool for SMB, WinRM, MSSQL, LDAP, and RDP. Its active fork is [[tools/netexec]].
+CrackMapExec was a post-exploitation and enumeration tool for SMB, WinRM, MSSQL, LDAP, and RDP. Its active fork is [[tools/attack/netexec]].
 
 ## Overview
 
@@ -150,13 +150,28 @@ msf6> run
 - **`--no-bruteforce`**: With multiple `-u` and `-p` entries, CME by default tries every user+password combination (cartesian product). `--no-bruteforce` pairs them 1:1 instead (user1:pass1, user2:pass2).
 - **Database**: CME stores results in a local SQLite database. Query with `crackmapexec smb --creds` to review historical results.
 
+## Installation
+
+```bash
+# Check if installed
+crackmapexec --version 2>/dev/null || echo "not installed"
+
+# Remove — CrackMapExec is deprecated; use NetExec (nxc) instead
+sudo apt remove crackmapexec -y
+pip3 uninstall crackmapexec -y 2>/dev/null || true
+
+# Install the replacement — NetExec
+sudo apt install netexec -y
+nxc --version
+```
+
 ## Related Pages
 
 - [[enumeration/smb]]
 - [[enumeration/mssql]]
 - [[enumeration/windows_remote_mgmt]]
-- [[tools/smbclient]]
-- [[tools/impacket]]
+- [[tools/enumeration/smbclient]]
+- [[tools/utility/impacket]]
 
 ## Sources
 

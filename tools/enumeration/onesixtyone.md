@@ -59,12 +59,25 @@ For targeted environments, generate custom wordlists using patterns derived from
 - **UDP**: SNMP uses UDP 161. Standard TCP-based tools won't reach it.
 - **Custom community strings**: Administrators often use hostnames, location names, or departmental abbreviations. If default wordlists fail, build a targeted list from known organization info.
 - onesixtyone is fast but the response contains the system description — capture this: `10.129.14.128 [public] Linux htb 5.11.0-37-generic ...` gives you both the community string and OS details in one line.
-- After finding the community string, use [[tools/snmpwalk]] or braa for full OID enumeration.
+- After finding the community string, use [[tools/enumeration/snmpwalk]] or braa for full OID enumeration.
+
+## Installation
+
+```bash
+# Check if installed
+which onesixtyone 2>/dev/null || echo "not installed"
+
+# Install (Kali / Parrot)
+sudo apt install onesixtyone -y
+
+# Verify
+onesixtyone 2>&1 | head -3
+```
 
 ## Related Pages
 
 - [[enumeration/snmp]]
-- [[tools/snmpwalk]]
+- [[tools/enumeration/snmpwalk]]
 
 ## Sources
 

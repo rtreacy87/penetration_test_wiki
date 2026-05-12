@@ -112,8 +112,8 @@ dig CH TXT version.bind 10.129.120.85
 - [[recon/osint/cloud_resources]]
 - [[recon/osint/staff_enumeration]]
 - [[enumeration/dns]]
-- [[tools/dig]]
-- [[tools/dnsenum]]
+- [[tools/enumeration/dig]]
+- [[tools/enumeration/dnsenum]]
 
 ## Sources
 

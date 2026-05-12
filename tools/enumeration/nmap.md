@@ -420,6 +420,19 @@ sudo nmap 10.129.2.28 -p 50000 -sS -Pn -n --disable-arp-ping --source-port 53
 
 ---
 
+## Installation
+
+```bash
+# Check if installed
+nmap --version 2>/dev/null | head -1 || echo "not installed"
+
+# Install (Kali / Parrot — usually pre-installed)
+sudo apt install nmap -y
+
+# Verify
+nmap --version
+```
+
 ## Related Pages
 
 - [[attack/network/firewall_evasion]]

@@ -11,7 +11,7 @@ Post-exploitation enumeration checklist for Linux: what to look for and how to f
 
 ## Overview
 
-Enumeration is the foundation of successful privilege escalation. Running [[tools/linpeas]] early is recommended, but manual enumeration builds the knowledge needed when tools can't be transferred or when they miss nuanced misconfigurations. This page covers environment, users, services, internals, credentials, and cron — the full situational awareness picture.
+Enumeration is the foundation of successful privilege escalation. Running [[tools/enumeration/linpeas]] early is recommended, but manual enumeration builds the knowledge needed when tools can't be transferred or when they miss nuanced misconfigurations. This page covers environment, users, services, internals, credentials, and cron — the full situational awareness picture.
 
 ## Key Concepts / Techniques
 
@@ -167,7 +167,7 @@ cat /etc/cron.d/*
 find / -path /proc -prune -o -type f -perm -o+w 2>/dev/null
 
 # Watch for cron execution in real time
-# Use pspy — see [[tools/pspy]]
+# Use pspy — see [[tools/enumeration/pspy]]
 ```
 
 Look for patterns in file modification timestamps to infer cron schedules even when the crontab is not readable.
@@ -242,8 +242,8 @@ strace -p <PID> 2>&1 | grep -i "pass\|key\|token"
 - [[attack/linux_privesc_sudo_suid]]
 - [[attack/linux_privesc_services]]
 - [[attack/linux_privesc_kernel]]
-- [[tools/linpeas]]
-- [[tools/pspy]]
+- [[tools/enumeration/linpeas]]
+- [[tools/enumeration/pspy]]
 
 ## Sources
 
