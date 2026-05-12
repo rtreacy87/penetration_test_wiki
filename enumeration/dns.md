@@ -166,10 +166,12 @@ msf6> search type:exploit name:named
 
 ## Related Pages
 
+- [[definitions/dns]] — DNS concepts primer: zones, record types, AXFR explained, detecting restricted transfers
 - [[attack/dns]] — exploitation: zone transfer abuse, subdomain takeover, DNS cache poisoning
 - [[recon/osint/domain_information]]
 - [[tools/enumeration/dig]]
 - [[tools/enumeration/dnsenum]]
+- [[tools/enumeration/subbrute]]
 - [[enumeration/_overview]]
 
 ## Sources

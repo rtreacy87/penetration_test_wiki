@@ -83,6 +83,7 @@ curl http://10.129.203.7/webshell.php?c=dir
 - [[tools/attack/medusa]]
 - [[tools/enumeration/nmap]]
 - [[wordlists/use_cases]]
+- [[labs/htb/attacking_common_services/easy_skill_assessment]] — CoreFTP CVE-2022-22836 path traversal + MySQL OUTFILE chain to RCE
 
 ## Sources
 

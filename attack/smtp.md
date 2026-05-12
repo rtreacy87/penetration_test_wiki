@@ -141,9 +141,12 @@ nc -lvnp 4444
 ## Related pages
 
 - [[enumeration/smtp]]
+- [[enumeration/imap_pop3]] — reading mail over IMAP/POP3 after gaining credentials
+- [[tools/enumeration/smtp_user_enum]] — automated VRFY/EXPN/RCPT user enumeration
 - [[tools/attack/hydra]]
 - [[tools/enumeration/nmap]]
 - [[attack/smb]] — captured SMTP credentials often reused on SMB
+- [[labs/htb/attacking_common_services/smtp_user_enumeration_and_mail_access]] — smtp-user-enum + Hydra + IMAP lab walkthrough
 
 ## Sources
 

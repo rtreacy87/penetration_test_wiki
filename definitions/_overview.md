@@ -17,6 +17,7 @@ Pentest-oriented reference definitions — protocols, flags, authentication mech
 | [[definitions/tcp_flags]] | SYN, ACK, FIN, RST, PSH, URG — flag behavior, three-way handshake, scan type inference |
 | [[definitions/auth_protocols]] | NTLM, Kerberos, LDAP, Basic, Digest, OAuth, SAML, JWT — how they fail |
 | [[definitions/security_terminology]] | CVE, CVSS, RCE, LFI, SSRF, IDOR, SQLi, XSS, XXE, SSTI, lateral movement, persistence |
+| [[definitions/dns]] | DNS primer: zones, records, zone transfers, AXFR, detecting restricted vs unrestricted transfers |
 
 ## How definitions pages work
 

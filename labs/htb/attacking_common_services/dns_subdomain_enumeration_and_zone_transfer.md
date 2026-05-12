@@ -23,7 +23,7 @@ One question: find a flag hidden in a DNS TXT record by brute-forcing subdomains
 
 The lab target is running a name server that is authoritative for `inlanefreight.htb` and its subdomains. Two misconfigurations make the flag accessible:
 
-1. **Zone transfer (AXFR) is unrestricted** — the nameserver will hand over all DNS records for any zone you ask about, including internal subdomains it has authority over.
+1. **Zone transfer (AXFR) is unrestricted** — the nameserver will hand over all DNS records for any zone you ask about, including internal subdomains it has authority over. See [[definitions/dns]] for a full explanation of what AXFR is and how to detect whether a nameserver restricts it.
 2. **Subdomains are not publicly advertised** — you can't find them through passive sources (crt.sh, Shodan). You have to brute-force them by asking the target nameserver directly whether each candidate name exists.
 
 The flag is stored in a TXT record inside one of the non-root subdomains. A zone transfer on `inlanefreight.htb` itself won't reveal it — you need to enumerate the subdomains first, then transfer each one.

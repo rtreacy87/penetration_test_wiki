@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "labs/htb/attacking_common_services/dns_subdomain_enumeration_and_zone_transfer.md",
+                "file": "labs/htb/attacking_common_services/easy_skill_assessment.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "dns_subdomain_enumeration_and_zone_transfer"
+              "title": "easy_skill_assessment"
             }
           }
         ]
@@ -182,23 +182,31 @@
   },
   "active": "1e097e1ef8fa2900",
   "lastOpenFiles": [
-    "labs/htb/attacking_common_services/mssql_hash_theft_and_db_enumeration.md",
-    "labs/htb/attacking_common_services/dns_subdomain_enumeration_and_zone_transfer.md",
-    "log.md.tmp.495011.4cb01938f058",
-    "attack/dns.md.tmp.495011.921778e2f11d",
-    "index.md.tmp.495011.60bd0a32c181",
-    "index.md.tmp.495011.80c6ea230b29",
+    "log.md.tmp.495011.d00563a32af1",
+    "labs/htb/attacking_common_services/easy_skill_assessment.md.tmp.495011.8908981a4339",
+    "labs/htb/attacking_common_services/easy_skill_assessment.md.tmp.495011.4fae3368932b",
+    "labs/htb/attacking_common_services/easy_skill_assessment.md.tmp.495011.4b231e741146",
+    "log.md.tmp.495011.cb57741ab202",
+    "labs/htb/attacking_common_services/easy_skill_assessment.md.tmp.495011.766137b56804",
+    "labs/htb/attacking_common_services/easy_skill_assessment.md.tmp.495011.656664951e5c",
+    "labs/htb/attacking_common_services/easy_skill_assessment.md.tmp.495011.fdc08e4a1e5f",
+    "labs/htb/attacking_common_services/easy_skill_assessment.md.tmp.495011.0a779696a3b5",
+    "labs/htb/attacking_common_services/easy_skill_assessment.md.tmp.495011.533c3d14c972",
+    "wordlists/use_cases.md",
+    "log.md.tmp.495011.5174df19aca0",
+    "labs/htb/attacking_common_services/smtp_user_enumeration_and_mail_access.md",
+    "labs/htb/attacking_common_services/easy_skill_assessment.md",
+    "raw/lab/attacking_common_services/lab_easy_skill_assessment.md",
+    "attack/dns.md",
+    "tools/enumeration/smtp_user_enum.md",
+    "raw/lab/attacking_common_services/attacking_email.md",
     "tools/enumeration/subbrute.md",
-    "tools/enumeration/subbrute.md.tmp.495011.c1b8c2013083",
-    "labs/htb/attacking_common_services/dns_subdomain_enumeration_and_zone_transfer.md.tmp.495011.3f73f371948b",
-    "labs/htb/attacking_common_services/dns_subdomain_enumeration_and_zone_transfer.md.tmp.495011.5ba1f301df2b",
+    "labs/htb/attacking_common_services/dns_subdomain_enumeration_and_zone_transfer.md",
+    "definitions/dns.md",
+    "labs/htb/attacking_common_services/mssql_hash_theft_and_db_enumeration.md",
     "labs/htb/attacking_common_services/rdp_pass_the_hash.md",
-    "log.md.tmp.495011.d48024663c6c",
-    "attack/dns.md.tmp.495011.c6b450cba770",
-    "index.md.tmp.495011.e1b98b1e7e03",
     "raw/lab/attacking_common_services/attacking_dns.md",
     "attack/linux_privesc_enumeration.md",
-    "attack/dns.md",
     "tools/enumeration/enum4linux.md",
     "tools/utility/ssh.md",
     "tools/utility/crackmapexec.md",
@@ -210,13 +218,6 @@
     "raw/lab/attacking_rpd_lab.md",
     "tools/utility/rdesktop.md",
     "shell_commands/bash.md",
-    "tools/attack/crowbar.md",
-    "tools/attack/hydra.md",
-    "tools/enumeration/linpeas.md",
-    "labs/htb/mssql_hash_theft_and_db_enumeration.md",
-    "attack/linux_privilege_escalation.md",
-    "attack/sql_databases.md",
-    "attack/smtp.md",
     "Untitled.canvas"
   ]
 }

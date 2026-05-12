@@ -174,6 +174,7 @@ msf6> search cve:2020-7247
 ## Related Pages
 
 - [[attack/smtp]] — exploitation: user enum, O365spray, open relay abuse, CVE-2020-7247 OpenSMTPD RCE
+- [[tools/enumeration/smtp_user_enum]] — automated VRFY/EXPN/RCPT enumeration with wordlists
 - [[enumeration/_overview]]
 - [[enumeration/imap_pop3]]
 - [[enumeration/dns]]

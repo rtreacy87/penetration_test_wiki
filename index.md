@@ -1,6 +1,6 @@
 # Wiki Index
 
-_Last updated: 2026-05-12 — 95 pages total_
+_Last updated: 2026-05-12 — 99 pages total_
 
 ---
 
@@ -102,6 +102,7 @@ _Last updated: 2026-05-12 — 95 pages total_
 - [[tools/enumeration/dig]] — DNS query tool: all record types, AXFR syntax, output format, bash brute-force loop. `tool`
 - [[tools/enumeration/dnsenum]] — DNS enumeration: NS/MX/AXFR/brute-force in one run. `tool`
 - [[tools/enumeration/subbrute]] — DNS subdomain brute-forcer; use `-r resolvers.txt` to target a specific nameserver for internal/HTB domains. `tool`
+- [[tools/enumeration/smtp_user_enum]] — SMTP user enumeration via VRFY/EXPN/RCPT TO; RCPT mode works even when VRFY is disabled. `tool`
 - [[tools/enumeration/linpeas]] — Automated Linux privilege escalation enumeration; staged to /opt, run on target. `tool`
 - [[tools/enumeration/pspy]] — Unprivileged process monitor; catches cron and credential leaks; run on target. `tool`
 
@@ -124,6 +125,7 @@ _Last updated: 2026-05-12 — 95 pages total_
 - [[definitions/tcp_flags]] — SYN/ACK/FIN/RST/PSH/URG — three-way handshake, port state inference, scan type selection. `definition` `reference`
 - [[definitions/auth_protocols]] — NTLM, Kerberos, LDAP, OAuth, SAML, JWT — how they work and how they fail. `definition` `concept`
 - [[definitions/security_terminology]] — CVE/CVSS, RCE, LFI, SSRF, IDOR, SQLi, XSS, SSTI, lateral movement, persistence, defense terms. `definition` `concept`
+- [[definitions/dns]] — DNS primer: records (A/MX/TXT/NS/CNAME), zones, zone transfers, AXFR explained, how to detect restricted vs unrestricted transfers. `definition` `concept`
 
 ---
 
@@ -161,5 +163,7 @@ _Last updated: 2026-05-12 — 95 pages total_
 ### Attacking Common Services
 
 - [[labs/htb/attacking_common_services/dns_subdomain_enumeration_and_zone_transfer]] — subbrute against target nameserver → discover hr/helpdesk/ns subdomains → AXFR hr.inlanefreight.htb → TXT flag. `lab`
+- [[labs/htb/attacking_common_services/smtp_user_enumeration_and_mail_access]] — smtp-user-enum RCPT mode finds marlin → Hydra cracks SMTP auth → IMAP telnet reads flag from inbox. `lab`
+- [[labs/htb/attacking_common_services/easy_skill_assessment]] — Multi-service chain: SMTP enum → FTP brute (fiona) → Path A: CoreFTP CVE-2022-22836 PUT traversal → PHP webshell; Path B: MySQL OUTFILE → PHP webshell → RCE flag. `lab`
 - [[labs/htb/attacking_common_services/mssql_hash_theft_and_db_enumeration]] — xp_dirtree NTLMv2 hash theft → crack mssqlsvc password → flagDB schema walk → encrypted admin credential → flag. `lab`
 - [[labs/htb/attacking_common_services/rdp_pass_the_hash]] — xfreerdp initial access → find NTLM hash → enable DisableRestrictedAdmin → PTH as Administrator → flag. `lab`
