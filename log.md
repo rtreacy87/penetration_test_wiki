@@ -1,5 +1,13 @@
 # Wiki Log
 
+## [2026-05-12] update | Added xfreerdp and rdesktop tool pages; fixed corrupted attack/rdp.md Connecting section
+Pages created: 2 (tools/utility/xfreerdp.md, tools/utility/rdesktop.md). Pages updated: 3 (attack/rdp.md, index.md, log.md).
+Key additions: xfreerdp — full flags table (v/u/p/pth/d/cert-ignore/drive/clipboard/dynamic-resolution/kbd), PTH usage, headless Xvfb method, NLA notes. rdesktop — flags table, comparison table vs xfreerdp across 8 dimensions (NLA, protocol version, PTH, maintenance, syntax, drive sharing, headless). Decision rule documented: use xfreerdp always except confirmed XP/2003 with NLA disabled. attack/rdp.md Connecting section was corrupted (contained only `u`); restored with both client examples and links to new tool pages.
+
+## [2026-05-12] ingest | HTB RDP Lab — Pass-the-Hash write-up
+Pages created: 1 (labs/htb/attacking_common_services/rdp_pass_the_hash.md). Pages updated: 1 (index.md).
+Key additions: Three-question lab — Q1: xfreerdp with htb-rdp:HTBRocks! to find pentest-notes.txt; Q2: DisableRestrictedAdmin registry key enables Restricted Admin Mode for PTH; Q3: reg add to set key, then xfreerdp /pth with Administrator hash to read flag.txt. GUI alternatives documented throughout: `dir`/`type` instead of clicking desktop icons, `reg query`/`reg add` instead of regedit, Xvfb virtual framebuffer for headless environments. Source: raw/lab/attacking_rpd_lab.md (stored flat in raw/lab/ rather than a module subfolder).
+
 ## [2026-05-12] structure | Gitignore raw/lab/; reorganize labs/htb/ into module subfolders
 Files created: 1 (.gitignore). Pages moved: 1 (labs/htb/mssql_hash_theft_and_db_enumeration.md → labs/htb/attacking_common_services/). Files updated: CLAUDE.md, index.md.
 Key changes: raw/lab/ is now gitignored — private solution files (flags, step-by-step answers) will never be committed. Convention established: raw/lab/<module>/ drives the labs/htb/<module>/ subfolder structure; subfolder names must match. CLAUDE.md updated with raw/lab/ in the directory tree (GITIGNORED label) and a revised "Add a new lab write-up" operation explaining when to check raw/lab/ for context and the rule against linking to it. index.md Labs section reorganized into module subheadings (Footprinting, Attacking Common Services). All wikilinks to the moved file updated.

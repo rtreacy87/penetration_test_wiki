@@ -42,12 +42,14 @@ Account lockout is common — use password spraying (one password per many users
 ## Connecting
 
 ```bash
-# rdesktop (confirm certificate on first connect)
+# rdesktop — legacy, RDP 5 only, no NLA, no PTH (Windows XP/2003 targets only)
 rdesktop -u admin -p password123 10.129.14.128
 
-# xfreerdp (preferred — supports NLA and PTH)
-xfreerdp /v:10.129.14.128 /u:administrator /p:'password123'
+# xfreerdp — preferred; supports NLA, PTH, and RDP 7/8/10
+xfreerdp /v:10.129.14.128 /u:administrator /p:'password123' /cert-ignore
 ```
+
+See [[tools/utility/xfreerdp]] and [[tools/utility/rdesktop]] for full flag references and a side-by-side comparison of when to use each.
 
 ## RDP session hijacking (tscon)
 
@@ -123,9 +125,13 @@ nmap -p3389 --script rdp-vuln-ms12-020 10.129.14.128
 ## Related pages
 
 - [[enumeration/windows_remote_mgmt]]
+- [[tools/utility/xfreerdp]] — preferred RDP client; NLA, PTH, drive sharing
+- [[tools/utility/rdesktop]] — legacy RDP client; XP/2003 targets only
 - [[tools/attack/hydra]]
+- [[tools/attack/crowbar]] — more reliable than Hydra for RDP spraying
 - [[attack/smb]] — same NT hashes work for SMB PTH
 - [[tools/attack/netexec]]
+- [[labs/htb/attacking_common_services/rdp_pass_the_hash]] — PTH lab walkthrough
 
 ## Sources
 

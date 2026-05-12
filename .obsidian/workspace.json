@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "labs/htb/attacking_common_services/mssql_hash_theft_and_db_enumeration.md",
+                "file": "labs/htb/attacking_common_services/rdp_pass_the_hash.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "mssql_hash_theft_and_db_enumeration"
+              "title": "rdp_pass_the_hash"
             }
           }
         ]
@@ -182,21 +182,28 @@
   },
   "active": "1e097e1ef8fa2900",
   "lastOpenFiles": [
+    "raw/lab/attacking_common_services/attacking_rpd_lab.md",
+    "tools/utility/xfreerdp.md",
+    "tools/X.md",
+    "log.md.tmp.495011.4fb4a4f09768",
+    "attack/rdp.md",
+    "index.md.tmp.495011.519bbf826475",
+    "raw/lab/attacking_rpd_lab.md",
+    "index.md.tmp.495011.5dd169be4e54",
+    "attack/rdp.md.tmp.495011.50b4bb2f0832",
+    "attack/rdp.md.tmp.495011.93fdee08b00c",
+    "tools/utility/rdesktop.md",
+    "tools/utility/rdesktop.md.tmp.495011.1387d23423ed",
+    "tools/utility/xfreerdp.md.tmp.495011.dd03fb9310c2",
+    "shell_commands/bash.md",
+    "labs/htb/attacking_common_services/rdp_pass_the_hash.md",
+    "labs/htb/attacking_common_services/mssql_hash_theft_and_db_enumeration.md",
+    "log.md.tmp.495011.bc87893f6fc5",
+    "index.md.tmp.495011.cefbd1411b00",
+    "raw/lab/attacking_common_services/attacking_sql_lab.md",
     "tools/attack/crowbar.md",
     "log.md.tmp.495011.260352c7bf3e",
-    "index.md.tmp.495011.e3bf9591a1c7",
-    "CLAUDE.md.tmp.495011.87a362105cef",
-    "CLAUDE.md.tmp.495011.d00a9514b139",
-    "sedGI0bQp",
-    "labs/htb/attacking_common_services/mssql_hash_theft_and_db_enumeration.md",
-    "labs/htb/attacking_common_services",
-    "raw/lab/attacking_common_services/attacking_sql_lab.md",
-    "raw/lab/attacking_common_services",
-    "raw/lab",
-    "lab/attacking_common_services",
-    "lab",
     "tools/attack/hydra.md",
-    "tools/X.md",
     "tools/enumeration/linpeas.md",
     "tools/enumeration/enum4linux.md",
     "labs/htb/mssql_hash_theft_and_db_enumeration.md",
@@ -204,19 +211,12 @@
     "attack/sql_databases.md",
     "attack/smtp.md",
     "attack/smb.md",
-    "attack/rdp.md",
     "tools/enumeration/onesixtyone.md",
     "enumeration/snmp.md",
     "raw/attacking_sql_lab.md",
     "raw/sqlcmd_install.md",
     "definitions/security_terminology.md",
     "definitions/network_protocols.md",
-    "definitions/auth_protocols.md",
-    "tools/enumeration/dig.md",
-    "tools/attack/metasploit.md",
-    "tools/attack/netexec.md",
-    "tools/attack/medusa.md",
-    "tools/pspy.md",
     "Untitled.canvas"
   ]
 }
