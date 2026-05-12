@@ -1,6 +1,6 @@
 # Wiki Index
 
-_Last updated: 2026-05-11 — 86 pages total_
+_Last updated: 2026-05-11 — 88 pages total_
 
 ---
 
@@ -19,7 +19,7 @@ _Last updated: 2026-05-11 — 86 pages total_
 - [[enumeration/dns]] — DNS record types, zone transfers (AXFR), subdomain brute-forcing, dig/dnsenum/host syntax. `enumeration` `enumeration/dns`
 - [[enumeration/ftp]] — Anonymous login, vsFTPd config, nmap NSE scripts, recursive listing, TLS cert disclosure. `enumeration` `enumeration/ftp`
 - [[enumeration/smtp]] — VRFY/EXPN user enumeration, open relay detection, nmap scripts, telnet interaction. `enumeration` `enumeration/smtp`
-- [[enumeration/smb]] — SMB versions, null sessions, rpcclient RID brute-force, smbclient, enum4linux, CrackMapExec. `enumeration` `enumeration/smb`
+- [[enumeration/smb]] — SMB versions, null sessions, rpcclient RID brute-force, smbclient, enum4linux, NetExec (nxc). `enumeration` `enumeration/smb`
 - [[enumeration/snmp]] — SNMP versions, community strings, MIB/OID structure, snmpwalk, onesixtyone, braa. `enumeration` `enumeration/snmp`
 - [[enumeration/nfs]] — NFS exports, showmount, UID/GID-based access, SUID escalation via mounted share. `enumeration` `enumeration/nfs`
 - [[enumeration/imap_pop3]] — IMAP vs POP3, openssl TLS sessions, curl access, command reference. `enumeration` `enumeration/imap_pop3`
@@ -82,7 +82,9 @@ _Last updated: 2026-05-11 — 86 pages total_
 
 - [[tools/_overview]] — Tool selection guide: comparison tables by function and decision tree by scenario. `tool` `concept`
 - [[tools/nmap]] — Port scanning, service detection, NSE scripts, OS detection, performance, firewall evasion. `tool`
-- [[tools/crackmapexec]] — SMB/WinRM/MSSQL enumeration, auth testing, pass-the-hash, password spray. `tool`
+- [[tools/netexec]] — NetExec (nxc): credential spray, validation, PTH, and enumeration across SMB/WinRM/MSSQL/LDAP/SSH. Primary successor to CrackMapExec. `tool`
+- [[tools/metasploit]] — msfconsole: module framework for exploitation, smb_login/ssh_login/ftp_login brute-force, Meterpreter sessions. `tool`
+- [[tools/crackmapexec]] — Legacy predecessor to NetExec; identical syntax, no longer maintained. `tool`
 - [[tools/impacket]] — Suite: mssqlclient, psexec, secretsdump, wmiexec, GetUserSPNs, samrdump. `tool`
 - [[tools/smbclient]] — SMB share browsing, file operations, null session syntax. `tool`
 - [[tools/enum4linux]] — enum4linux-ng: SMB/NetBIOS user/group/share enumeration. `tool`

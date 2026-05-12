@@ -83,7 +83,7 @@ sudo impacket-ntlmrelayx --no-http-server -smb2support -t 10.129.14.130
 - [[attack/smb]]
 - [[attack/sql_databases]] — xp_dirtree triggers hash capture
 - [[tools/impacket]] — ntlmrelayx for relay attacks
-- [[tools/crackmapexec]]
+- [[tools/netexec]]
 
 ## Sources
 

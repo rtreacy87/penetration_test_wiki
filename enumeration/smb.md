@@ -7,7 +7,7 @@ source_count: 1
 
 # SMB Enumeration
 
-SMB enumeration: shares, null sessions, user/group enumeration via rpcclient, smbclient, enum4linux, and crackmapexec.
+SMB enumeration: shares, null sessions, user/group enumeration via rpcclient, smbclient, enum4linux, and netexec (nxc).
 
 ## Overview
 
@@ -74,8 +74,8 @@ smb: \> get prep-prod.txt
 # smbmap — show share permissions
 smbmap -H 10.129.14.128
 
-# CrackMapExec — enumerate shares with null session
-crackmapexec smb 10.129.14.128 --shares -u '' -p ''
+# NetExec — enumerate shares with null session
+nxc smb 10.129.14.128 --shares -u '' -p ''
 
 # rpcclient — null session RPC
 rpcclient -U "" 10.129.14.128
@@ -115,7 +115,7 @@ samrdump.py 10.129.14.128
 | `-U <user>` | Specify username |
 | `--password <pw>` | Specify password |
 
-### crackmapexec smb
+### nxc smb
 
 | Flag | Description |
 |------|-------------|
@@ -139,7 +139,7 @@ samrdump.py 10.129.14.128
 
 ## Version Detection & Exploit Research
 
-SMB version and OS information are exposed unauthenticated via the SMB negotiation handshake. Nmap's `smb-os-discovery` and `smb2-security-mode` scripts, as well as CrackMapExec and Metasploit's `smb_version` module, all extract this without credentials. SMB has produced some of the most critical CVEs in Windows history — EternalBlue and BlueKeep both required only network access and produced SYSTEM-level RCE. Version detection is mandatory before moving to exploitation.
+SMB version and OS information are exposed unauthenticated via the SMB negotiation handshake. Nmap's `smb-os-discovery` and `smb2-security-mode` scripts, as well as NetExec and Metasploit's `smb_version` module, all extract this without credentials. SMB has produced some of the most critical CVEs in Windows history — EternalBlue and BlueKeep both required only network access and produced SYSTEM-level RCE. Version detection is mandatory before moving to exploitation.
 
 ### Extracting Version Information
 
@@ -147,12 +147,12 @@ SMB version and OS information are exposed unauthenticated via the SMB negotiati
 |--------|---------|-----------------|
 | Nmap smb-os-discovery | `nmap -p445 --script smb-os-discovery <IP>` | OS, domain, SMB dialect, hostname |
 | Nmap smb2-security-mode | `nmap -p445 --script smb2-security-mode <IP>` | SMB2/3 negotiation + signing required flag |
-| CrackMapExec | `crackmapexec smb <IP>` | OS version, SMB signing, domain, hostname |
+| NetExec | `nxc smb <IP>` | OS version, SMB signing, domain, hostname |
 | Metasploit smb_version | `use auxiliary/scanner/smb/smb_version` | OS + SMB version details |
 | Nmap all smb scripts | `nmap -p139,445 --script smb-vuln* <IP>` | Direct CVE checks (EternalBlue, MS08-067, etc.) |
 | rpcclient srvinfo | `rpcclient -U "" <IP> -c srvinfo` | Server type flags, OS version string |
 
-**What CrackMapExec output reveals:**
+**What NetExec output reveals:**
 `SMB  10.10.10.100  445  WS01  [*] Windows 10.0 Build 19041 x64 (name:WS01) (domain:CORP) (signing:False) (SMBv1:False)`
 - `Windows 10.0 Build 19041` → map to Windows version and patch level
 - `signing:False` → relay attacks possible (Responder + ntlmrelayx)
@@ -187,11 +187,11 @@ msf6> search type:exploit name:smb
 
 ## Gotchas & Notes
 
-- **Use multiple tools**: rpcclient, smbclient, smbmap, enum4linux-ng, and crackmapexec each return different information. Do not rely on a single tool.
+- **Use multiple tools**: rpcclient, smbclient, smbmap, enum4linux-ng, and nxc each return different information. Do not rely on a single tool.
 - **Samba's `smb signing required = false`** enables relay attacks. Note this in findings.
 - `enumdomusers` via rpcclient may not return all users — always supplement with RID brute-forcing from 500 to 1100.
 - **smbstatus** (run on the server) shows active connections including your own — useful during internal assessments to verify you are authenticated as the correct user.
-- CrackMapExec output shows share permissions: `READ,WRITE` vs `NO ACCESS` vs blank. Target writable shares.
+- NetExec output shows share permissions: `READ,WRITE` vs `NO ACCESS` vs blank. Target writable shares.
 - `queryuser 0x3e8` is RID 1000 — the first non-default local user on Linux Samba. RID 500 is the built-in Administrator on Windows.
 - `IPC$` share is always present and is the mechanism for null session enumeration — you do not need to "connect" to it explicitly; rpcclient handles this.
 
@@ -201,7 +201,7 @@ msf6> search type:exploit name:smb
 - [[tools/smbclient]]
 - [[tools/rpcclient]]
 - [[tools/enum4linux]]
-- [[tools/crackmapexec]]
+- [[tools/netexec]]
 - [[tools/impacket]]
 - [[tools/responder]]
 - [[enumeration/_overview]]

@@ -109,7 +109,7 @@ medusa -H targets.txt \
 
 ---
 
-### CrackMapExec
+### NetExec
 
 CME is used for credential validation and password spraying across SMB, WinRM, MSSQL, SSH, and LDAP. It is not a traditional brute-forcer — use it for spraying known passwords across many hosts or validating credentials found elsewhere.
 
@@ -121,18 +121,18 @@ CME is used for credential validation and password spraying across SMB, WinRM, M
 
 ```bash
 # SMB password spray
-crackmapexec smb 10.10.10.0/24 \
+nxc smb 10.10.10.0/24 \
              -u $SL/Usernames/top-usernames-shortlist.txt \
              -p $SL/Passwords/Common-Credentials/top-passwords-shortlist.txt \
              --no-bruteforce  # try each user with each password, not all combinations
 
 # WinRM spray
-crackmapexec winrm 10.10.10.10 \
+nxc winrm 10.10.10.10 \
              -u usernames.txt \
              -p passwords.txt
 
 # MSSQL
-crackmapexec mssql 10.10.10.10 \
+nxc mssql 10.10.10.10 \
              -u sa \
              -p $SL/Passwords/Common-Credentials/top-passwords-shortlist.txt
 ```
@@ -430,11 +430,39 @@ smtp-user-enum -M VRFY \
 
 ### SMB (port 139/445)
 
-| Wordlist Need | File | Notes |
-|--------------|------|-------|
-| Usernames | `$SL/Usernames/top-usernames-shortlist.txt` | Or enumerate first via RID brute |
-| Passwords (spray) | `$SL/Passwords/Common-Credentials/top-passwords-shortlist.txt` | Spray — watch lockout policy |
-| Passwords (brute) | `$WL/rockyou.txt` | Only for specific target accounts |
+| Wordlist Need | File | Tool | Notes |
+|--------------|------|------|-------|
+| Usernames | `$SL/Usernames/top-usernames-shortlist.txt` | CME / MSF | Or enumerate first via RID brute |
+| Passwords — spray | `$SL/Passwords/Common-Credentials/top-passwords-shortlist.txt` | **NetExec** | Short list, many hosts/users — CME is ideal |
+| Passwords — brute-force | `$WL/rockyou.txt` | **MSF smb_login** | Large wordlist against one account — use MSF, not CME |
+| Default creds | `$SL/Passwords/Default-Credentials/` | CME / Hydra | Try before brute-force |
+
+**Tool selection for SMB passwords:**
+- **NetExec** (`-p shortlist.txt`): designed for spraying a small list across many hosts. Fast, multi-threaded, stores results. Unreliable with large files like rockyou.txt.
+- **MSF `smb_login`**: designed for brute-force — handles rockyou.txt reliably, `STOP_ON_SUCCESS` halts immediately on a hit, thread count is controllable.
+
+> **If CME with rockyou.txt returned no results:** first confirm the file is unzipped (`ls -lh /usr/share/wordlists/rockyou.txt` — should be ~134 MB, not ~51 MB). The `.gz` file passes binary data as passwords and will always fail silently.
+
+```bash
+# SMB brute-force — correct approach with MSF
+msf6> use auxiliary/scanner/smb/smb_login
+msf6> set RHOSTS 10.10.10.10
+msf6> set SMBUser jason
+msf6> set PASS_FILE /usr/share/wordlists/rockyou.txt
+msf6> set STOP_ON_SUCCESS true
+msf6> set THREADS 3
+msf6> set VERBOSE false
+msf6> run
+
+# SMB password spray — correct approach with CME
+nxc smb 10.10.10.0/24 \
+             -u $SL/Usernames/top-usernames-shortlist.txt \
+             -p $SL/Passwords/Common-Credentials/top-passwords-shortlist.txt \
+             --no-bruteforce --continue-on-success
+
+# CME — check password policy BEFORE spraying
+nxc smb 10.10.10.10 -u '' -p '' --pass-pol
+```
 
 ### SNMP (UDP 161)
 
@@ -523,7 +551,7 @@ hydra -C $SL/Passwords/Default-Credentials/ftp-betterdefaultpasslist.txt \
 - [[tools/gobuster]]
 - [[tools/ffuf]]
 - [[tools/medusa]]
-- [[tools/crackmapexec]]
+- [[tools/netexec]]
 - [[enumeration/snmp]]
 - [[enumeration/dns]]
 - [[enumeration/ftp]]

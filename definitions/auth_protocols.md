@@ -55,7 +55,7 @@ Authentication mechanisms a pentester encounters — how they work, where they a
 - LDAP null binds or anonymous binds can enumerate domain users, groups, GPOs, and hosts
 - Credential stuffing against LDAP leaks valid usernames via error messages
 - LDAP injection is possible in web apps that construct LDAP queries from user input
-- Tools: `ldapsearch`, `ldapdomaindump`, CrackMapExec LDAP module
+- Tools: `ldapsearch`, `ldapdomaindump`, NetExec LDAP module (`nxc ldap`)
 
 ## Basic Authentication (HTTP)
 

@@ -39,8 +39,9 @@ Tools are organized by primary function. Most tools appear in enumeration or exp
 | [[tools/smbclient]] | Browse shares, download files | Interactive or one-shot |
 | [[tools/enum4linux]] | Users, groups, shares, policies | Wrapper around smbclient + rpcclient |
 | [[tools/rpcclient]] | RPC enumeration, RID brute-force | Best for user/group enumeration |
-| [[tools/crackmapexec]] | Auth testing, pass-the-hash, spray | Multi-protocol (SMB/WinRM/MSSQL) |
+| [[tools/netexec]] | Credential spray, validation, pass-the-hash | Multi-protocol (SMB/WinRM/MSSQL); wrong tool for large-file brute-force |
 | [[tools/impacket]] | Full Windows attack suite | Python; secretsdump, psexec, wmiexec |
+| [[tools/metasploit]] | SMB brute-force, exploitation, post-exploitation | Use smb_login for rockyou-scale attacks; CME for spraying |
 
 ### SNMP enumeration
 
@@ -72,11 +73,17 @@ Tools are organized by primary function. Most tools appear in enumeration or exp
 ```
 Starting enumeration on a host?
   └─ Unknown open ports → [[tools/nmap]] -sV -sC
-  └─ SMB open (445) → [[tools/enum4linux]] then [[tools/crackmapexec]]
+  └─ SMB open (445) → [[tools/enum4linux]] then [[tools/netexec]]
   └─ DNS open (53) → [[tools/dig]] AXFR, then [[tools/dnsenum]]
   └─ SNMP open (161) → [[tools/onesixtyone]] then [[tools/snmpwalk]]
   └─ MSSQL (1433) → [[tools/nmap]] scripts, then [[tools/impacket]] mssqlclient
   └─ Oracle (1521) → [[tools/odat]] sidguesser, then sqlplus
+
+Need to brute-force credentials?
+  └─ SMB, large wordlist (rockyou) → [[tools/metasploit]] smb_login (STOP_ON_SUCCESS)
+  └─ SMB, short list / spray → [[tools/netexec]] (--no-bruteforce --continue-on-success)
+  └─ SSH / FTP / HTTP → [[tools/hydra]] (fastest for non-SMB)
+  └─ Multiple protocols from one tool → [[tools/metasploit]] auxiliary/scanner/*_login
 
 Got a shell, need to escalate (Linux)?
   └─ Start with [[tools/linpeas]] for overview
@@ -88,7 +95,7 @@ Got a shell, need to escalate (Linux)?
 ## Related pages
 
 - [[tools/nmap]]
-- [[tools/crackmapexec]]
+- [[tools/netexec]]
 - [[tools/impacket]]
 - [[tools/linpeas]]
 - [[enumeration/_overview]]

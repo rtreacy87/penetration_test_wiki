@@ -81,7 +81,7 @@ rpcclient$> lsaenumsid                      # Enumerate SIDs
 - [[enumeration/smb]]
 - [[tools/smbclient]]
 - [[tools/enum4linux]]
-- [[tools/crackmapexec]]
+- [[tools/netexec]]
 
 ## Sources
 

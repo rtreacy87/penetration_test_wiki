@@ -67,7 +67,7 @@ smbclient -N -L //10.129.x.x
 ./enum4linux-ng.py 10.129.x.x -A
 
 # Check share permissions
-crackmapexec smb 10.129.x.x --shares -u '' -p ''
+nxc smb 10.129.x.x --shares -u '' -p ''
 
 # Access readable shares
 smbclient -N //10.129.x.x/sharename

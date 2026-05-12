@@ -128,7 +128,7 @@ GetUserSPNs.py domain.local/user:password -dc-ip 10.129.14.128 -request
 - [[enumeration/smb]]
 - [[enumeration/mssql]]
 - [[enumeration/windows_remote_mgmt]]
-- [[tools/crackmapexec]]
+- [[tools/netexec]]
 
 ## Sources
 

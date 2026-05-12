@@ -76,7 +76,7 @@ smb: \> quit              # Exit
 - [[enumeration/smb]]
 - [[tools/enum4linux]]
 - [[tools/rpcclient]]
-- [[tools/crackmapexec]]
+- [[tools/netexec]]
 
 ## Sources
 

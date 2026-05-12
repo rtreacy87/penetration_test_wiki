@@ -179,7 +179,7 @@ msf6> search type:auxiliary name:mssql
 
 - [[enumeration/_overview]]
 - [[tools/impacket]]
-- [[tools/crackmapexec]]
+- [[tools/netexec]]
 
 ## Sources
 

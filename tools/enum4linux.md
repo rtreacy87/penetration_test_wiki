@@ -86,7 +86,7 @@ pip3 install -r requirements.txt
 - [[enumeration/smb]]
 - [[tools/smbclient]]
 - [[tools/rpcclient]]
-- [[tools/crackmapexec]]
+- [[tools/netexec]]
 
 ## Sources
 

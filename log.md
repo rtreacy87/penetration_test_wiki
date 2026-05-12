@@ -1,5 +1,17 @@
 # Wiki Log
 
+## [2026-05-11] update | Expanded attack/sql_databases.md — connecting commands and interactive prompt guide
+Pages updated: 1 (attack/sql_databases.md).
+Key additions: Connecting section rewritten — each tool (mssqlclient.py, sqsh, sqlcmd, mysql) is a separate subsection with flag-by-flag explanations for beginners; mssqlclient.py target format corrected to `user:password@host`. New "Using the SQL prompt" section added explaining the mssqlclient.py (immediate) vs sqsh (batch/GO) execution models, common mistakes (forgetting GO, typing shell commands without xp_cmdshell), sqsh meta-commands, and a first-login checklist (SYSTEM_USER, IS_SRVROLEMEMBER, list databases, switch databases, list tables).
+
+## [2026-05-11] update | Created tools/netexec.md; replaced CrackMapExec with NetExec across wiki
+Pages created: 1 (tools/netexec.md). Pages updated: 16 (enumeration/smb, attack/smb, attack/rdp, attack/sql_databases, enumeration/windows_remote_mgmt, enumeration/mssql, definitions/auth_protocols, labs/htb/footprinting_medium, tools/crackmapexec, tools/_overview, tools/metasploit, tools/responder, tools/enum4linux, tools/impacket, tools/smbclient, tools/rpcclient, wordlists/use_cases, index.md).
+Key additions: netexec.md is a full tool page covering all nxc protocols (SMB/WinRM/MSSQL/LDAP/SSH/RDP/FTP/VNC), enumeration, spraying, PTH, command execution, hash dumping, AS-REP roasting, Kerberoasting, and full flags reference. crackmapexec.md demoted with LEGACY header pointing to netexec. All `crackmapexec smb/winrm/mssql` commands replaced with `nxc smb/winrm/mssql`. All `[[tools/crackmapexec]]` wikilinks replaced with `[[tools/netexec]]` except the legacy page entry in index.md.
+
+## [2026-05-11] update | Added tools/metasploit.md; clarified MSF vs CME for SMB brute-force
+Pages created: 1 (tools/metasploit.md). Pages updated: 4 (tools/crackmapexec, tools/_overview, wordlists/use_cases, index.md).
+Key additions: metasploit.md covers msfconsole module workflow (use/set/run), smb_login/ssh_login/ftp_login brute-force with STOP_ON_SUCCESS, discovery modules, and the MSF vs CME vs Hydra decision table. crackmapexec.md updated with a dedicated "CME vs MSF" section explaining why CME fails for large wordlist brute-force (no stop_on_success, unreliable with 14M-entry files, gzipped rockyou is the most common failure cause). wordlists/use_cases.md SMB section expanded with per-tool guidance and a note diagnosing the gzipped rockyou failure. tools/_overview added a credential brute-force decision subtree.
+
 ## [2026-05-11] update | Added GitHub repo links to wordlist pages; fixed rockyou.txt.gz issue
 Pages updated: 2 (wordlists/_overview, wordlists/use_cases).
 Key additions: Corrected rockyou.txt entry to show it ships as .gz on Kali/Parrot and requires gunzip; added three extraction options (gunzip from apt package, extract from seclists apt package, extract from git clone). Added GitHub links to all wordlist sources — SecLists, PayloadsAllTheThings, FuzzDB, Assetnote (github.com/assetnote/wordlists), Kaonashi, Probable-Wordlists, Rockyou2021, OneRuleToRuleThemAll (NotSoSecure). Added prominent warning callout in use_cases.md about rockyou.txt.gz needing decompression before use. Fixed SecLists table to show rockyou ships as .tar.gz inside SecLists.

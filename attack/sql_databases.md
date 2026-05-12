@@ -4,7 +4,6 @@ module: attacking_common_services
 last_updated: 2026-05-11
 source_count: 2
 ---
-
 # Attacking SQL Databases
 
 SQL attack techniques for MSSQL and MySQL: RCE via xp_cmdshell, file read/write, NTLMv2 hash stealing via xp_dirtree, user impersonation, and lateral movement via linked servers.
@@ -17,19 +16,138 @@ See [[enumeration/mssql]] and [[enumeration/mysql]] for pre-attack enumeration.
 
 ## Connecting
 
+These are separate tools — pick one per session. `mssqlclient.py` (from Impacket) is the preferred Linux client. `sqsh` is an alternative if mssqlclient is unavailable. `sqlcmd` is the native Windows client.
+
+### mssqlclient.py (Impacket) — Linux, preferred
+
 ```bash
-# MSSQL from Linux
-mssqlclient.py -p 1433 julio@10.129.203.7          # SQL auth
-sqsh -S 10.129.203.7 -U julio -P 'MyPassword!' -h   # -h removes headers
+# SQL Server authentication (username + password)
+mssqlclient.py -p 1433 julio:MyPassword!@10.129.203.7
 
-# MSSQL from Windows
+# Windows / domain authentication
+mssqlclient.py -p 1433 -windows-auth DOMAIN/julio:MyPassword!@10.129.203.7
+```
+
+| Flag | What it does |
+|------|-------------|
+| `-p 1433` | Port number. MSSQL defaults to 1433; change this if the server runs on a non-standard port. |
+| `julio:MyPassword!@10.129.203.7` | Target string in the format `username:password@host`. The colon separates the username from the password; the `@` separates credentials from the host IP. |
+| `-windows-auth` | Use Windows/domain authentication instead of SQL Server authentication. Needed when the account is a domain account (DOMAIN\user) rather than a local SQL account. |
+
+Once connected, you get an `SQL>` prompt. Type SQL statements followed by a semicolon, or use `GO` on MSSQL.
+
+### sqsh — Linux, alternative
+
+```bash
+# SQL Server authentication
+sqsh -S 10.129.203.7 -U julio -P 'MyPassword!' -h
+
+# Windows / domain authentication
+sqsh -S 10.129.203.7 -U 'DOMAIN\julio' -P 'MyPassword!' -h
+```
+
+| Flag | What it does |
+|------|-------------|
+| `-S 10.129.203.7` | Server IP or hostname to connect to. |
+| `-U julio` | Username. For domain accounts, include the domain: `DOMAIN\julio`. |
+| `-P 'MyPassword!'` | Password. Wrap in single quotes if it contains special characters. |
+| `-h` | Suppress column headers in query results — cleaner output when scripting. |
+
+### sqlcmd — Windows native client
+
+```bash
 sqlcmd -S SRVMSSQL -U julio -P 'MyPassword!' -y 30 -Y 30
+```
 
-# MySQL from Linux
-mysql -u julio -pPassword123 -h 10.129.20.13
+| Flag | What it does |
+|------|-------------|
+| `-S SRVMSSQL` | Server name or IP. Can also be `IP,port` (e.g., `10.0.0.5,1433`). |
+| `-U julio` | Username. |
+| `-P 'MyPassword!'` | Password. |
+| `-y 30` | Sets the display width for variable-length columns (varchar, nvarchar). Prevents truncation. |
+| `-Y 30` | Sets the display width for fixed-length columns (char, nchar). Same purpose as `-y` but for fixed types. |
 
-# Windows auth on MSSQL (domain account)
-sqsh -S 10.129.203.7 -U DOMAIN\\julio -P 'MyPassword!' -h
+### mysql — MySQL from Linux
+
+```bash
+mysql -u julio -p'Password123' -h 10.129.20.13
+```
+
+| Flag | What it does |
+|------|-------------|
+| `-u julio` | Username. |
+| `-p'Password123'` | Password. No space between `-p` and the password. If you type just `-p`, MySQL will prompt you interactively (more secure for scripts). |
+| `-h 10.129.20.13` | Remote host IP. Without `-h`, MySQL tries to connect to localhost. |
+
+## Using the SQL prompt
+
+The two Linux clients behave differently once you're connected.
+
+### mssqlclient.py — immediate execution
+
+Type a SQL statement and press Enter. Results appear immediately. No `GO` needed.
+
+```
+SQL> SELECT name FROM master.dbo.sysdatabases;
+name
+----
+master
+tempdb
+model
+msdb
+htbdb
+```
+
+### sqsh — batch execution (GO required)
+
+sqsh accumulates lines into a batch. **Nothing executes until you type `GO` on its own line.** The numbered prompts (`1>`, `2>`, `3>`) show you are building up a batch — this is normal.
+
+```
+1> SELECT name FROM master.dbo.sysdatabases
+2> GO          ← executes everything above
+name
+----
+master
+tempdb
+```
+
+Common mistakes:
+- Typing `SELECT ...; GO` on one line — the semicolon ends the statement but `GO` must be a standalone line
+- Typing `whoami` — that is a shell command, not SQL. To run OS commands you need `EXEC xp_cmdshell 'whoami'` (see below)
+- Forgetting `GO` and wondering why nothing happens — type `\reset` to clear the buffer and start over
+
+Useful sqsh meta-commands:
+
+| Command | What it does |
+|---------|-------------|
+| `GO` | Execute the current batch |
+| `\reset` | Discard the current batch without executing |
+| `\quit` | Exit sqsh |
+| `\go` | Same as `GO` (lowercase alias) |
+
+### Checking your access level (do this first)
+
+```sql
+-- Who am I logged in as?
+SELECT SYSTEM_USER;
+GO
+
+-- Am I a sysadmin?
+SELECT IS_SRVROLEMEMBER('sysadmin');
+GO
+-- Returns 1 = yes, 0 = no
+
+-- What databases exist?
+SELECT name FROM master.dbo.sysdatabases;
+GO
+
+-- Switch to a specific database
+USE htbdb;
+GO
+
+-- List tables in the current database
+SELECT table_name FROM INFORMATION_SCHEMA.TABLES;
+GO
 ```
 
 ## Command execution (MSSQL: xp_cmdshell)
@@ -152,12 +270,12 @@ EXECUTE('EXEC xp_cmdshell ''whoami''') AT [10.0.0.12\SQLEXPRESS];
 
 ## Key SQL commands reference
 
-| Task | MySQL | MSSQL |
-|------|-------|-------|
-| List databases | `SHOW DATABASES;` | `SELECT name FROM master.dbo.sysdatabases; GO` |
-| Select database | `USE dbname;` | `USE dbname; GO` |
-| List tables | `SHOW TABLES;` | `SELECT table_name FROM INFORMATION_SCHEMA.TABLES; GO` |
-| Read all rows | `SELECT * FROM table;` | `SELECT * FROM table; GO` |
+| Task            | MySQL                  | MSSQL                                                  |
+| --------------- | ---------------------- | ------------------------------------------------------ |
+| List databases  | `SHOW DATABASES;`      | `SELECT name FROM master.dbo.sysdatabases; GO`         |
+| Select database | `USE dbname;`          | `USE dbname; GO`                                       |
+| List tables     | `SHOW TABLES;`         | `SELECT table_name FROM INFORMATION_SCHEMA.TABLES; GO` |
+| Read all rows   | `SELECT * FROM table;` | `SELECT * FROM table; GO`                              |
 
 ## Gotchas & notes
 
@@ -172,7 +290,7 @@ EXECUTE('EXEC xp_cmdshell ''whoami''') AT [10.0.0.12\SQLEXPRESS];
 - [[enumeration/mssql]]
 - [[enumeration/mysql]]
 - [[tools/impacket]]
-- [[tools/crackmapexec]]
+- [[tools/netexec]]
 - [[tools/responder]]
 - [[attack/smb]] — NTLM relay and hash cracking
 

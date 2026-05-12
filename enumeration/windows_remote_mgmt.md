@@ -130,7 +130,7 @@ Windows version and build information are exposed unauthenticated by multiple pr
 |--------|---------|-----------------|
 | Nmap rdp-ntlm-info | `nmap -p3389 --script rdp-ntlm-info <IP>` | Windows product version, hostname, domain |
 | Nmap smb-os-discovery | `nmap -p445 --script smb-os-discovery <IP>` | OS version + build via SMB negotiation |
-| CrackMapExec | `crackmapexec smb <IP>` | OS version + build number |
+| NetExec | `nxc smb <IP>` | OS version + build number |
 | rdp-sec-check | `./rdp-sec-check.pl <IP>` | Security protocols, NLA requirement, CVE exposure |
 | Nmap rdp-vuln-ms12-020 | `nmap -p3389 --script rdp-vuln-ms12-020 <IP>` | Direct CVE check for MS12-020 DoS |
 | WinRM NTLM probe | `curl -s http://<IP>:5985/wsman` | Windows build in NTLM header |
@@ -192,7 +192,7 @@ msf6> search type:exploit name:winrm
 - [[enumeration/_overview]]
 - [[enumeration/linux_remote_mgmt]]
 - [[enumeration/smb]]
-- [[tools/crackmapexec]]
+- [[tools/netexec]]
 - [[tools/impacket]]
 
 ## Sources

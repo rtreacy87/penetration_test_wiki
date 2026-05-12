@@ -19,16 +19,16 @@ A wordlist is only as good as its match to the target context. Generic lists was
 
 ### Kali Linux
 
-| Collection | Default Path | Install / Notes |
-|------------|-------------|----------------|
-| SecLists | `/usr/share/seclists/` | `sudo apt install seclists` — [github.com/danielmiessler/SecLists](https://github.com/danielmiessler/SecLists) |
-| rockyou.txt | `/usr/share/wordlists/rockyou.txt.gz` | Ships **gzipped** — must run `gunzip /usr/share/wordlists/rockyou.txt.gz` before use |
-| dirbuster lists | `/usr/share/dirbuster/wordlists/` | Pre-installed with dirbuster |
-| dirb lists | `/usr/share/dirb/wordlists/` | Pre-installed with dirb |
-| wfuzz lists | `/usr/share/wfuzz/wordlist/` | Pre-installed with wfuzz |
-| Metasploit wordlists | `/usr/share/metasploit-framework/data/wordlists/` | Pre-installed with Metasploit |
-| John the Ripper | `/usr/share/john/password.lst` | Pre-installed with john |
-| nmap NSE data | `/usr/share/nmap/nselib/data/` | Pre-installed (usernames.lst, passwords.lst) |
+| Collection           | Default Path                                      | Install / Notes                                                                                                |
+| -------------------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| SecLists             | `/usr/share/seclists/`                            | `sudo apt install seclists` — [github.com/danielmiessler/SecLists](https://github.com/danielmiessler/SecLists) |
+| rockyou.txt          | `/usr/share/wordlists/rockyou.txt.gz`             | Ships **gzipped** — must run `gunzip /usr/share/wordlists/rockyou.txt.gz` before use                           |
+| dirbuster lists      | `/usr/share/dirbuster/wordlists/`                 | Pre-installed with dirbuster                                                                                   |
+| dirb lists           | `/usr/share/dirb/wordlists/`                      | Pre-installed with dirb                                                                                        |
+| wfuzz lists          | `/usr/share/wfuzz/wordlist/`                      | Pre-installed with wfuzz                                                                                       |
+| Metasploit wordlists | `/usr/share/metasploit-framework/data/wordlists/` | Pre-installed with Metasploit                                                                                  |
+| John the Ripper      | `/usr/share/john/password.lst`                    | Pre-installed with john                                                                                        |
+| nmap NSE data        | `/usr/share/nmap/nselib/data/`                    | Pre-installed (usernames.lst, passwords.lst)                                                                   |
 
 ### Parrot OS
 
