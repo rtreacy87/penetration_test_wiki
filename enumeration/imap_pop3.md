@@ -163,6 +163,7 @@ msf6> search type:exploit name:imap
 
 - [[enumeration/_overview]]
 - [[enumeration/smtp]]
+- [[labs/htb/attacking_common_services/medium_skill_assessment]] — POP3 brute-force with targeted wordlist → email contains SSH private key → shell access
 
 ## Sources
 

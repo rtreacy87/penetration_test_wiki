@@ -165,6 +165,7 @@ nmap -p445 --script smb-protocols 10.129.14.128
 - [[tools/attack/responder]]
 - [[attack/rdp]] — PTH applies to RDP too
 - [[attack/sql_databases]] — MSSQL can also steal NTLMv2 hashes via xp_dirtree
+- [[labs/htb/attacking_common_services/hard_skill_assessment]] — SMB null session → credential files → NetExec brute-force → RDP → MSSQL linked server pivot
 
 ## Sources
 

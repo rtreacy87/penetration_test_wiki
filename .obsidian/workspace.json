@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "labs/htb/attacking_common_services/easy_skill_assessment.md",
+                "file": "labs/htb/attacking_common_services/hard_skill_assessment.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "easy_skill_assessment"
+              "title": "hard_skill_assessment"
             }
           }
         ]
@@ -182,20 +182,23 @@
   },
   "active": "1e097e1ef8fa2900",
   "lastOpenFiles": [
-    "log.md.tmp.495011.d00563a32af1",
-    "labs/htb/attacking_common_services/easy_skill_assessment.md.tmp.495011.8908981a4339",
-    "labs/htb/attacking_common_services/easy_skill_assessment.md.tmp.495011.4fae3368932b",
-    "labs/htb/attacking_common_services/easy_skill_assessment.md.tmp.495011.4b231e741146",
-    "log.md.tmp.495011.cb57741ab202",
-    "labs/htb/attacking_common_services/easy_skill_assessment.md.tmp.495011.766137b56804",
-    "labs/htb/attacking_common_services/easy_skill_assessment.md.tmp.495011.656664951e5c",
-    "labs/htb/attacking_common_services/easy_skill_assessment.md.tmp.495011.fdc08e4a1e5f",
-    "labs/htb/attacking_common_services/easy_skill_assessment.md.tmp.495011.0a779696a3b5",
-    "labs/htb/attacking_common_services/easy_skill_assessment.md.tmp.495011.533c3d14c972",
-    "wordlists/use_cases.md",
-    "log.md.tmp.495011.5174df19aca0",
-    "labs/htb/attacking_common_services/smtp_user_enumeration_and_mail_access.md",
+    "labs/htb/attacking_common_services/medium_skill_assessment.md",
+    "log.md.tmp.495011.35728d9c775a",
+    "index.md.tmp.495011.23c54ccf5e54",
+    "index.md.tmp.495011.8a6be6c75286",
+    "attack/sql_databases.md.tmp.495011.0b0dcdf08740",
+    "attack/smb.md.tmp.495011.0049d417c987",
+    "labs/htb/attacking_common_services/hard_skill_assessment.md",
+    "labs/htb/attacking_common_services/hard_skill_assessment.md.tmp.495011.24342d1172f8",
+    "raw/lab/attacking_common_services/lab_hard_skill_assessment.md",
     "labs/htb/attacking_common_services/easy_skill_assessment.md",
+    "log.md.tmp.495011.f3f63a60cda1",
+    "index.md.tmp.495011.b0aff2b0b694",
+    "index.md.tmp.495011.679148b3c3a1",
+    "attack/dns.md.tmp.495011.1d78e05c94e7",
+    "raw/lab/attacking_common_services/lab_medium_skill_assessment.md",
+    "wordlists/use_cases.md",
+    "labs/htb/attacking_common_services/smtp_user_enumeration_and_mail_access.md",
     "raw/lab/attacking_common_services/lab_easy_skill_assessment.md",
     "attack/dns.md",
     "tools/enumeration/smtp_user_enum.md",
@@ -214,10 +217,6 @@
     "raw/lab/attacking_common_services/attacking_sql_lab.md",
     "tools/utility/xfreerdp.md",
     "tools/X.md",
-    "attack/rdp.md",
-    "raw/lab/attacking_rpd_lab.md",
-    "tools/utility/rdesktop.md",
-    "shell_commands/bash.md",
     "Untitled.canvas"
   ]
 }

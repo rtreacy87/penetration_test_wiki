@@ -124,6 +124,7 @@ dns.spoof on
 - [[tools/enumeration/subbrute]] — subdomain brute-force with custom resolver; use for internal/HTB domains
 - [[recon/osint/domain_information]]
 - [[labs/htb/attacking_common_services/dns_subdomain_enumeration_and_zone_transfer]] — subbrute + AXFR lab walkthrough
+- [[labs/htb/attacking_common_services/medium_skill_assessment]] — AXFR reveals internal FTP vHost as pivot point for full attack chain
 
 ## Sources
 

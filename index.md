@@ -1,6 +1,6 @@
 # Wiki Index
 
-_Last updated: 2026-05-12 — 99 pages total_
+_Last updated: 2026-05-12 — 101 pages total_
 
 ---
 
@@ -165,5 +165,7 @@ _Last updated: 2026-05-12 — 99 pages total_
 - [[labs/htb/attacking_common_services/dns_subdomain_enumeration_and_zone_transfer]] — subbrute against target nameserver → discover hr/helpdesk/ns subdomains → AXFR hr.inlanefreight.htb → TXT flag. `lab`
 - [[labs/htb/attacking_common_services/smtp_user_enumeration_and_mail_access]] — smtp-user-enum RCPT mode finds marlin → Hydra cracks SMTP auth → IMAP telnet reads flag from inbox. `lab`
 - [[labs/htb/attacking_common_services/easy_skill_assessment]] — Multi-service chain: SMTP enum → FTP brute (fiona) → Path A: CoreFTP CVE-2022-22836 PUT traversal → PHP webshell; Path B: MySQL OUTFILE → PHP webshell → RCE flag. `lab`
+- [[labs/htb/attacking_common_services/medium_skill_assessment]] — DNS AXFR → internal FTP vHost (port 30021) → anonymous login → password list → POP3 brute → email with SSH key → shell. `lab`
+- [[labs/htb/attacking_common_services/hard_skill_assessment]] — SMB null session → IT department files → NetExec brute Fiona → RDP → SQLCMD IMPERSONATE john → linked server → xp_cmdshell → Administrator flag. `lab`
 - [[labs/htb/attacking_common_services/mssql_hash_theft_and_db_enumeration]] — xp_dirtree NTLMv2 hash theft → crack mssqlsvc password → flagDB schema walk → encrypted admin credential → flag. `lab`
 - [[labs/htb/attacking_common_services/rdp_pass_the_hash]] — xfreerdp initial access → find NTLM hash → enable DisableRestrictedAdmin → PTH as Administrator → flag. `lab`

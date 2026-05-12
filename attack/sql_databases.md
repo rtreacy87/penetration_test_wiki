@@ -295,6 +295,7 @@ EXECUTE('EXEC xp_cmdshell ''whoami''') AT [10.0.0.12\SQLEXPRESS];
 - [[attack/smb]] — NTLM relay and hash cracking
 - [[labs/htb/attacking_common_services/mssql_hash_theft_and_db_enumeration]] — full walkthrough: xp_dirtree NTLMv2 theft → crack mssqlsvc password → flagDB schema enumeration → flag
 - [[labs/htb/attacking_common_services/easy_skill_assessment]] — MySQL OUTFILE webshell drop into XAMPP htdocs → RCE (parallel path alongside CoreFTP CVE-2022-22836)
+- [[labs/htb/attacking_common_services/hard_skill_assessment]] — IMPERSONATE john → linked server pivot → enable xp_cmdshell on remote instance → Administrator flag
 
 ## Sources
 
