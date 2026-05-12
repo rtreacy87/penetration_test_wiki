@@ -111,6 +111,44 @@ QUIT
 | `CAPA` | Show server capabilities |
 | `QUIT` | End session |
 
+## Version Detection & Exploit Research
+
+IMAP/POP3 banners expose the server software (Dovecot, Cyrus, Exchange) and version at connection time. The TLS certificate provides additional infrastructure intelligence. These services have had critical pre-authentication RCE vulnerabilities, making version identification essential before moving to authenticated enumeration.
+
+### Extracting Version Information
+
+| Method | Command | What It Reveals |
+|--------|---------|-----------------|
+| Nmap scan | `nmap -sV -p110,143,993,995 -sC <IP>` | Software, version, capabilities |
+| IMAP banner (plaintext) | `nc -nv <IP> 143` | `* OK Dovecot ready` — software + version |
+| POP3 banner (plaintext) | `nc -nv <IP> 110` | `+OK Dovecot ready` |
+| IMAP TLS banner | `openssl s_client -connect <IP>:imaps` | Version string in OK line + cert details |
+| POP3 TLS banner | `openssl s_client -connect <IP>:pop3s` | Version string + cert details |
+| IMAP CAPABILITY | Send `1 CAPABILITY` after connecting | Auth methods, extensions, implementation hints |
+
+### Searching for Exploits
+
+```bash
+# Searchsploit
+searchsploit dovecot
+searchsploit cyrus imap
+searchsploit exchange imap
+
+# Metasploit
+msf6> search type:exploit name:dovecot
+msf6> search type:exploit name:imap
+```
+
+### Notable CVEs
+
+| CVE | Software / Version | Impact |
+|-----|-------------------|--------|
+| CVE-2019-11500 | Dovecot < 2.3.7.2 | Pre-auth heap buffer overflow via IMAP/ManageSieve — RCE |
+| CVE-2017-15132 | Dovecot < 2.2.34 | Memory leak in login process — info disclosure |
+| CVE-2019-18928 | Cyrus IMAP < 2.5.15 | HTTP/2 via IMAP PROXY — auth bypass |
+| CVE-2021-26855 | Exchange Server 2013–2019 | SSRF pre-auth (ProxyLogon chain) — RCE |
+| CVE-2021-27065 | Exchange Server 2013–2019 | Post-auth file write (ProxyLogon chain) — RCE |
+
 ## Gotchas & Notes
 
 - **SSL certificates reveal infrastructure**: The common name (CN) and Subject Alternative Names in the certificate expose hostnames, email addresses, and organizational structure. Always capture this.

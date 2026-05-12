@@ -120,6 +120,62 @@ wmiexec.py -hashes :NTHASH Administrator@10.129.201.248 "cmd.exe /c whoami"
 | `-c <cert>` | SSL certificate |
 | `-k <key>` | SSL private key |
 
+## Version Detection & Exploit Research
+
+Windows version and build information are exposed unauthenticated by multiple protocols: RDP's NTLM negotiation, WinRM's NTLM endpoint, and SMB's negotiation all return the Windows OS version and build number before authentication. The build number maps directly to specific Windows releases and patch levels, which determines which CVEs are applicable. RDP in particular has produced critical unauthenticated RCE vulnerabilities (BlueKeep, DejaBlue) that require network access only.
+
+### Extracting Version Information
+
+| Method | Command | What It Reveals |
+|--------|---------|-----------------|
+| Nmap rdp-ntlm-info | `nmap -p3389 --script rdp-ntlm-info <IP>` | Windows product version, hostname, domain |
+| Nmap smb-os-discovery | `nmap -p445 --script smb-os-discovery <IP>` | OS version + build via SMB negotiation |
+| CrackMapExec | `crackmapexec smb <IP>` | OS version + build number |
+| rdp-sec-check | `./rdp-sec-check.pl <IP>` | Security protocols, NLA requirement, CVE exposure |
+| Nmap rdp-vuln-ms12-020 | `nmap -p3389 --script rdp-vuln-ms12-020 <IP>` | Direct CVE check for MS12-020 DoS |
+| WinRM NTLM probe | `curl -s http://<IP>:5985/wsman` | Windows build in NTLM header |
+
+**Windows build number to release mapping:**
+
+| Build | Release |
+|-------|---------|
+| 7601 | Windows 7 SP1 / Server 2008 R2 SP1 |
+| 9200 | Windows 8 / Server 2012 |
+| 9600 | Windows 8.1 / Server 2012 R2 |
+| 10240 | Windows 10 1507 |
+| 14393 | Windows 10 1607 / Server 2016 |
+| 17763 | Windows 10 1809 / Server 2019 |
+| 19041 | Windows 10 2004 |
+| 20348 | Server 2022 |
+| 22000+ | Windows 11 |
+
+### Searching for Exploits
+
+```bash
+# Searchsploit
+searchsploit rdp
+searchsploit winrm
+searchsploit "ms12-020"
+searchsploit bluekeep
+
+# Metasploit — RDP CVE modules
+msf6> use auxiliary/scanner/rdp/cve_2019_0708_bluekeep   # BlueKeep check
+msf6> use exploit/windows/rdp/cve_2019_0708_bluekeep_rce
+msf6> search type:exploit name:rdp
+msf6> search type:exploit name:winrm
+```
+
+### Notable CVEs
+
+| CVE | Affected OS | Impact |
+|-----|------------|--------|
+| CVE-2019-0708 (BlueKeep) | Windows 7, Server 2008/2008 R2 (no patch) | Unauthenticated RCE via RDP pre-auth — SYSTEM level |
+| CVE-2019-1181/1182 (DejaBlue) | Windows 8.1, 10, Server 2012+ | Unauthenticated RCE via RDP — SYSTEM level |
+| CVE-2012-0002 (MS12-020) | Windows XP–7, Server 2003–2008 R2 | Unauthenticated DoS (and potential RCE) via RDP |
+| CVE-2021-34527 (PrintNightmare) | All Windows with Spooler | Authenticated RCE / LPE — trivial to exploit |
+| CVE-2021-26857 | Exchange (WinRM-related) | SYSTEM-level deserialization via UM service |
+| CVE-2021-38647 (OMIGOD) | Azure Linux VMs with OMI | Unauthenticated RCE via WinRM-equivalent port 5985 on Linux |
+
 ## Gotchas & Notes
 
 - **NLA fingerprinting**: `CredSSP (NLA): SUCCESS` in nmap output means NLA is required — credentials must be valid before the full desktop session starts. This prevents the traditional credential brute-force via RDP login screen.

@@ -114,6 +114,58 @@ braa <community_string>@<IP>:<OID_prefix>
 | `-t <seconds>` | Timeout |
 | `-w <milliseconds>` | Wait between requests |
 
+## Version Detection & Exploit Research
+
+SNMP is unique: the protocol version is chosen by the client during the request, and the community string acts as the access token. Once a community string is known, the MIB tree itself reveals the OS version, kernel, installed packages, and running processes — SNMP is often a better inventory source than the OS itself. The SNMP agent version matters less than the software it runs on (the underlying OS/network device), which is what the MIB data reveals.
+
+### Extracting Version Information
+
+| Method | Command | What It Reveals |
+|--------|---------|-----------------|
+| Nmap SNMP scan | `nmap -sU -sV -p161 <IP>` | SNMP version support, community string probe |
+| System description OID | `snmpwalk -v2c -c public <IP> .1.3.6.1.2.1.1.1.0` | Full sysDescr — OS, kernel version, hardware |
+| Installed software | `snmpwalk -v2c -c public <IP> .1.3.6.1.2.1.25.6.3.1.2` | All installed package names and versions |
+| Running processes | `snmpwalk -v2c -c public <IP> .1.3.6.1.2.1.25.4.2.1.2` | All running process names |
+| System OID tree | `snmpwalk -v2c -c public <IP> .1.3.6.1.2.1.1` | Hostname, OS, uptime, contact, location |
+| Nmap SNMP scripts | `nmap -sU -p161 --script snmp-info,snmp-sysdescr <IP>` | System description + info without full walk |
+
+**Key OIDs for version detection:**
+
+| OID | Description |
+|-----|-------------|
+| `.1.3.6.1.2.1.1.1.0` | `sysDescr` — OS, kernel, hardware model |
+| `.1.3.6.1.2.1.1.2.0` | `sysObjectID` — vendor-specific OID tree identifier |
+| `.1.3.6.1.2.1.25.6.3.1.2` | `hrSWInstalledName` — installed software list |
+| `.1.3.6.1.4.1.9.2.1.3` | Cisco IOS version (Cisco-specific) |
+
+### Searching for Exploits
+
+```bash
+# Once sysDescr reveals OS/software:
+searchsploit <software> <version>
+
+# SNMP agent vulnerabilities
+searchsploit snmp
+searchsploit net-snmp
+
+# For network devices:
+searchsploit cisco ios <version>
+searchsploit juniper <version>
+
+# Metasploit
+msf6> search type:exploit name:snmp
+```
+
+### Notable CVEs
+
+| CVE | Affected | Impact |
+|-----|----------|--------|
+| CVE-2017-6736 | Cisco IOS (multiple) | SNMP RCE — crafted SNMP packet triggers buffer overflow; no auth beyond community string |
+| CVE-2017-6738 | Cisco IOS XE | SNMP buffer overflow — RCE via SNMP request |
+| CVE-2002-0013 | net-snmp < 5.0 | SNMPv1 parsing RCE — unauthenticated |
+| CVE-2002-0012 | Multiple vendors | SNMPv1 trap handling heap overflow |
+| `public` community (misconfiguration) | Any SNMPv1/v2c | Full MIB read access — OS version, network topology, credentials in config OIDs |
+
 ## Gotchas & Notes
 
 - **UDP**: SNMP runs over UDP — nmap needs `-sU` for discovery. Standard `-sV` scans miss it.

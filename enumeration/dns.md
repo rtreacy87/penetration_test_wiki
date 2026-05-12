@@ -120,6 +120,41 @@ host -l inlanefreight.htb ns.inlanefreight.htb  # zone transfer attempt
 | `-o <file>` | Output file |
 | `-f <wordlist>` | Wordlist for brute-force |
 
+## Version Detection & Exploit Research
+
+The DNS server software and version are rarely exposed directly, but BIND (the most common authoritative nameserver) supports a special chaos-class TXT record that returns the version string. This is the primary pre-authentication fingerprint. Version information narrows the search space for known BIND vulnerabilities significantly.
+
+### Extracting Version Information
+
+| Method | Command | What It Reveals |
+|--------|---------|-----------------|
+| BIND version query | `dig CH TXT version.bind <IP>` | BIND version string (e.g., `9.16.1-Ubuntu`) |
+| SOA record | `dig SOA <domain> @<IP>` | Authoritative NS + admin email |
+| NSE script | `nmap -p53 --script dns-nsid <IP>` | Nameserver ID, version (if disclosed) |
+| nmap service scan | `nmap -sV -p53 <IP>` | Software and version from banner |
+
+### Searching for Exploits
+
+```bash
+# Searchsploit — offline ExploitDB search
+searchsploit bind 9
+searchsploit named
+
+# Metasploit — search for DNS modules
+msf6> search type:exploit name:bind
+msf6> search type:exploit name:named
+```
+
+### Notable CVEs
+
+| CVE | Affected Versions | Impact |
+|-----|------------------|--------|
+| CVE-2021-25214 | BIND 9.16.x < 9.16.11 | Assertion failure / crash (DoS) |
+| CVE-2020-8617 | BIND 9.x < 9.11.19 / 9.16.3 | Assertion failure via TSIG records (DoS) |
+| CVE-2020-8616 | BIND 9.x < 9.11.19 | NXNSAttack DNS amplification |
+| CVE-2016-2776 | BIND 9.x < 9.9.9-P3 | Crafted query causes crash (DoS) |
+| CVE-2008-1447 | All DNS resolvers (Kaminsky) | Cache poisoning via birthday attack |
+
 ## Gotchas & Notes
 
 - Zone transfers succeed silently — if the server allows them, dig returns all records with no error. Always attempt AXFR on any open DNS server.

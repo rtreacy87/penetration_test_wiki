@@ -137,6 +137,54 @@ samrdump.py 10.129.14.128
 | `-P` | Password policy |
 | `-N` | NetBIOS names |
 
+## Version Detection & Exploit Research
+
+SMB version and OS information are exposed unauthenticated via the SMB negotiation handshake. Nmap's `smb-os-discovery` and `smb2-security-mode` scripts, as well as CrackMapExec and Metasploit's `smb_version` module, all extract this without credentials. SMB has produced some of the most critical CVEs in Windows history — EternalBlue and BlueKeep both required only network access and produced SYSTEM-level RCE. Version detection is mandatory before moving to exploitation.
+
+### Extracting Version Information
+
+| Method | Command | What It Reveals |
+|--------|---------|-----------------|
+| Nmap smb-os-discovery | `nmap -p445 --script smb-os-discovery <IP>` | OS, domain, SMB dialect, hostname |
+| Nmap smb2-security-mode | `nmap -p445 --script smb2-security-mode <IP>` | SMB2/3 negotiation + signing required flag |
+| CrackMapExec | `crackmapexec smb <IP>` | OS version, SMB signing, domain, hostname |
+| Metasploit smb_version | `use auxiliary/scanner/smb/smb_version` | OS + SMB version details |
+| Nmap all smb scripts | `nmap -p139,445 --script smb-vuln* <IP>` | Direct CVE checks (EternalBlue, MS08-067, etc.) |
+| rpcclient srvinfo | `rpcclient -U "" <IP> -c srvinfo` | Server type flags, OS version string |
+
+**What CrackMapExec output reveals:**
+`SMB  10.10.10.100  445  WS01  [*] Windows 10.0 Build 19041 x64 (name:WS01) (domain:CORP) (signing:False) (SMBv1:False)`
+- `Windows 10.0 Build 19041` → map to Windows version and patch level
+- `signing:False` → relay attacks possible (Responder + ntlmrelayx)
+- `SMBv1:True` → EternalBlue likely applicable
+
+### Searching for Exploits
+
+```bash
+# Searchsploit
+searchsploit smb
+searchsploit samba
+searchsploit "ms17-010"    # EternalBlue
+searchsploit "ms08-067"    # NetAPI
+
+# Metasploit — direct CVE checks
+msf6> use auxiliary/scanner/smb/smb_ms17_010   # EternalBlue check
+msf6> use exploit/windows/smb/ms17_010_eternalblue
+msf6> use exploit/windows/smb/ms08_067_netapi
+msf6> search type:exploit name:smb
+```
+
+### Notable CVEs
+
+| CVE / MS Bulletin | Affected OS | Impact |
+|-------------------|------------|--------|
+| CVE-2017-0144 (MS17-010, EternalBlue) | Windows 7, Server 2008/2012 (unpatched) | Unauthenticated RCE via SMBv1 — SYSTEM level |
+| CVE-2008-4250 (MS08-067) | Windows XP, 2000, 2003, Vista, 2008 | Unauthenticated RCE via NetAPI — SYSTEM level |
+| CVE-2020-0796 (SMBGhost) | Windows 10 1903/1909, Server 1903/1909 | SMBv3 compression overflow — unauthenticated RCE |
+| CVE-2021-34527 (PrintNightmare) | All Windows with Print Spooler | Auth'd RCE/LPE via spooler service |
+| CVE-2017-7494 (SambaCry) | Samba 3.5.0–4.6.4 | Unauthenticated RCE via writable share |
+| CVE-2021-44142 | Samba < 4.13.17 | Heap buffer overflow in vfs_fruit — RCE as root |
+
 ## Gotchas & Notes
 
 - **Use multiple tools**: rpcclient, smbclient, smbmap, enum4linux-ng, and crackmapexec each return different information. Do not rely on a single tool.

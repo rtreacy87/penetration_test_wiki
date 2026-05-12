@@ -121,6 +121,48 @@ MySQL> select host, unique_users from sys.host_summary;
 | `-P <port>` | Port (default 3306) |
 | `-e "<query>"` | Execute query non-interactively |
 
+## Version Detection & Exploit Research
+
+MySQL exposes its version in the initial connection banner (pre-authentication) as part of the server greeting packet. `nmap -sV` and the `mysql-info` NSE script both retrieve it without credentials. The version determines applicable CVEs — MySQL and MariaDB have separate version tracks and separate CVE histories despite near-identical syntax.
+
+### Extracting Version Information
+
+| Method | Command | What It Reveals |
+|--------|---------|-----------------|
+| Nmap service scan | `nmap -sV -p3306 <IP>` | `MySQL 5.7.32` or similar from banner |
+| Nmap mysql-info | `nmap -p3306 --script mysql-info <IP>` | Full banner + auth plugin + capabilities |
+| SQL query (authenticated) | `SELECT @@version;` | Full version string |
+| SQL query (authenticated) | `SELECT @@version_compile_os;` | OS the server was compiled for |
+| SQL query (authenticated) | `SHOW VARIABLES LIKE '%version%';` | All version-related variables |
+
+**MySQL vs MariaDB version strings:**
+- `5.7.32-0ubuntu0.18.04.1` → MySQL 5.7 on Ubuntu
+- `8.0.28-0ubuntu0.20.04.3` → MySQL 8.0
+- `10.6.12-MariaDB` → MariaDB (separate CVE track from MySQL)
+
+### Searching for Exploits
+
+```bash
+# Searchsploit
+searchsploit mysql
+searchsploit mysql 5.7
+searchsploit mariadb
+
+# Metasploit
+msf6> search type:exploit name:mysql
+msf6> search type:auxiliary name:mysql
+```
+
+### Notable CVEs
+
+| CVE | Affected Versions | Impact |
+|-----|------------------|--------|
+| CVE-2012-2122 | MySQL 5.1.x, 5.5.x < 5.5.24 | Authentication bypass — repeated login attempts occasionally succeed due to memcmp flaw |
+| CVE-2016-6662 | MySQL 5.5.x < 5.5.52, 5.6.x < 5.6.33, 5.7.x < 5.7.15 | Authenticated RCE via my.cnf injection |
+| CVE-2016-6663 | MySQL, MariaDB (multiple) | Local privilege escalation via race condition in mysqld_safe |
+| CVE-2021-27928 | MariaDB < 10.5.9 | RCE via `wsrep_provider` — requires authenticated access |
+| CVE-2023-21980 | MySQL 8.0.x < 8.0.33 | Unauthenticated RCE via MySQL X Protocol |
+
 ## Gotchas & Notes
 
 - **No space between `-p` and password**: `mysql -u root -pP4SSw0rd` is correct; `mysql -u root -p P4SSw0rd` prompts interactively.

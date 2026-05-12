@@ -1,5 +1,9 @@
 # Wiki Log
 
+## [2026-05-11] update | Added Version Detection & Exploit Research sections to all enumeration pages
+Pages updated: 13 (dns, ftp, imap_pop3, ipmi, linux_remote_mgmt, mssql, mysql, nfs, oracle_tns, smb, smtp, snmp, windows_remote_mgmt).
+Key additions: Each page now has a dedicated "Version Detection & Exploit Research" section covering: how to extract the version/banner pre-authentication, a table of version-detection commands, searchsploit/Metasploit search syntax, and a Notable CVEs table with CVE numbers, affected versions, and impact. Highlights include BlueKeep/DejaBlue (RDP), EternalBlue/SMBGhost/SambaCry (SMB), regreSSHion CVE-2024-6387 (SSH), OpenSMTPD CVE-2020-7247 (SMTP), Exim CVE-2019-10149 (SMTP), vsFTPd backdoor CVE-2011-2523 (FTP), MySQL CVE-2012-2122 auth bypass, TNS Poison CVE-2012-1675 (Oracle), IPMI RAKP design flaw.
+
 ## [2026-05-11] structure | Added definitions/, shell_commands/, ports/ sections
 Pages created: 10 (definitions/_overview, network_protocols, tcp_flags, auth_protocols, security_terminology; ports/common_ports; shell_commands/bash, cmd, powershell). Pages updated: 3 (CLAUDE.md schema, index.md, log.md).
 Key additions: TCP/UDP/ICMP/SCTP/ARP/QUIC reference with pentester context; TCP flag → scan-type inference table; NTLM/Kerberos/OAuth/SAML/JWT attack paths; CVE/CVSS/RCE/LFI/SSRF/XSS/SSTI terminology; 80+ port quick-reference table with pentester interest column; bash/cmd/PowerShell command sheets covering enum, file transfer, cred hunting, reverse shells, lateral movement.

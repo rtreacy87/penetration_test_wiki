@@ -115,6 +115,57 @@ SQL> EXEC sp_linkedservers
 | `-windows-auth` | Use Windows authentication |
 | `-port <N>` | Non-standard port |
 
+## Version Detection & Exploit Research
+
+MSSQL version information is exposed unauthenticated via the TDS protocol — nmap's `ms-sql-info` and `ms-sql-ntlm-info` scripts retrieve the exact product version and edition without credentials. The version maps to a specific SQL Server release year and service pack level, which determines applicable CVEs. Critical: MSSQL patch levels are tracked separately from Windows patch levels on the same host.
+
+### Extracting Version Information
+
+| Method | Command | What It Reveals |
+|--------|---------|-----------------|
+| Nmap ms-sql-info | `nmap -p1433 --script ms-sql-info <IP>` | Version, instance name, named pipe path |
+| Nmap ms-sql-ntlm-info | `nmap -p1433 --script ms-sql-ntlm-info <IP>` | Product version, hostname, domain (no auth needed) |
+| Metasploit mssql_ping | `use auxiliary/scanner/mssql/mssql_ping` | Instance name, version, port, named pipe |
+| SQL query (authenticated) | `SELECT @@VERSION` | Full version string with build number |
+| SQL query (authenticated) | `SELECT SERVERPROPERTY('ProductVersion')` | Clean version number (e.g., `15.0.2000.5`) |
+
+**MSSQL version number to product mapping:**
+
+| Version String | Product |
+|----------------|---------|
+| `8.0.x` | SQL Server 2000 |
+| `9.0.x` | SQL Server 2005 |
+| `10.0.x` | SQL Server 2008 |
+| `10.50.x` | SQL Server 2008 R2 |
+| `11.0.x` | SQL Server 2012 |
+| `12.0.x` | SQL Server 2014 |
+| `13.0.x` | SQL Server 2016 |
+| `14.0.x` | SQL Server 2017 |
+| `15.0.x` | SQL Server 2019 |
+| `16.0.x` | SQL Server 2022 |
+
+### Searching for Exploits
+
+```bash
+# Searchsploit
+searchsploit mssql
+searchsploit "sql server"
+searchsploit microsoft sql
+
+# Metasploit
+msf6> search type:exploit name:mssql
+msf6> search type:auxiliary name:mssql
+```
+
+### Notable CVEs
+
+| CVE | Affected Versions | Impact |
+|-----|------------------|--------|
+| CVE-2000-1209 | SQL Server 7.0/2000 | Blank `sa` password enabled by default — direct sysadmin access |
+| CVE-2020-0618 | SQL Server 2012–2019 (various builds) | RCE via SQL Server Reporting Services — auth required |
+| CVE-2019-1068 | SQL Server 2016/2017 | Remote code execution via full-text search |
+| CVE-2012-1856 | SQL Server 2000–2008 R2 | TabStrip ActiveX buffer overflow |
+
 ## Gotchas & Notes
 
 - **Named pipes** appear in nmap output as `\\HOST\pipe\sql\query`. Named pipes are an alternative connection path that may bypass firewall rules. Also useful for relay attacks.

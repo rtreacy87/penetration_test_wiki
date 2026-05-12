@@ -115,6 +115,53 @@ CONNECT 10.129.14.128:25 HTTP/1.0
 | 530 | Authentication required |
 | 550 | User does not exist |
 
+## Version Detection & Exploit Research
+
+The SMTP 220 banner is transmitted immediately upon connection and almost universally identifies the MTA software and version. This is pre-authentication, requiring no credentials. The MTA software (Postfix, Sendmail, Exim, Exchange, OpenSMTPD) determines the CVE search space — each has its own vulnerability history and the version string narrows it to specific bugs.
+
+### Extracting Version Information
+
+| Method | Command | What It Reveals |
+|--------|---------|-----------------|
+| Banner grab (netcat) | `nc -nv <IP> 25` | `220 mail.example.com ESMTP Postfix (Ubuntu)` |
+| Banner grab (telnet) | `telnet <IP> 25` | Full 220 banner with software + version |
+| Nmap smtp-commands | `nmap -p25 --script smtp-commands <IP>` | EHLO response — capabilities + server name |
+| Nmap smtp-ntlm-info | `nmap -p25 --script smtp-ntlm-info <IP>` | Windows hostname + domain (Exchange) |
+| EHLO command | Connect, then send `EHLO test` | Extensions list reveals auth methods, size limits, STARTTLS |
+| Nmap service scan | `nmap -sV -p25,465,587 <IP>` | Full version string from service probe |
+
+**Common banner formats:**
+- `220 mail.corp.com ESMTP Postfix` → Postfix (version rarely in banner)
+- `220 mx.corp.com ESMTP Sendmail 8.15.2/8.15.2` → Sendmail with version
+- `220 mail.corp.com ESMTP Exim 4.95 ...` → Exim with version (critical to note)
+- `220 CORP-EXCH01 Microsoft ESMTP MAIL Service` → Exchange
+
+### Searching for Exploits
+
+```bash
+# Searchsploit
+searchsploit postfix
+searchsploit exim
+searchsploit sendmail
+searchsploit opensmtpd
+searchsploit "exchange smtp"
+
+# Metasploit
+msf6> search type:exploit name:smtp
+msf6> search type:exploit name:exim
+msf6> search cve:2020-7247
+```
+
+### Notable CVEs
+
+| CVE | Software / Version | Impact |
+|-----|-------------------|--------|
+| CVE-2020-7247 | OpenSMTPD < 6.6.2 | Unauthenticated RCE as root via malformed MAIL FROM |
+| CVE-2019-10149 | Exim < 4.92.1 | Unauthenticated RCE via RCPT TO address parsing (The Return of the WIZard) |
+| CVE-2021-27928 | Exim < 4.94.2 | Remote code execution via SPA/NTLM auth (auth required) |
+| CVE-2014-3566 | Sendmail + SSLv3 | POODLE — decrypt TLS via SSLv3 fallback |
+| CVE-2021-26855 | Exchange 2013–2019 | SSRF pre-auth (ProxyLogon) — leads to arbitrary code execution |
+
 ## Gotchas & Notes
 
 - **VRFY returning 252 for every input** is a common misconfiguration trap. The server is configured to acknowledge without verifying. Look for `550` (definitively doesn't exist) or `250` (definitively exists) for reliable results.

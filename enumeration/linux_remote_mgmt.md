@@ -130,6 +130,52 @@ rusers -al 10.0.17.5
 | `--list-only` | List files without downloading |
 | `-e ssh` | Use SSH transport |
 
+## Version Detection & Exploit Research
+
+SSH banners are the most reliable unauthenticated version source on Linux systems — the OpenSSH version string is transmitted in plaintext before any key exchange. Rsync daemon banners similarly identify protocol versions. R-services have no meaningful versioning but their presence alone is a finding.
+
+### Extracting Version Information
+
+| Method | Command | What It Reveals |
+|--------|---------|-----------------|
+| SSH banner | `nc -nv <IP> 22` | `SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.5` — full version + OS |
+| Nmap service | `nmap -sV -p22 <IP>` | OpenSSH version + OS hints |
+| ssh-audit | `ssh-audit.py <IP>` | Algorithm support, known-weak ciphers, CVE flags |
+| Rsync banner | `nc -nv <IP> 873` | `@RSYNCD: 31.0` — protocol version |
+| Nmap SSH scripts | `nmap -p22 --script ssh2-enum-algos,ssh-auth-methods <IP>` | Supported algorithms + enabled auth methods |
+
+**Parse the SSH banner:** `SSH-<protocol>-<software>_<version> <OS-info>`
+- `SSH-2.0-OpenSSH_7.2p1` → look for CVEs affecting OpenSSH 7.2.x
+- `SSH-2.0-OpenSSH_8.9p1` → relatively recent; still check release notes
+- `SSH-1.99-OpenSSH_...` → server accepts SSHv1 — flag this
+
+### Searching for Exploits
+
+```bash
+# Searchsploit
+searchsploit openssh
+searchsploit openssh 7.2    # version-specific
+searchsploit rsync
+
+# Metasploit
+msf6> search type:exploit name:openssh
+msf6> search type:auxiliary name:ssh
+
+# CVE lookup by version
+# https://nvd.nist.gov/products/cpe/search — search for cpe:openssh
+```
+
+### Notable CVEs
+
+| CVE | Affected Versions | Impact |
+|-----|------------------|--------|
+| CVE-2024-6387 (regreSSHion) | OpenSSH < 4.4p1 and 8.5p1–9.8p1 | Signal handler race condition — unauthenticated RCE as root |
+| CVE-2023-38408 | OpenSSH < 9.3p2 | ssh-agent remote code execution via forwarded agent |
+| CVE-2016-0777 | OpenSSH 5.4–7.1 | Roaming feature leaks private key material to attacker-controlled server |
+| CVE-2016-3115 | OpenSSH 7.2p1 | X11 forwarding command injection |
+| CVE-2018-15473 | OpenSSH < 7.7 | Username enumeration via timing side-channel |
+| CVE-2021-41617 | OpenSSH < 8.8 | Privilege escalation via supplemental group inheritance |
+
 ## Gotchas & Notes
 
 - **SSH-1 vs SSH-2**: If the banner shows `SSH-1.99`, the server accepts both protocol versions. SSH-1 is vulnerable to MITM. Flag this.

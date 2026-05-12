@@ -140,6 +140,47 @@ curl -X GET http://10.129.204.235/testing.txt
 | `privesc` | Check privilege escalation paths |
 | `stealremotepwds` | Credential stealing |
 
+## Version Detection & Exploit Research
+
+Oracle TNS Listener version information is available unauthenticated via the `VERSION` service request. The listener returns a version string that maps to a specific Oracle Database release (major version + PSU/CPU patch level). Oracle patch cycles are quarterly; unpatched Oracle installations frequently have critical CVEs. The version also determines which ODAT modules are applicable.
+
+### Extracting Version Information
+
+| Method | Command | What It Reveals |
+|--------|---------|-----------------|
+| Nmap service scan | `nmap -sV -p1521 <IP>` | TNS listener version string |
+| Nmap oracle-tns-version | `nmap -p1521 --script oracle-tns-version <IP>` | Detailed listener version |
+| ODAT all modules | `./odat.py all -s <IP>` | Version + SID list + available attack paths |
+| SQL query (authenticated) | `SELECT * FROM v$version;` | Full Oracle DB version + edition |
+| SQL query (authenticated) | `SELECT banner FROM v$version WHERE banner LIKE 'Oracle%';` | Oracle product version string |
+
+**Oracle version string format:** `Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production`
+- Major: 11g, 12c, 18c, 19c, 21c
+- Patch: PSU (Patch Set Update) or CPU (Critical Patch Update) number — critical for CVE scoping
+
+### Searching for Exploits
+
+```bash
+# Searchsploit
+searchsploit oracle
+searchsploit "oracle tns"
+searchsploit "oracle database"
+
+# Metasploit
+msf6> search type:exploit name:oracle
+msf6> search type:auxiliary name:oracle
+```
+
+### Notable CVEs
+
+| CVE | Affected Versions | Impact |
+|-----|------------------|--------|
+| CVE-2012-1675 | Oracle 11.1–11.2, 10.2 | TNS Poison — MITM attack via listener registration; no auth required |
+| CVE-2009-1979 | Oracle 10g, 11g | TNS Listener command injection — unauthenticated RCE via EXTPROC |
+| CVE-2022-21500 | Oracle Database 19c–21c | Pre-auth information disclosure via web-based console |
+| CVE-2010-0886 | Oracle JRE (bundled) | JNLP sandbox escape — code execution |
+| Multiple (quarterly) | All versions | Oracle CPUs release patches quarterly; always check the [Oracle CPU page](https://www.oracle.com/security-alerts/) for the specific version |
+
 ## Gotchas & Notes
 
 - **PL/SQL Exclusion List** (`PlsqlExclusionList`): Oracle can blacklist certain packages. If ODAT modules fail, the target may have exclusion lists configured.

@@ -111,6 +111,44 @@ openssl s_client -connect 10.129.14.136:21 -starttls ftp
 | 425 | Can't open data connection |
 | 226 | Transfer complete |
 
+## Version Detection & Exploit Research
+
+The FTP 220 banner is the most reliable pre-authentication version source — it almost always identifies the server software and version. Grab it with netcat before attempting any other enumeration. Historical FTP implementations (particularly vsFTPd and ProFTPD) have serious RCE vulnerabilities tied to specific version strings.
+
+### Extracting Version Information
+
+| Method | Command | What It Reveals |
+|--------|---------|-----------------|
+| Banner grab (netcat) | `nc -nv <IP> 21` | `220 (vsFTPd 3.0.3)` or similar |
+| Banner grab (telnet) | `telnet <IP> 21` | Full 220 banner |
+| Nmap service scan | `nmap -sV -p21 <IP>` | Software + version |
+| NSE ftp-syst | `nmap -p21 --script ftp-syst <IP>` | STAT output — OS and FTP server info |
+| TLS cert (FTPS) | `openssl s_client -connect <IP>:21 -starttls ftp` | Certificate fields, server info |
+
+### Searching for Exploits
+
+```bash
+# Searchsploit
+searchsploit vsftpd
+searchsploit proftpd
+searchsploit filezilla server
+
+# Metasploit
+msf6> search type:exploit name:vsftpd
+msf6> search type:exploit name:proftpd
+msf6> search cve:2011-2523
+```
+
+### Notable CVEs
+
+| CVE | Software / Version | Impact |
+|-----|-------------------|--------|
+| CVE-2011-2523 | vsFTPd 2.3.4 | Backdoor — BIND shell on port 6200 via `:)` in username |
+| CVE-2010-4221 | ProFTPD < 1.3.3c | Stack buffer overflow — unauthenticated RCE |
+| CVE-2015-3306 | ProFTPD < 1.3.5b | mod_copy RCE — arbitrary file copy as server process |
+| CVE-2020-9273 | ProFTPD < 1.3.7a | Use-after-free — potential RCE |
+| CVE-2022-22836 | CoreFTP Server | Directory traversal — write arbitrary files via PUT |
+
 ## Gotchas & Notes
 
 - `hide_ids=YES` replaces real UIDs/GIDs with `ftp` in directory listings — you cannot determine file ownership. Without this, UID/GID values are visible and can be used to match users on other systems.

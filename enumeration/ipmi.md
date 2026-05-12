@@ -93,6 +93,49 @@ hashcat -m 7300 ipmi_hash.txt -a 3 ?1?1?1?1?1?1?1?1 -1 ?d?u
 |------|-----------|
 | 7300 | IPMI2 RAKP HMAC-SHA1 |
 
+## Version Detection & Exploit Research
+
+IPMI version information is returned by the BMC during the initial discovery handshake. The firmware version of the BMC (iDRAC, iLO, IPMI) is what matters for CVE research — these are embedded systems with their own release cycles and vulnerability histories, entirely separate from the OS. Even without known CVEs, the firmware version determines which default credentials and attack paths apply.
+
+### Extracting Version Information
+
+| Method | Command | What It Reveals |
+|--------|---------|-----------------|
+| Nmap NSE | `nmap -sU -p623 --script ipmi-version <IP>` | IPMI version (1.5 or 2.0), manufacturer |
+| Metasploit | `use auxiliary/scanner/ipmi/ipmi_version` | Firmware version, BMC manufacturer |
+| Web console URL | `https://<IP>/login.html` (iDRAC/iLO) | Firmware version displayed on login page |
+| IPMI tool | `ipmitool -I lanplus -H <IP> -U <user> -P <pass> mc info` | Firmware revision, device ID |
+
+**What to record from nmap/Metasploit output:**
+- IPMI version (1.5 vs 2.0)
+- Manufacturer string (Dell, HP, Supermicro, Intel)
+- Firmware revision number
+
+### Searching for Exploits
+
+```bash
+# Searchsploit
+searchsploit ipmi
+searchsploit idrac
+searchsploit ilo
+searchsploit supermicro
+
+# Metasploit — ready-made IPMI modules
+msf6> search type:auxiliary name:ipmi
+msf6> use auxiliary/scanner/ipmi/ipmi_dumphashes   # RAKP hash dump
+```
+
+### Notable CVEs & Design Flaws
+
+| CVE / Issue | Affected | Impact |
+|-------------|----------|--------|
+| IPMI 2.0 RAKP (no CVE) | All IPMI 2.0 implementations | Server sends password hash pre-auth; crack offline (hashcat -m 7300) |
+| CVE-2013-4786 | All IPMI 2.0 | RAKP flaw — same design issue; formalized disclosure |
+| CVE-2014-8272 | Dell iDRAC 6/7 | Authentication bypass via session fixation |
+| CVE-2019-6260 | Various BMCs | Arbitrary read/write to BMC memory via iLPC-to-BMC bridge |
+| CVE-2023-34329 | AMI MegaRAC BMC | Auth bypass + code execution (PixieFAIL related) |
+| CVE-2023-34330 | AMI MegaRAC BMC | Code injection via Redfish API |
+
 ## Gotchas & Notes
 
 - **UDP only**: IPMI runs on UDP 623. Nmap's standard TCP scan won't find it. Always include `-sU -p623` in internal network scans.
