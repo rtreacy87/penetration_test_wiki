@@ -1,6 +1,6 @@
 # Wiki Index
 
-_Last updated: 2026-05-12 — 92 pages total_
+_Last updated: 2026-05-12 — 95 pages total_
 
 ---
 
@@ -84,6 +84,7 @@ _Last updated: 2026-05-12 — 92 pages total_
 
 ### Utility
 
+- [[tools/utility/ssh]] — SSH client: password/key login, key pair creation/deletion, known_hosts fingerprint management for lab VMs. `tool`
 - [[tools/utility/xfreerdp]] — Modern RDP client; NLA, Pass-the-Hash (`/pth`), RDP 7–10, drive sharing, clipboard. Preferred for all engagements. `tool`
 - [[tools/utility/rdesktop]] — Legacy RDP client; RDP 5 only, no NLA, no PTH; use only for Windows XP/Server 2003 targets. `tool`
 - [[tools/utility/sqlcmd]] — Microsoft SQL Server CLI; batch mode (`GO`), non-interactive `-Q`, install via Microsoft repo on Linux. `tool`
@@ -100,6 +101,7 @@ _Last updated: 2026-05-12 — 92 pages total_
 - [[tools/enumeration/onesixtyone]] — SNMP community string brute-force; use before snmpwalk. `tool`
 - [[tools/enumeration/dig]] — DNS query tool: all record types, AXFR syntax, output format, bash brute-force loop. `tool`
 - [[tools/enumeration/dnsenum]] — DNS enumeration: NS/MX/AXFR/brute-force in one run. `tool`
+- [[tools/enumeration/subbrute]] — DNS subdomain brute-forcer; use `-r resolvers.txt` to target a specific nameserver for internal/HTB domains. `tool`
 - [[tools/enumeration/linpeas]] — Automated Linux privilege escalation enumeration; staged to /opt, run on target. `tool`
 - [[tools/enumeration/pspy]] — Unprivileged process monitor; catches cron and credential leaks; run on target. `tool`
 
@@ -158,5 +160,6 @@ _Last updated: 2026-05-12 — 92 pages total_
 
 ### Attacking Common Services
 
+- [[labs/htb/attacking_common_services/dns_subdomain_enumeration_and_zone_transfer]] — subbrute against target nameserver → discover hr/helpdesk/ns subdomains → AXFR hr.inlanefreight.htb → TXT flag. `lab`
 - [[labs/htb/attacking_common_services/mssql_hash_theft_and_db_enumeration]] — xp_dirtree NTLMv2 hash theft → crack mssqlsvc password → flagDB schema walk → encrypted admin credential → flag. `lab`
 - [[labs/htb/attacking_common_services/rdp_pass_the_hash]] — xfreerdp initial access → find NTLM hash → enable DisableRestrictedAdmin → PTH as Administrator → flag. `lab`

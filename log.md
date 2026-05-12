@@ -1,5 +1,17 @@
 # Wiki Log
 
+## [2026-05-12] update | DNS lab — added /etc/hosts vs resolvers.txt comparison; added subbrute tool page
+Pages created: 1 (tools/enumeration/subbrute.md). Pages updated: 4 (labs/htb/attacking_common_services/dns_subdomain_enumeration_and_zone_transfer.md, attack/dns.md, index.md, log.md).
+Key additions: Lab Step 2 rewritten — both setup methods documented with comparison table (scope, affects dig/subbrute/curl, requires sudo, cleanup, side effects). Decision rule: use -r resolvers.txt for pure DNS labs; add /etc/hosts alongside it when later phases need curl/browser access by hostname. subbrute.md — overview, installation (git clone only, not in apt), all flags, subbrute vs dnsenum vs subfinder comparison table, gotchas (resolver count warning, no AXFR built-in, maintenance status).
+
+## [2026-05-12] ingest | HTB DNS Lab — subdomain enumeration and zone transfer write-up
+Pages created: 1 (labs/htb/attacking_common_services/dns_subdomain_enumeration_and_zone_transfer.md). Pages updated: 3 (index.md, log.md, attack/dns.md).
+Key additions: One-question lab — subbrute against the target nameserver (requires -r resolvers.txt with STMIP; public DNS can't resolve .htb domains), discovers helpdesk/hr/ns.inlanefreight.htb, AXFR of hr.inlanefreight.htb yields TXT flag. Explained why root AXFR doesn't expose child zone records, why -r is mandatory for internal domains, loop approach for automating AXFR across all discovered subdomains. Source: raw/lab/attacking_common_services/attacking_dns.md.
+
+## [2026-05-12] update | Added SSH tool page
+Pages created: 1 (tools/utility/ssh.md). Pages updated: 3 (index.md, log.md, enumeration/linux_remote_mgmt.md).
+Key additions: ssh.md — password and key-based login, ssh-keygen (Ed25519 recommended, RSA 4096 fallback), ssh-copy-id and manual authorized_keys methods, custom-named keys for lab isolation, key pair deletion. Known_hosts management toolkit: ssh-keygen -R (single host), sed range removal (HTB 10.129.x, THM 10.10.x), full-clear truncate, StrictHostKeyChecking=no + UserKnownHostsFile=/dev/null for throwaway connections. Bash aliases (sshclean, sshclean-htb, sshclean-thm, sshlab) and SSH config template for per-host lab settings. 10-flag reference table (-i, -p, -l, -v, -A, -L, -R, -D, -N, -o). enumeration/linux_remote_mgmt.md Related Pages updated with ssh.md link.
+
 ## [2026-05-12] update | Added xfreerdp and rdesktop tool pages; fixed corrupted attack/rdp.md Connecting section
 Pages created: 2 (tools/utility/xfreerdp.md, tools/utility/rdesktop.md). Pages updated: 3 (attack/rdp.md, index.md, log.md).
 Key additions: xfreerdp — full flags table (v/u/p/pth/d/cert-ignore/drive/clipboard/dynamic-resolution/kbd), PTH usage, headless Xvfb method, NLA notes. rdesktop — flags table, comparison table vs xfreerdp across 8 dimensions (NLA, protocol version, PTH, maintenance, syntax, drive sharing, headless). Decision rule documented: use xfreerdp always except confirmed XP/2003 with NLA disabled. attack/rdp.md Connecting section was corrupted (contained only `u`); restored with both client examples and links to new tool pages.

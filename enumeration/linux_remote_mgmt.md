@@ -191,6 +191,7 @@ msf6> search type:auxiliary name:ssh
 
 - [[enumeration/_overview]]
 - [[enumeration/windows_remote_mgmt]]
+- [[tools/utility/ssh]] — SSH client reference: connecting, key management, known_hosts cleanup
 
 ## Sources
 

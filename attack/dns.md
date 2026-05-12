@@ -121,7 +121,9 @@ dns.spoof on
 - [[enumeration/dns]]
 - [[tools/enumeration/dig]]
 - [[tools/enumeration/dnsenum]]
+- [[tools/enumeration/subbrute]] — subdomain brute-force with custom resolver; use for internal/HTB domains
 - [[recon/osint/domain_information]]
+- [[labs/htb/attacking_common_services/dns_subdomain_enumeration_and_zone_transfer]] — subbrute + AXFR lab walkthrough
 
 ## Sources
 
