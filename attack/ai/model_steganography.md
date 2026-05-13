@@ -160,6 +160,10 @@ payload_bytes = payload.encode('utf-8')  # embed this into tensor LSBs
 - Tensor steganography capacity scales with model size. Large LLMs (billions of parameters) can hide megabytes of data.
 - The steganographic modification is statistically detectable by examining LSB distributions — a uniform distribution of LSBs is suspicious; legitimate weights tend to have non-uniform LSB patterns.
 
+## Lab Write-up
+
+- [[labs/htb/ai_data_attacks/execute_the_attack]] — Full chain: train SimpleNet → LSB-encode reverse shell into large_layer.weight → TrojanModelWrapper.__reduce__ → upload → catch shell via netcat
+
 ## Related Pages
 - [[attack/ai/data_poisoning]]
 - [[attack/ai/trojan_attacks]]

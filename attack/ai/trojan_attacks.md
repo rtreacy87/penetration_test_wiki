@@ -109,6 +109,10 @@ The 0.37% CA drop (97.92% → 97.55%) is indistinguishable from normal training 
 - **Realistic access requirements**: The attacker needs the ability to inject samples into the training pipeline — possible through compromised data collection APIs, storage-layer write access, or online poisoning via feedback loops.
 - Training time: approximately 15 minutes on Apple M1, faster with CUDA.
 
+## Lab Write-up
+
+- [[labs/htb/ai_data_attacks/evaluating_trojan_attack]] — MNIST CNN: digit 7→1 with bottom-left white trigger, PoisonedMNISTTrain + TriggeredMNISTTest, CA+ASR evaluation
+
 ## Related Pages
 - [[attack/ai/data_poisoning]]
 - [[attack/ai/label_flipping]]

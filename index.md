@@ -1,6 +1,6 @@
 # Wiki Index
 
-_Last updated: 2026-05-12 — 123 pages total_
+_Last updated: 2026-05-13 — 129 pages total_
 
 ---
 
@@ -199,6 +199,15 @@ _Last updated: 2026-05-12 — 123 pages total_
 #### AI Data Attacks
 
 - [[labs/htb/ai_data_attacks_label_flipping_challenge]] — OvR label flipping: poison Class 1 training labels, tune flip rate (20–35%), serialize and submit poisoned classifier via API. `lab` `attack/ai`
+
+#### AI Data Attacks (Individual Labs)
+
+- [[labs/htb/ai_data_attacks/evaluating_label_flipping_attack]] — Random label flipping: poison 60% of binary dataset, implement `1 - y[idx]` inversion, submit via API. `lab` `attack/ai`
+- [[labs/htb/ai_data_attacks/evaluating_targeted_label_attack]] — Targeted flipping: flip 70% of Class 0 → Class 1; leaves Class 1 accuracy intact while collapsing Class 0 recall. `lab` `attack/ai`
+- [[labs/htb/ai_data_attacks/evaluating_clean_label_attack]] — Clean label attack: perturb Class 1 neighbor features with EPSILON_CROSS=0.25 to misclassify Class 2 Index 334 as Class 1 — no labels changed. `lab` `attack/ai`
+- [[labs/htb/ai_data_attacks/evaluating_trojan_attack]] — MNIST CNN trojan: stamp white 5×5 trigger in bottom-left of digit-7 images, relabel as 1 during training, verify CA+ASR before submission. `lab` `attack/ai`
+- [[labs/htb/ai_data_attacks/execute_the_attack]] — Model steganography + pickle RCE: embed reverse shell in LSBs of large_layer.weight, `TrojanModelWrapper.__reduce__` executes on `torch.load`, catch shell via netcat. `lab` `attack/ai`
+- [[labs/htb/ai_data_attacks/skills_assessment]] — OvR ambiguity attack: flip 25% of Class 1 → Class 0 and 25% → Class 2 to exceed the evaluator's dual 18% confusion threshold. `lab` `attack/ai`
 
 ---
 

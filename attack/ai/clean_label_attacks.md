@@ -108,6 +108,10 @@ The minimal accuracy drop is what makes this attack stealthy — standard monito
 - Slight collateral damage to nearby clean points is common — the boundary warp affects more than just the target.
 - Defenses include statistical anomaly detection on feature distributions, certified data sanitization, and provenance tracking.
 
+## Lab Write-up
+
+- [[labs/htb/ai_data_attacks/evaluating_clean_label_attack]] — OvR weight extraction → nearest-neighbor perturbation (EPSILON_CROSS=0.25) → misclassify Class 2 Index 334 as Class 1
+
 ## Related Pages
 - [[attack/ai/data_poisoning]]
 - [[attack/ai/label_flipping]]
