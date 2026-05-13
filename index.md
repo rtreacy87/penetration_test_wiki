@@ -192,8 +192,12 @@ _Last updated: 2026-05-12 — 123 pages total_
 - [[labs/htb/prompt_injection_attacks/skills_assessment]] — Capstone: get CEO @vautia banned from HaWa Corp via indirect injection through surviving feature vectors (registration, reporting, profiles) when most features are disabled. `lab` `attack/ai`
 - [[labs/htb/prompt_injection_attacks/reconnaissance_and_tools]] — LLM fingerprinting with llmmap (8-probe interactive workflow) and automated scanning with garak (dan.*, promptinject.* families). `lab` `attack/ai`
 
-- [[labs/htb/prompt_injection_skills_assessment]] — Indirect injection → rogue ban action against CEO @vautia; reconnaissance, payload construction, and delivery strategies. `lab` `attack/ai`
+#### AI Evasion & Sparsity
+
 - [[labs/htb/ai_evasion_jsma_challenge]] — JSMA challenge: fetch MNIST baseline, load LeNet-5 weights, implement saliency-guided pixel modification under L0 budget, submit via API. `lab` `attack/ai`
+
+#### AI Data Attacks
+
 - [[labs/htb/ai_data_attacks_label_flipping_challenge]] — OvR label flipping: poison Class 1 training labels, tune flip rate (20–35%), serialize and submit poisoned classifier via API. `lab` `attack/ai`
 
 ---

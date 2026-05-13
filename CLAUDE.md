@@ -14,13 +14,12 @@ The wiki mirrors the structure of an actual engagement: reconnaissance first, th
 
 ## Directory structure
 
-The tree below is intentionally abstract — it describes folder purposes and naming conventions, not individual files. For the current page inventory, read `index.md`. For ingestion history and what each module produced, read `log.md`. Never update this section just because a new page or module was added.
+The tree below is intentionally abstract — it describes folder purposes and naming conventions, not individual files. For the current page inventory, read `index.md`. Never update this section just because a new page or module was added.
 
 ```
 wiki/
 ├── CLAUDE.md                  ← this file (schema + instructions)
 ├── index.md                   ← master content catalog (you maintain this)
-├── log.md                     ← append-only operation log (you maintain this)
 │
 ├── recon/                     ← passive & active reconnaissance
 │   ├── _overview.md
@@ -76,13 +75,13 @@ wiki/
 - Before ingesting a module, `ls raw/<module_name>/` to see its files — do not guess filenames.
 - When ingesting, read all files in the module folder before writing any wiki pages.
 - Source citations in wiki pages must use the full path from vault root: `raw/modules/footprinting/host_based_enumeration_smb.md`
-- **Do not update this CLAUDE.md when new modules or pages are added.** `index.md` and `log.md` own that record.
+- **Do not update this CLAUDE.md when new modules or pages are added.** `index.md` owns that record.
 
 ---
 
 ## Page format
 
-Every wiki page (except index.md and log.md) uses this structure:
+Every wiki page (except index.md) uses this structure:
 
 ```markdown
 ---
@@ -155,12 +154,6 @@ When the human says "ingest [module name]":
 3. Discuss key takeaways with the human — what's new, what contradicts existing pages, what's notable.
 4. Write or update the relevant wiki pages (typically 5–15 pages per module).
 5. Update `index.md`: add every new page, update one-liners for any modified pages.
-6. Append a single entry to `log.md` for the whole module:
-   ```
-   ## [YYYY-MM-DD] ingest | <Module Name> (raw/modules/<module_name>/)
-   Files read: X. Pages created: Y. Pages updated: Z.
-   Key additions: [brief list of notable new content]
-   ```
 
 ### Ingest a single source file
 
@@ -169,11 +162,6 @@ When the human drops one file into `raw/` and says "ingest this":
 1. Read the file.
 2. Write or update relevant wiki pages.
 3. Update `index.md`.
-4. Append to `log.md`:
-   ```
-   ## [YYYY-MM-DD] ingest | Filename
-   Pages created: X. Pages updated: Y. Key additions: ...
-   ```
 
 ### Answer a query
 
@@ -250,13 +238,9 @@ When asked to lint:
 
 ---
 
-## index.md and log.md — purpose and ownership
-
-These two files are the wiki's navigation and audit layer. They serve different audiences.
+## index.md — purpose and ownership
 
 **index.md serves the LLM.** At the start of every query, you read `index.md` first to discover which pages exist and which ones are relevant — without it you'd have to crawl the directory tree blind on every session. It's the map that makes the wiki queryable without a search engine. It also serves as a quick-scan overview for the human when they want to see what's been built. You update it on every ingest — every new page gets a line, every significantly updated page gets its one-liner revised. Never let it go stale.
-
-**log.md serves the human.** It's the audit trail: what was ingested, when, what changed, what queries produced useful new pages. When a new session starts, the human can point you at the log so you can orient yourself without re-reading the entire wiki. It's also how the human tracks the wiki's evolution — if a page looks wrong, the log shows which ingest introduced that content. It is strictly append-only; never edit or delete past entries.
 
 ---
 
@@ -280,25 +264,6 @@ _Last updated: YYYY-MM-DD — N pages total_
 ## Tools
 - [[tools/enumeration/nmap]] — Port scanning, service detection, NSE scripts. `tool`
 - ...
-```
-
----
-
-## log.md format
-
-Append-only. Newest entries at the top.
-
-```markdown
-# Wiki Log
-
-## [YYYY-MM-DD] query | "How do I enumerate SMB shares without credentials?"
-Synthesized from: [[enumeration/smb]], [[tools/enumeration/enum4linux]], [[tools/enumeration/smbclient]]
-
-## [YYYY-MM-DD] ingest | HTB Academy — Footprinting Module
-Pages created: 11. Pages updated: 3. Key additions: IPMI enumeration, Oracle TNS, IMAP/POP3.
-
-## [YYYY-MM-DD] lint | routine health check
-Orphans found: 2. New pages suggested: kerberos.md, rpcclient.md.
 ```
 
 ---
