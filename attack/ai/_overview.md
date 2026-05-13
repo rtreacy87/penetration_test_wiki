@@ -116,8 +116,10 @@ These attacks target the training pipeline and stored model artifacts rather tha
 - [[attack/ai/clean_label_attacks]]
 - [[attack/ai/trojan_attacks]]
 - [[attack/ai/model_steganography]]
-- [[tools/garak]]
-- [[tools/llmmap]]
+- [[attack/ai/llm_reconnaissance]]
+- [[tools/enumeration/garak]]
+- [[tools/enumeration/llmmap]]
+- [[tools/attack/pyrit]]
 
 ## Sources
 - raw/prompt_injection_attacks/introduction_to_prompt_engineering.md

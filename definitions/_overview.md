@@ -18,6 +18,7 @@ Pentest-oriented reference definitions — protocols, flags, authentication mech
 | [[definitions/auth_protocols]] | NTLM, Kerberos, LDAP, Basic, Digest, OAuth, SAML, JWT — how they fail |
 | [[definitions/security_terminology]] | CVE, CVSS, RCE, LFI, SSRF, IDOR, SQLi, XSS, XXE, SSTI, lateral movement, persistence |
 | [[definitions/dns]] | DNS primer: zones, records, zone transfers, AXFR, detecting restricted vs unrestricted transfers |
+| [[definitions/owasp_llm_top10]] | OWASP LLM Top 10 (2025): LLM01–LLM10 with attack technique mapping and wiki page cross-references |
 
 ## How definitions pages work
 

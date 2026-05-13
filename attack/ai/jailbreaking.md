@@ -294,7 +294,8 @@ Some jailbreaks work better across multiple conversation turns:
 - [[attack/ai/prompt_injection_mitigations]]
 - [[attack/ai/attacking_ai_systems]]
 - [[attack/ai/adversarial_examples]]
-- [[tools/garak]]
+- [[attack/ai/llm_reconnaissance]]
+- [[tools/enumeration/garak]]
 
 ## Sources
 - raw/prompt_injection_attacks/introduction_to_jailbreaking.md

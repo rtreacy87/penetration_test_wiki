@@ -330,6 +330,10 @@ The module challenge provides an API serving:
 
 The server architecture is LeNet-5 style (conv→tanh→avgpool × 2, then FC × 3 with log-softmax output). Images must be submitted in [0, 1] pixel space, not as normalized tensors.
 
+## Lab Write-up
+
+- [[labs/htb/ai_evasion_jsma_challenge]] — complete challenge walkthrough with full API interaction code and implementation
+
 ## Related Pages
 
 - [[attack/ai/adversarial_examples]]
@@ -337,6 +341,7 @@ The server architecture is LeNet-5 style (conv→tanh→avgpool × 2, then FC ×
 - [[attack/ai/prompt_injection]]
 - [[attack/ai/attacking_ai_systems]]
 - [[attack/ai/_overview]]
+- [[tools/attack/art]]
 
 ## Sources
 

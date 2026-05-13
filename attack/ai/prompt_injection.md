@@ -275,14 +275,19 @@ swaks --to admin@llm.htb --from alice@llm.htb \
 
 ---
 
+## Lab Write-up
+
+- [[labs/htb/prompt_injection_skills_assessment]] — indirect injection → rogue action to ban CEO @vautia; attack chain and payload templates
+
 ## Related Pages
 - [[attack/ai/_overview]]
 - [[attack/ai/jailbreaking]]
 - [[attack/ai/prompt_injection_mitigations]]
 - [[attack/ai/attacking_ai_systems]]
 - [[attack/ai/adversarial_examples]]
-- [[tools/garak]]
-- [[tools/llmmap]]
+- [[attack/ai/llm_reconnaissance]]
+- [[tools/enumeration/garak]]
+- [[tools/enumeration/llmmap]]
 
 ## Sources
 - raw/prompt_injection_attacks/introduction_to_prompt_injection.md

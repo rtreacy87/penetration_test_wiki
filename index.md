@@ -1,6 +1,6 @@
 # Wiki Index
 
-_Last updated: 2026-05-12 — 101 pages total_
+_Last updated: 2026-05-12 — 114 pages total_
 
 ---
 
@@ -70,6 +70,10 @@ _Last updated: 2026-05-12 — 101 pages total_
 - [[attack/ai/denial_of_ml_service]] — DoML: sponge examples, resource exhaustion via adversarial inputs, genetic algorithm. `attack` `attack/ai`
 - [[attack/ai/model_reverse_engineering]] — Model extraction: query-based stealing, membership inference, surrogate training. `attack` `attack/ai`
 - [[attack/ai/mcp_security]] — MCP protocol: architecture, malicious servers, vulnerable servers, tool poisoning, mitigations. `attack` `attack/ai` `protocol`
+- [[attack/ai/llm_reconnaissance]] — LLM recon: model identity probing, architecture mapping (RAG/plugins/agents), safeguard detection, llmmap fingerprinting, attack surface map template. `attack` `attack/ai` `recon`
+- [[attack/ai/rogue_actions]] — Excessive agency exploitation: direct plugin bypass ("I am an administrator"), indirect injection via stored user data → privileged admin context. `attack` `attack/ai`
+- [[attack/ai/insecure_ai_components]] — Web/plugin vulns in AI apps: IDOR on LLM history endpoints, SQLi, plugin auth bypass via prompt injection, output injection. `attack` `attack/ai`
+- [[attack/ai/vulnerable_ai_systems]] — System-layer attacks: exposed .db files (LLM logs with PII), ShellTorch RCE chain (CVE-2023-43654 + CVE-2022-1471), MLflow LFI (CVE-2023-6909, CVE-2024-1594), Ollama DoS (CVE-2025-1975). `attack` `attack/ai`
 - [[attack/ai/data_poisoning]] — Hub: AI pipeline attack surface, OWASP LLM03/LLM05 mapping, all data attack types. `attack` `attack/ai` `concept`
 - [[attack/ai/label_flipping]] — Label flipping and targeted label attacks: decision boundary math, flip_labels implementation, evaluation. `attack` `attack/ai`
 - [[attack/ai/clean_label_attacks]] — Feature-perturbation poisoning: target selection, perturbation vector, one-step boundary shift without touching labels. `attack` `attack/ai`
@@ -103,6 +107,8 @@ _Last updated: 2026-05-12 — 101 pages total_
 - [[tools/enumeration/dnsenum]] — DNS enumeration: NS/MX/AXFR/brute-force in one run. `tool`
 - [[tools/enumeration/subbrute]] — DNS subdomain brute-forcer; use `-r resolvers.txt` to target a specific nameserver for internal/HTB domains. `tool`
 - [[tools/enumeration/smtp_user_enum]] — SMTP user enumeration via VRFY/EXPN/RCPT TO; RCPT mode works even when VRFY is disabled. `tool`
+- [[tools/enumeration/garak]] — Automated LLM vulnerability scanner: DAN/promptinject probe families, resilience scoring, JSON+HTML reports. `tool` `attack/ai`
+- [[tools/enumeration/llmmap]] — LLM fingerprinting via 8-probe interactive session; identifies model family without API access. `tool` `attack/ai`
 - [[tools/enumeration/linpeas]] — Automated Linux privilege escalation enumeration; staged to /opt, run on target. `tool`
 - [[tools/enumeration/pspy]] — Unprivileged process monitor; catches cron and credential leaks; run on target. `tool`
 
@@ -115,6 +121,8 @@ _Last updated: 2026-05-12 — 101 pages total_
 - [[tools/attack/hydra]] — Versatile network login brute-forcer; 50+ protocols, go-to for HTTP/RDP/SMTP/POP3. `tool`
 - [[tools/attack/crowbar]] — RDP-focused brute-forcer; more reliable than Hydra for RDP password spraying. `tool`
 - [[tools/attack/odat]] — Oracle attack tool: SID enum, auth brute-force, web shell upload. `tool`
+- [[tools/attack/pyrit]] — Microsoft AI Red Team framework: orchestrates LLM attacks (jailbreaking, prompt injection), Ollama local + Claude cloud setup, RTX 4090 model guide. `tool` `attack/ai`
+- [[tools/attack/art]] — Adversarial Robustness Toolbox: JSMA, EAD, FGSM, PGD, C&W, poisoning attacks; PyTorch/TF/sklearn wrappers; white-box and black-box modes. `tool` `attack/ai`
 
 ---
 
@@ -126,6 +134,7 @@ _Last updated: 2026-05-12 — 101 pages total_
 - [[definitions/auth_protocols]] — NTLM, Kerberos, LDAP, OAuth, SAML, JWT — how they work and how they fail. `definition` `concept`
 - [[definitions/security_terminology]] — CVE/CVSS, RCE, LFI, SSRF, IDOR, SQLi, XSS, SSTI, lateral movement, persistence, defense terms. `definition` `concept`
 - [[definitions/dns]] — DNS primer: records (A/MX/TXT/NS/CNAME), zones, zone transfers, AXFR explained, how to detect restricted vs unrestricted transfers. `definition` `concept`
+- [[definitions/owasp_llm_top10]] — OWASP LLM Top 10 (2025): LLM01–LLM10 with attack technique mapping, exam-day quick-reference table, and links to every relevant wiki page. `definition` `reference` `attack/ai`
 
 ---
 
@@ -169,3 +178,15 @@ _Last updated: 2026-05-12 — 101 pages total_
 - [[labs/htb/attacking_common_services/hard_skill_assessment]] — SMB null session → IT department files → NetExec brute Fiona → RDP → SQLCMD IMPERSONATE john → linked server → xp_cmdshell → Administrator flag. `lab`
 - [[labs/htb/attacking_common_services/mssql_hash_theft_and_db_enumeration]] — xp_dirtree NTLMv2 hash theft → crack mssqlsvc password → flagDB schema walk → encrypted admin credential → flag. `lab`
 - [[labs/htb/attacking_common_services/rdp_pass_the_hash]] — xfreerdp initial access → find NTLM hash → enable DisableRestrictedAdmin → PTH as Administrator → flag. `lab`
+
+### AI Security
+
+- [[labs/htb/prompt_injection_skills_assessment]] — Indirect injection → rogue ban action against CEO @vautia; reconnaissance, payload construction, and delivery strategies. `lab` `attack/ai`
+- [[labs/htb/ai_evasion_jsma_challenge]] — JSMA challenge: fetch MNIST baseline, load LeNet-5 weights, implement saliency-guided pixel modification under L0 budget, submit via API. `lab` `attack/ai`
+- [[labs/htb/ai_data_attacks_label_flipping_challenge]] — OvR label flipping: poison Class 1 training labels, tune flip rate (20–35%), serialize and submit poisoned classifier via API. `lab` `attack/ai`
+
+---
+
+## Study Guides
+
+- [[study_guide/coae]] — COAE exam prep: module-by-topic wiki coverage map, prioritised gap list, quick-reference checklists, Python attack snippets. `reference` `concept`

@@ -78,11 +78,16 @@ When assessing a label flipping attack, evaluate on the *clean* test set:
 - Processing-stage label flipping (compromising Spark jobs, ETL scripts) is harder to detect than direct file modification because raw data upstream still looks clean.
 - Online poisoning via feedback loops is the most insidious form: each poisoned retraining cycle drifts the model slightly, and the monitoring system cannot easily distinguish adversarial manipulation from legitimate distribution shift.
 
+## Lab Write-up
+
+- [[labs/htb/ai_data_attacks_label_flipping_challenge]] — complete skills assessment walkthrough with flip rate tuning and API submission
+
 ## Related Pages
 - [[attack/ai/data_poisoning]]
 - [[attack/ai/clean_label_attacks]]
 - [[attack/ai/trojan_attacks]]
 - [[attack/ai/_overview]]
+- [[tools/attack/art]]
 
 ## Sources
 - raw/ai_data_attacks/label_attacks_label_flipping.md
