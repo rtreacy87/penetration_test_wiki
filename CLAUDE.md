@@ -14,6 +14,8 @@ The wiki mirrors the structure of an actual engagement: reconnaissance first, th
 
 ## Directory structure
 
+The tree below is intentionally abstract — it describes folder purposes and naming conventions, not individual files. For the current page inventory, read `index.md`. For ingestion history and what each module produced, read `log.md`. Never update this section just because a new page or module was added.
+
 ```
 wiki/
 ├── CLAUDE.md                  ← this file (schema + instructions)
@@ -21,212 +23,60 @@ wiki/
 ├── log.md                     ← append-only operation log (you maintain this)
 │
 ├── recon/                     ← passive & active reconnaissance
-│   ├── _overview.md           ← what recon is, when to use each sub-technique
-│   ├── osint/                 ← passive, no direct target contact
-│   │   ├── domain_information.md
-│   │   ├── cloud_resources.md
-│   │   ├── staff_enumeration.md
-│   │   └── ...
-│   └── active/                ← active scanning, DNS brute-force, etc.
-│       └── ...
+│   ├── _overview.md
+│   ├── osint/                 ← one page per OSINT technique (passive, no target contact)
+│   └── active/                ← one page per active recon technique
 │
 ├── enumeration/               ← service/host enumeration (active, post-recon)
 │   ├── _overview.md
-│   ├── dns.md
-│   ├── ftp.md
-│   ├── smtp.md
-│   ├── smb.md
-│   ├── snmp.md
-│   ├── nfs.md
-│   ├── imap_pop3.md
-│   ├── ipmi.md
-│   ├── mssql.md
-│   ├── mysql.md
-│   ├── oracle_tns.md
-│   └── ...
+│   └── <service>.md           ← one page per protocol or service
 │
 ├── attack/                    ← exploitation techniques by category
 │   ├── _overview.md
-│   ├── brute_force.md
-│   ├── password_spraying.md
-│   ├── privilege_escalation.md
-│   ├── lateral_movement.md
-│   ├── web/
-│   │   ├── sqli.md
-│   │   ├── xss.md
-│   │   ├── lfi_rfi.md
-│   │   └── ...
-│   ├── network/
-│   │   └── ...
-│   └── ...
+│   ├── <technique>.md         ← flat technique pages (smb, dns, rdp, sql, etc.)
+│   ├── ai/                    ← AI/ML-specific attack techniques
+│   ├── network/               ← network-layer attacks (firewall evasion, etc.)
+│   └── web/                   ← web application attacks (sqli, xss, lfi, etc.)
 │
-├── tools/                     ← one page per tool, split into three subfolders
+├── tools/                     ← one page per tool; split into three subfolders
 │   ├── _overview.md           ← tool comparison table, when to use what
-│   ├── utility/               ← general-purpose clients and frameworks
-│   │   ├── sqlcmd.md          ← Microsoft SQL Server CLI client
-│   │   ├── impacket.md        ← Impacket suite (mssqlclient, psexec, secretsdump, smbserver…)
-│   │   └── crackmapexec.md    ← LEGACY — superseded by NetExec; includes removal instructions
-│   ├── enumeration/           ← tools primarily used for discovery and information gathering
-│   │   ├── nmap.md
-│   │   ├── smbclient.md
-│   │   ├── enum4linux.md
-│   │   ├── rpcclient.md
-│   │   ├── snmpwalk.md
-│   │   ├── onesixtyone.md
-│   │   ├── dig.md
-│   │   ├── dnsenum.md
-│   │   ├── linpeas.md
-│   │   └── pspy.md
-│   └── attack/                ← tools primarily used for exploitation and credential attacks
-│       ├── netexec.md         ← primary credential spray / PTH / enumeration tool
-│       ├── metasploit.md
-│       ├── responder.md
-│       ├── medusa.md
-│       ├── hydra.md
-│       ├── crowbar.md
-│       └── odat.md
+│   ├── utility/               ← general-purpose clients and runtimes
+│   ├── enumeration/           ← tools primarily used for discovery
+│   └── attack/                ← tools primarily used for exploitation
 │
-├── wordlists/                 ← wordlist reference, not the lists themselves
-│   ├── _overview.md
-│   ├── seclist_structure.md   ← map of SecLists directory layout
-│   ├── use_cases.md           ← which list for which job
-│   └── custom_generation.md   ← crunch, cewl, etc.
+├── wordlists/                 ← wordlist reference (not the lists themselves)
+│   └── _overview.md
 │
-├── definitions/               ← pentest-oriented concept definitions (protocols, flags, auth, terms)
-│   ├── _overview.md           ← index of all definition pages
-│   ├── network_protocols.md   ← TCP, UDP, ICMP, SCTP, ARP, QUIC — what they are and why they matter
-│   ├── tcp_flags.md           ← SYN, ACK, FIN, RST, PSH, URG — scanning and exploit implications
-│   ├── auth_protocols.md      ← NTLM, Kerberos, LDAP, OAuth, SAML, JWT, Basic/Digest
-│   └── security_terminology.md ← CVE, CVSS, RCE, LFI, SSRF, IDOR, SQLi, XSS, XXE, SSTI, etc.
+├── definitions/               ← pentest-oriented concept definitions
+│   └── _overview.md
 │
 ├── shell_commands/            ← quick-reference command sheets by shell environment
-│   ├── bash.md                ← Linux/bash: enumeration, file ops, transfers, networking, privesc
-│   ├── cmd.md                 ← Windows CMD: net, ipconfig, whoami, wmic, reg, tasklist, netstat
-│   └── powershell.md          ← PowerShell: enumeration, execution policy, downloads, remoting
 │
-├── ports/                     ← port reference: what runs there, what to look for, pentest notes
-│   └── common_ports.md        ← master table: all common ports organized by service category
+├── ports/                     ← port reference tables
 │
 ├── protocols/                 ← protocol reference pages (linked from enumeration + attack)
-│   ├── smb.md
-│   ├── ldap.md
-│   ├── kerberos.md
-│   ├── rdp.md
-│   └── ...
 │
-├── labs/                      ← publishable lab write-ups, CTF notes, engagement notes
+├── labs/                      ← publishable lab write-ups and CTF notes
 │   ├── _overview.md
 │   ├── htb/
-│   │   ├── <module>/          ← one subfolder per HTB module (mirrors raw/lab/<module>/ when it exists)
-│   │   │   └── <lab>.md       ← write-up without flags or raw answers
-│   │   └── ...                ← older flat-file write-ups (footprinting labs) remain directly here
+│   │   └── <module>/          ← one subfolder per HTB module
 │   └── thm/
-│       └── ...
 │
 └── raw/                       ← immutable source documents (you read, never modify)
     ├── assets/                ← images clipped with Obsidian Web Clipper
     ├── lab/                   ← GITIGNORED — private lab solutions, never linked from wiki pages
-    │   └── <module>/          ← subfolder per HTB module; name must match labs/htb/<module>/
-    │       └── *.md           ← raw solution files (flags, step-by-step answers)
-    └── modules/               ← one subfolder per course module (read-only source material)
-        ├── footprinting/      ← HTB Academy: Footprinting module
-        │   ├── host_based_enumeration_dns.md
-        │   ├── host_based_enumeration_ftp.md
-        │   ├── host_based_enumeration_smb.md
-        │   ├── host_based_enumeration_smtp.md
-        │   ├── host_based_enumeration_snmp.md
-        │   ├── host_based_enumeration_nfs.md
-        │   ├── host_based_enumeration_imap_pop3.md
-        │   ├── host_based_enumeration_ipmi.md
-        │   ├── host_based_enumeration_mssql.md
-        │   ├── host_based_enumeration_mysql.md
-        │   ├── host_based_enumeration_oracle_tns.md
-        │   ├── infastructure_based_enumeration_cloud_resources.md
-        │   ├── infastructure_based_enumeration_domain_information.md
-        │   ├── infrastructure_based_enumeration_staff.md
-        │   ├── introduction_enumeration_methodology.md
-        │   ├── introduction_enumeration_principles.md
-        │   ├── linux_remote_management_protocols.md
-        │   ├── windows_remote_management_protocols.md
-        │   ├── footprinting_lab_easy.md
-        │   ├── footprinting_lab_medium.md
-        │   └── footprinting_lab_hard.md
-        ├── network_enumeration_with_nmap/  ← HTB Academy: Network Enumeration with Nmap
-        │   ├── introduction_enumeration.md
-        │   ├── introduction_to_nmap.md
-        │   ├── host_enumeration_host_discovery.md
-        │   ├── host_enumeration_host_and_port_scanning.md
-        │   ├── host_enumeration_service_enumeration.md
-        │   ├── host_enumeration_nmap_scripting_engine.md
-        │   ├── host_enumeration_performance.md
-        │   ├── host_enumeration_saving_the_result.md
-        │   ├── bypass_security_measures_firewall_evasion.md
-        │   ├── nse_scripts.md
-        │   └── bypass_security_measures_[easy|medium|hard]_lab.md
-        ├── linux_privilege_escalation/    ← HTB Academy: Linux Privilege Escalation
-        │   ├── information_gathering_*.md (3 files)
-        │   ├── environment_based_*.md (3 files)
-        │   ├── permission_based_*.md (4 files)
-        │   ├── service_based_*.md (7 files)
-        │   ├── linux_internals_based_*.md (4 files)
-        │   ├── recent_0days_*.md (4 CVEs)
-        │   └── hardening_considerations_linux_hardening.md
-        ├── prompt_injection_attacks/      ← HTB Academy: Prompt Injection Attacks
-        │   ├── introduction_to_prompt_engineering.md
-        │   ├── introduction_to_prompt_injection.md
-        │   ├── direct_prompt_injection.md
-        │   ├── indirect_prompt_injection.md
-        │   ├── prompt_injection_reconnaissance.md
-        │   ├── introduction_to_jailbreaking.md
-        │   ├── jailbreaks_[I|II].md
-        │   ├── tools_of_the_trade.md
-        │   ├── [traditional|llm-based]_prompt_injection_mitigations.md
-        │   └── skills_assessment.md
-        ├── ai_evasion_sparsity/           ← HTB Academy: AI Evasion & Sparsity
-        │   ├── intrduction_to_sparsity_evasion_attacks.md
-        │   ├── jsma_*.md (13 files — fundamentals through aggregate analysis)
-        │   ├── elasticnet*.md (11 files — fundamentals through challenge)
-        │   └── skill_assessment.md
-        ├── attacking_ai-application_and_systems/  ← HTB Academy: Attacking AI Applications & Systems
-        │   ├── overview_of_application&_system_components.md
-        │   ├── attacking_the_application_*.md (4 files)
-        │   ├── attacking_the_system_*.md (3 files)
-        │   └── mcp_*.md (5 files — intro through mitigations)
-        ├── ai_data_attacks/               ← HTB Academy: AI Data Attacks
-        │   ├── introduction_to_ai_data.md
-        │   ├── introduction_to_ai_data_attacks.md
-        │   ├── introduction_to_trojan_attacks.md
-        │   ├── label_attacks_*.md (5 files — baseline, label flipping, targeted, evaluation)
-        │   ├── feature_attacks_*.md (5 files — baseline, clean label, target selection, attack, evaluation)
-        │   ├── trojan_attacks_*.md (5 files — CNN arch, data prep, components, training, evaluation)
-        │   ├── pickels_and_steganography_*.md (4 files — training, tools, attack, execute)
-        │   ├── pickels_and_tensor_steganography.md
-        │   └── skills_assessment.md
-        └── attacking_common_services/     ← HTB Academy: Attacking Common Services
-            ├── interacting_with_common_services.md
-            ├── protocol_specific_attacks_*.md (3 files — concept, misconfigurations, sensitive info)
-            ├── ftp_attacking_ftp.md
-            ├── ftp_latest_ftp_vulnerabilities.md
-            ├── smb_attacking_smb.md
-            ├── smb_latest_smb_vulnerabilities.md
-            ├── dns_attacking_dns.md
-            ├── dns_latest_dns_vulnerabilities.md
-            ├── smtp_attacking_email_services.md
-            ├── smtp_latest_email_service_vulnerabilities.md
-            ├── rdp_attacking_rdp.md
-            ├── rdp_latest_rdp_vulnerabilities.md
-            ├── sql_attacking_sql_databases.md
-            ├── sql_latest_sql_vulnerabilities.md
-            ├── lab_easy_attacking_common_services.md
-            ├── lab_medium_attacking_common_services.md
-            └── lab_hard_attacking_common_services.md
+    │   └── <module>/          ← name must match labs/htb/<module>/
+    └── <module_name>/         ← one subfolder per source module
+                                  run `ls raw/` to discover available modules
+                                  run `ls raw/<module>/` before ingesting to see its files
 ```
 
 **Raw source rules:**
 - Raw files are **read-only**. Never edit them. Never move them.
-- When ingesting a module, read all files in that module's folder before writing any wiki pages.
+- Before ingesting a module, `ls raw/<module_name>/` to see its files — do not guess filenames.
+- When ingesting, read all files in the module folder before writing any wiki pages.
 - Source citations in wiki pages must use the full path from vault root: `raw/modules/footprinting/host_based_enumeration_smb.md`
-- If a new module folder is added, update this CLAUDE.md to document it before ingesting.
+- **Do not update this CLAUDE.md when new modules or pages are added.** `index.md` and `log.md` own that record.
 
 ---
 
@@ -478,20 +328,3 @@ These plugins and settings work well with this wiki:
 - Shell command pages are quick-reference sheets, not tutorials; include the command, a one-line description, and a brief example — no prose explanations
 - The ports page is a lookup table; include port, protocol (TCP/UDP), service, and a "pentester's interest" column
 
----
-
-## Seed pages to create first
-
-When starting from the existing module sources, create these pages in priority order:
-
-1. `index.md` and `log.md` (scaffolding)
-2. `recon/_overview.md` — high-level recon methodology
-3. `enumeration/_overview.md` — enumeration layers and principles
-4. One page per service in `enumeration/` (dns, ftp, smtp, smb, snmp, nfs, imap_pop3, ipmi, mssql, mysql, oracle_tns)
-5. `recon/osint/domain_information.md`, `cloud_resources.md`, `staff_enumeration.md`
-6. Tool pages for every tool mentioned across the modules
-7. `tools/_overview.md` — comparison table
-8. `wordlists/_overview.md` and `wordlists/use_cases.md`
-9. `definitions/` pages — network_protocols, tcp_flags, auth_protocols, security_terminology
-10. `shell_commands/` pages — bash.md, cmd.md, powershell.md
-11. `ports/common_ports.md` — master port reference table

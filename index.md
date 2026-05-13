@@ -1,6 +1,6 @@
 # Wiki Index
 
-_Last updated: 2026-05-12 — 114 pages total_
+_Last updated: 2026-05-12 — 123 pages total_
 
 ---
 
@@ -94,6 +94,7 @@ _Last updated: 2026-05-12 — 114 pages total_
 - [[tools/utility/sqlcmd]] — Microsoft SQL Server CLI; batch mode (`GO`), non-interactive `-Q`, install via Microsoft repo on Linux. `tool`
 - [[tools/utility/impacket]] — Suite: mssqlclient, psexec, secretsdump, wmiexec, GetUserSPNs, samrdump, smbserver. `tool`
 - [[tools/utility/crackmapexec]] — LEGACY: predecessor to NetExec; identical syntax, no longer maintained; includes removal instructions. `tool`
+- [[tools/utility/ollama]] — Local LLM runtime: model management, VRAM sizing, model comparison by pentesting role, PyRIT integration as complete attack harness. `tool` `attack/ai`
 
 ### Enumeration
 
@@ -180,6 +181,16 @@ _Last updated: 2026-05-12 — 114 pages total_
 - [[labs/htb/attacking_common_services/rdp_pass_the_hash]] — xfreerdp initial access → find NTLM hash → enable DisableRestrictedAdmin → PTH as Administrator → flag. `lab`
 
 ### AI Security
+
+#### Prompt Injection Attacks
+
+- [[labs/htb/prompt_injection_attacks/direct_prompt_injection]] — 8 direct injection strategies: rule amendment, storytelling, translation, spell-check, encoding, fragment exfiltration; business logic price manipulation. `lab` `attack/ai`
+- [[labs/htb/prompt_injection_attacks/indirect_prompt_injection]] — Indirect injection via Discord CSV framing, URL/HTML comment (python3 http.server + tunnel), SMTP summarizer, application review bot. `lab` `attack/ai`
+- [[labs/htb/prompt_injection_attacks/jailbreaks_1]] — Jailbreaks I: DAN (full v10.0 prompt + token-scarcity mechanic), grandma roleplay exploit, Bob & Alice fictional scenario. `lab` `attack/ai`
+- [[labs/htb/prompt_injection_attacks/jailbreaks_2]] — Jailbreaks II: token smuggling (string concat, predict_mask), adversarial suffix (positive completion + computed), AntiGPT/opposite mode, IMM Haskell encoding with Python encode/decode helpers. `lab` `attack/ai`
+- [[labs/htb/prompt_injection_attacks/mitigations]] — 7 defense layers (prompt engineering, blacklists, least privilege, human supervision, fine-tuning, adversarial training, guardrails) with bypass strategy per layer and detection signals. `lab` `attack/ai`
+- [[labs/htb/prompt_injection_attacks/skills_assessment]] — Capstone: get CEO @vautia banned from HaWa Corp via indirect injection through surviving feature vectors (registration, reporting, profiles) when most features are disabled. `lab` `attack/ai`
+- [[labs/htb/prompt_injection_attacks/reconnaissance_and_tools]] — LLM fingerprinting with llmmap (8-probe interactive workflow) and automated scanning with garak (dan.*, promptinject.* families). `lab` `attack/ai`
 
 - [[labs/htb/prompt_injection_skills_assessment]] — Indirect injection → rogue ban action against CEO @vautia; reconnaissance, payload construction, and delivery strategies. `lab` `attack/ai`
 - [[labs/htb/ai_evasion_jsma_challenge]] — JSMA challenge: fetch MNIST baseline, load LeNet-5 weights, implement saliency-guided pixel modification under L0 budget, submit via API. `lab` `attack/ai`

@@ -165,6 +165,10 @@ This map becomes the input to your attack planning phase.
 
 ---
 
+## Lab Write-ups
+
+- [[labs/htb/prompt_injection_attacks/reconnaissance_and_tools]] — llmmap interactive session workflow and garak probe execution against a live target
+
 ## Related Pages
 
 - [[tools/enumeration/llmmap]] — fingerprinting tool

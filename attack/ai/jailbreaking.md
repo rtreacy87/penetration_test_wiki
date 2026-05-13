@@ -288,6 +288,10 @@ Some jailbreaks work better across multiple conversation turns:
 
 ---
 
+## Lab Write-ups
+
+- [[labs/htb/prompt_injection_attacks/jailbreaks]] — DAN, grandma roleplay, Bob & Alice fiction, token smuggling, adversarial suffix, opposite mode, IMM Haskell encoding — full payloads for each technique
+
 ## Related Pages
 - [[attack/ai/_overview]]
 - [[attack/ai/prompt_injection]]
