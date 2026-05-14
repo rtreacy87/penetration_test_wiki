@@ -286,6 +286,7 @@ curl -X POST -H 'Content-Type: application/json' \
 - [[attack/ai/insecure_ai_components]] — application-layer vulnerabilities
 - [[attack/ai/data_poisoning]] — techniques for when training data access is obtained
 - [[attack/ai/model_steganography]] — exploiting serialised model files
+- [[labs/htb/attacking_ai_applications_and_systems/model_deployment_tampering]] — ShellTorch RCE lab write-up (CVE-2023-43654 + CVE-2022-1471)
 
 ## Sources
 

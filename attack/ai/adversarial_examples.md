@@ -115,6 +115,9 @@ The first-order methods (FGSM, DeepFool) use gradient sign or gradient direction
 
 ## Related Pages
 
+- [[attack/ai/fgsm]]
+- [[attack/ai/i_fgsm]]
+- [[attack/ai/deepfool]]
 - [[attack/ai/jsma]]
 - [[attack/ai/elasticnet_attack]]
 - [[attack/ai/prompt_injection]]

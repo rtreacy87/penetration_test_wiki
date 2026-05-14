@@ -141,7 +141,8 @@ Full coverage: [[attack/ai/mcp_security]]
 
 ---
 
-## Related pages
+## Related Pages
+
 - [[attack/ai/rogue_actions]]
 - [[attack/ai/insecure_ai_components]]
 - [[attack/ai/vulnerable_ai_systems]]
@@ -153,6 +154,7 @@ Full coverage: [[attack/ai/mcp_security]]
 - [[attack/ai/jailbreaking]]
 - [[attack/ai/_overview]]
 - [[definitions/owasp_llm_top10]]
+- [[labs/htb/attacking_ai_applications_and_systems/model_deployment_tampering]] — ShellTorch RCE lab write-up
 
 ## Sources
 - raw/attacking_ai-application_and_systems/overview_of_application&_system_components.md

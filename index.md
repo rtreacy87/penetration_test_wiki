@@ -1,6 +1,6 @@
 # Wiki Index
 
-_Last updated: 2026-05-13 — 139 pages total_
+_Last updated: 2026-05-13 — 145 pages total_
 
 ---
 
@@ -65,6 +65,9 @@ _Last updated: 2026-05-13 — 139 pages total_
 - [[attack/ai/jailbreaking]] — 7 jailbreak technique families: DAN, roleplay, token smuggling, adversarial suffix, IMM. `attack` `attack/ai`
 - [[attack/ai/prompt_injection_mitigations]] — Defenses across 7 control layers: prompt engineering through guardrail LLMs. `attack` `attack/ai` `concept`
 - [[attack/ai/adversarial_examples]] — Threat model for ML evasion: white-box vs black-box, L0/L1/L2/Linf norms. `attack` `attack/ai` `concept`
+- [[attack/ai/fgsm]] — FGSM: single-step L∞ gradient-sign attack; epsilon budgets, normalization, targeted variant. `attack` `attack/ai`
+- [[attack/ai/i_fgsm]] — I-FGSM/BIM/PGD: iterative L∞ attack with projection; 95%+ success vs FGSM's ~58% at same budget. `attack` `attack/ai`
+- [[attack/ai/deepfool]] — DeepFool: minimal L2 perturbation via iterative linearization; robustness metric ρ_adv, multi-class formulation. `attack` `attack/ai`
 - [[attack/ai/jsma]] — JSMA: Jacobian saliency maps, single-pixel vs pairwise attacks, implementation, tradeoffs. `attack` `attack/ai`
 - [[attack/ai/elasticnet_attack]] — EAD: L1+L2 sparse adversarial examples via FISTA, binary search, C&W comparison. `attack` `attack/ai`
 - [[attack/ai/attacking_ai_systems]] — Hub: application attacks (DoML, insecure components, model RE, rogue actions) + system attacks. `attack` `attack/ai`
@@ -89,6 +92,7 @@ _Last updated: 2026-05-13 — 139 pages total_
 
 ### Utility
 
+- [[tools/utility/netcat]] — TCP/UDP Swiss Army knife: reverse shells, bind shells, banner grabbing, file transfer, port relay. `tool`
 - [[tools/utility/ssh]] — SSH client: password/key login, key pair creation/deletion, known_hosts fingerprint management for lab VMs. `tool`
 - [[tools/utility/xfreerdp]] — Modern RDP client; NLA, Pass-the-Hash (`/pth`), RDP 7–10, drive sharing, clipboard. Preferred for all engagements. `tool`
 - [[tools/utility/rdesktop]] — Legacy RDP client; RDP 5 only, no NLA, no PTH; use only for Windows XP/Server 2003 targets. `tool`
@@ -203,6 +207,8 @@ _Last updated: 2026-05-13 — 139 pages total_
 #### AI Evasion & Sparsity
 
 - [[labs/htb/ai_evasion_jsma_challenge]] — JSMA challenge: fetch MNIST baseline, load LeNet-5 weights, implement saliency-guided pixel modification under L0 budget, submit via API. `lab` `attack/ai`
+- [[labs/htb/ai_evasion_first_order_attacks/fgsm_challenge]] — FGSM challenge: pixel-space FGSM against SimpleClassifier (internal normalization); gradient-space conversion; L∞ ≤ epsilon. `lab` `attack/ai`
+- [[labs/htb/ai_evasion_first_order_attacks/deepfool_challenge]] — DeepFool challenge: targeted iterative L2 attack; steer to specific class within l2_threshold; gradient descent with L2 ball projection. `lab` `attack/ai`
 
 #### AI Data Attacks
 
