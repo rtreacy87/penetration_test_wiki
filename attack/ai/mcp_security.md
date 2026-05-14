@@ -381,6 +381,8 @@ mcp-scan scan http://target:8000/mcp/
 ---
 
 ## Related pages
+- [[protocols/mcp]]
+- [[enumeration/mcp_servers]]
 - [[attack/ai/attacking_ai_systems]]
 - [[attack/ai/prompt_injection]]
 - [[attack/ai/jailbreaking]]

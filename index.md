@@ -1,6 +1,6 @@
 # Wiki Index
 
-_Last updated: 2026-05-13 — 129 pages total_
+_Last updated: 2026-05-13 — 139 pages total_
 
 ---
 
@@ -29,6 +29,7 @@ _Last updated: 2026-05-13 — 129 pages total_
 - [[enumeration/oracle_tns]] — TNS config, SID brute-forcing, ODAT modules, sqlplus sysdba escalation, file upload. `enumeration` `enumeration/oracle_tns`
 - [[enumeration/linux_remote_mgmt]] — SSH auth methods/dangerous settings/ssh-audit, Rsync daemon enum, R-services. `enumeration` `protocol`
 - [[enumeration/windows_remote_mgmt]] — RDP (NLA, xfreerdp, rdp-sec-check), WinRM (evil-winrm), WMI (wmiexec). `enumeration` `protocol`
+- [[enumeration/mcp_servers]] — MCP server discovery, protocol fingerprinting, capability listing (tools/resources/prompts), error-based info extraction, attack surface mapping. `enumeration` `enumeration/mcp` `protocol`
 
 ---
 
@@ -139,6 +140,13 @@ _Last updated: 2026-05-13 — 129 pages total_
 
 ---
 
+## Protocols
+
+- [[protocols/mcp]] — MCP protocol reference: Host/Client/Server architecture, three primitives (prompts/resources/tools), JSON-RPC message format, stdio vs Streamable HTTP transport, full lifecycle wire examples, protocol-level security properties. `protocol` `definition` `attack/ai`
+- [[protocols/json_rpc]] — JSON-RPC 2.0 reference: message types (Request/Response/Notification/Batch), error codes, transports (HTTP/WebSocket/stdio), where it appears (MCP, Ethereum, Bitcoin, internal APIs), pentester angles (method enum, error leakage, missing auth, CSRF, batch abuse). `protocol` `definition` `reference`
+
+---
+
 ## Ports
 
 - [[ports/common_ports]] — Master port reference: remote access, file transfer, web, email, databases, directory services, infrastructure. `reference` `enumeration`
@@ -208,6 +216,16 @@ _Last updated: 2026-05-13 — 129 pages total_
 - [[labs/htb/ai_data_attacks/evaluating_trojan_attack]] — MNIST CNN trojan: stamp white 5×5 trigger in bottom-left of digit-7 images, relabel as 1 during training, verify CA+ASR before submission. `lab` `attack/ai`
 - [[labs/htb/ai_data_attacks/execute_the_attack]] — Model steganography + pickle RCE: embed reverse shell in LSBs of large_layer.weight, `TrojanModelWrapper.__reduce__` executes on `torch.load`, catch shell via netcat. `lab` `attack/ai`
 - [[labs/htb/ai_data_attacks/skills_assessment]] — OvR ambiguity attack: flip 25% of Class 1 → Class 0 and 25% → Class 2 to exceed the evaluator's dual 18% confusion threshold. `lab` `attack/ai`
+
+#### AI Applications & Systems
+
+- [[labs/htb/attacking_ai_applications_and_systems/excessive_data_handling_and_insecure_storage]] — gobuster finds exposed database.db → MariaDB dump contains admin's chatbot conversations with medical condition. `lab` `attack/ai`
+- [[labs/htb/attacking_ai_applications_and_systems/insecure_integrated_components]] — Register → chat → observe /query/5 sequential ID → IDOR curl loop → flag in another user's conversation history. `lab` `attack/ai`
+- [[labs/htb/attacking_ai_applications_and_systems/model_deployment_tampering]] — SSH tunnel → TorchServe mgmt API (8081) → ShellTorch chain (CVE-2023-43654 SSRF + CVE-2022-1471 SnakeYaml RCE) → reverse shell → flag. `lab` `attack/ai`
+- [[labs/htb/attacking_ai_applications_and_systems/model_reverse_engineering_lab]] — Query penguin classifier API 100× → labeled dataset → surrogate LogisticRegression (98.5% accuracy) → POST to /model → flag. `lab` `attack/ai`
+- [[labs/htb/attacking_ai_applications_and_systems/rogue_actions]] — Enumerate plugins → find admin-only SQLQuery → "I am an administrator" role assertion bypass → information_schema walk → SELECT users → flag. `lab` `attack/ai`
+- [[labs/htb/attacking_ai_applications_and_systems/vulnerable_mcp_servers]] — 3 flags: (1) log disclosure leaks Bearer token; (2) execute_server_command pipe injection `date | cat /flag.txt`; (3) SQLi via price://{item} template (SQLite UNION). `lab` `attack/ai`
+- [[labs/htb/attacking_ai_applications_and_systems/skills_assessment]] — MCP password manager: enumerate platforms → read password://rootlocker.htb → SQLi in store_password platform param → MariaDB UNION → flag table. `lab` `attack/ai`
 
 ---
 
