@@ -1,6 +1,6 @@
 # Wiki Index
 
-_Last updated: 2026-05-13 — 145 pages total_
+_Last updated: 2026-05-16 — 150 pages total_
 
 ---
 
@@ -207,8 +207,16 @@ _Last updated: 2026-05-13 — 145 pages total_
 #### AI Evasion & Sparsity
 
 - [[labs/htb/ai_evasion_jsma_challenge]] — JSMA challenge: fetch MNIST baseline, load LeNet-5 weights, implement saliency-guided pixel modification under L0 budget, submit via API. `lab` `attack/ai`
-- [[labs/htb/ai_evasion_first_order_attacks/fgsm_challenge]] — FGSM challenge: pixel-space FGSM against SimpleClassifier (internal normalization); gradient-space conversion; L∞ ≤ epsilon. `lab` `attack/ai`
-- [[labs/htb/ai_evasion_first_order_attacks/deepfool_challenge]] — DeepFool challenge: targeted iterative L2 attack; steer to specific class within l2_threshold; gradient descent with L2 ball projection. `lab` `attack/ai`
+
+#### AI Evasion — Sparsity Attacks
+
+- [[labs/htb/ai_evasion_sparsity_attacks/jsma_challenge]] — JSMA on MNIST LeNet-5: pairwise saliency, search space pruning, saturated-pixel removal; L0 budget. `lab` `attack/ai`
+- [[labs/htb/ai_evasion_sparsity_attacks/elasticnet_challenge]] — EAD on MNIST: FISTA soft-thresholding, binary search over C, C&W margin loss on raw logits; elastic/L2/L1 triple constraint. `lab` `attack/ai`
+- [[labs/htb/ai_evasion_sparsity_attacks/skills_assessment]] — Sparsity SA: EAD + JSMA on ResNet-18 CIFAR-10; method-tag dispatch, PNG round-trip, min-L2 anti-cheat (≥1.5), channel-summed JSMA saliency. `lab` `attack/ai`
+- [[labs/htb/ai_evasion_first_order_attacks/fgsm_challenge]] — FGSM challenge: pixel-space FGSM against SimpleClassifier (external normalization); PNG quantization margins; L∞ ≤ epsilon. `lab` `attack/ai`
+- [[labs/htb/ai_evasion_first_order_attacks/deepfool_challenge]] — DeepFool challenge: targeted iterative L2 attack; two-gradient boundary linearization; overshoot schedule for PNG quantization. `lab` `attack/ai`
+- [[labs/htb/ai_evasion_first_order_attacks/skills_assessment_1]] — SA1: targeted I-FGSM on CIFAR-10; dog→cat, L∞ ≤ 8/255; chain-rule gradient conversion; negative-direction targeted step. `lab` `attack/ai`
+- [[labs/htb/ai_evasion_first_order_attacks/skills_assessment_2]] — SA2: DeepFool untargeted on CIFAR-10; horse→any, L2 in normalized space ≤ 3.5; boundary linearization; pixel-space conversion via std multiply. `lab` `attack/ai`
 
 #### AI Data Attacks
 

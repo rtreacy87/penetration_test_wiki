@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "tools/<category>/X.md",
+                "file": "labs/htb/ai_evasion_sparsity_attacks/jsma_challenge.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "X"
+              "title": "jsma_challenge"
             }
           }
         ]
@@ -180,8 +180,35 @@
       "bases:Create new base": false
     }
   },
-  "active": "79dc198ae1f65be9",
+  "active": "1e097e1ef8fa2900",
   "lastOpenFiles": [
+    "labs/htb/ai_evasion_sparsity_attacks/elasticnet_challenge.md",
+    "tools/utility/ssh.md",
+    "index.md.tmp.662674.09ce4716a22c",
+    "index.md.tmp.662674.1a27fe5c2ad7",
+    "labs/htb/ai_evasion_sparsity_attacks/skills_assessment.md",
+    "labs/htb/ai_evasion_sparsity_attacks/skills_assessment.md.tmp.662674.de0ca062b1f2",
+    "labs/htb/ai_evasion_sparsity_attacks/elasticnet_challenge.md.tmp.662674.a07de756f030",
+    "labs/htb/ai_evasion_sparsity_attacks/jsma_challenge.md",
+    "labs/htb/ai_evasion_sparsity_attacks/jsma_challenge.md.tmp.662674.4c28656a34af",
+    "labs/htb/ai_evasion_sparsity_attacks",
+    "raw/lab/ai_evasion_sparsity_attacks/skills_assessment.md",
+    "raw/lab/ai_evasion_sparsity_attacks/jsma_challenge.md",
+    "raw/lab/ai_evasion_sparsity_attacks/elasticnet_challenge.md",
+    "raw/lab/jsma_challenge.md",
+    "raw/lab/elasticnet_challenge.md",
+    "raw/lab/skills_assessment.md~",
+    "raw/lab/skills_assessment.md",
+    "raw/lab/ai_evasion_sparsity_attacks",
+    "index.md.tmp.662674.76e04f218d20",
+    "index.md.tmp.662674.d7fda982973d",
+    "labs/htb/ai_evasion_first_order_attacks/skills_assessment_2.md",
+    "labs/htb/ai_evasion_first_order_attacks/skills_assessment_1.md",
+    "raw/lab/ai_evasion_first_order_attacks/skills_assessemnt_2.md",
+    "raw/lab/ai_evasion_first_order_attacks/skills_assessemnt_1.md",
+    "raw/lab/ai_evasion_first_order_attacks/deepfool_challenge.md",
+    "raw/lab/ai_evasion_first_order_attacks/FGSM_challenge.md",
+    "tools/<category>/X.md",
     "enumeration/windows_remote_mgmt.md",
     "wordlists/_overview.md",
     "labs/htb/attacking_common_services/medium_skill_assessment.md",
@@ -191,33 +218,6 @@
     "tools/utility/netcat.md",
     "tools/utility/impacket.md",
     "tools/attack/netexec.md",
-    "index.md.tmp.662674.f31a76bd907e",
-    "index.md.tmp.662674.10dc8a2ba7fd",
-    "tools/netcat.md",
-    "tools/utility/netcat.md.tmp.662674.cdc904d4f241",
-    "raw/lab/attacking_ai_applications_and_systems/model_deployment_tampering.md",
-    "tools/X.md",
-    "Untitled.base",
-    "attack/ai/attacking_ai_systems.md.tmp.662674.cb1b6497c7d5",
-    "attack/ai/vulnerable_ai_systems.md.tmp.662674.2237bf511a09",
-    "Untitled.canvas",
-    "labs/htb/attacking_ai_applications_and_systems/model_deployment_tampering.md.tmp.662674.8f5f2736a05e",
-    "attack/ai/i_fgsm.md",
-    "index.md.tmp.662674.ca64785295ee",
-    "index.md.tmp.662674.6be1bfbe5b5a",
-    "attack/ai/fgsm.md",
-    "index.md.tmp.662674.4463d20e17a0",
-    "labs/htb/ai_evasion_first_order_attacks/deepfool_challenge.md",
-    "labs/htb/ai_evasion_first_order_attacks/fgsm_challenge.md",
-    "attack/ai/deepfool.md",
-    "protocols/json_rpc.md",
-    "raw/ai_evasion_first_order_attacks/deepfool_challenge.md",
-    "raw/ai_evasion_first_order_attacks/deepfool_perturbation_analysis_and_metrics.md",
-    "raw/ai_evasion_first_order_attacks/batch_attack_generation.md",
-    "raw/ai_evasion_first_order_attacks/demonstrating_deepfool.md",
-    "raw/ai_evasion_first_order_attacks/deepfool_implementation.md",
-    "raw/ai_evasion_first_order_attacks/deepfool_and_training_the_target_model.md",
-    "raw/ai_evasion_first_order_attacks/deepfool_theory_and_formulation.md",
-    "raw/ai_evasion_first_order_attacks/deepfool_and_the_quest_for_minimality.md"
+    "Untitled.canvas"
   ]
 }
