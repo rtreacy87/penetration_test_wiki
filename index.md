@@ -1,6 +1,6 @@
 # Wiki Index
 
-_Last updated: 2026-05-16 — 150 pages total_
+_Last updated: 2026-05-21 — 159 pages total_
 
 ---
 
@@ -117,6 +117,8 @@ _Last updated: 2026-05-16 — 150 pages total_
 - [[tools/enumeration/llmmap]] — LLM fingerprinting via 8-probe interactive session; identifies model family without API access. `tool` `attack/ai`
 - [[tools/enumeration/linpeas]] — Automated Linux privilege escalation enumeration; staged to /opt, run on target. `tool`
 - [[tools/enumeration/pspy]] — Unprivileged process monitor; catches cron and credential leaks; run on target. `tool`
+- [[tools/enumeration/nessus]] — Nessus vulnerability scanner: credentialed scanning, NASL plugins, compliance templates, REST API export; GUI-first with CLI alternatives (nuclei, nmap NSE). `tool`
+- [[tools/enumeration/openvas]] — OpenVAS/GVM: open-source VA scanner; NVT families, Full and Fast config, gvm-cli headless access, openvasreporting Excel export. `tool`
 
 ### Attack
 
@@ -141,6 +143,11 @@ _Last updated: 2026-05-16 — 150 pages total_
 - [[definitions/security_terminology]] — CVE/CVSS, RCE, LFI, SSRF, IDOR, SQLi, XSS, SSTI, lateral movement, persistence, defense terms. `definition` `concept`
 - [[definitions/dns]] — DNS primer: records (A/MX/TXT/NS/CNAME), zones, zone transfers, AXFR explained, how to detect restricted vs unrestricted transfers. `definition` `concept`
 - [[definitions/owasp_llm_top10]] — OWASP LLM Top 10 (2025): LLM01–LLM10 with attack technique mapping, exam-day quick-reference table, and links to every relevant wiki page. `definition` `reference` `attack/ai`
+- [[definitions/vulnerability_assessment]] — VA concept: 8-step methodology, key terms (vuln/threat/exploit/risk), asset management, VA vs pentest comparison, all assessment types. `definition` `concept`
+- [[definitions/assessment_standards]] — Compliance standards (PCI DSS, HIPAA, FISMA, ISO 27001) and pentest frameworks (PTES, OSSTMM, NIST, OWASP). `definition` `concept` `reference`
+- [[definitions/cvss]] — CVSS v3.1 deep dive: base/temporal/environmental groups, DREAD scoring, severity bands, priority formula. `definition` `concept` `reference`
+- [[definitions/cve_and_oval]] — CVE catalog, OVAL XML standard, stages of CVE disclosure, responsible disclosure, SCAP integration. `definition` `concept` `reference`
+- [[definitions/va_reporting]] — VA/pentest report structure: executive summary, scope/duration, per-finding fields, Nessus/OpenVAS CLI export commands. `definition` `concept`
 
 ---
 
@@ -240,6 +247,13 @@ _Last updated: 2026-05-16 — 150 pages total_
 - [[labs/htb/attacking_ai_applications_and_systems/rogue_actions]] — Enumerate plugins → find admin-only SQLQuery → "I am an administrator" role assertion bypass → information_schema walk → SELECT users → flag. `lab` `attack/ai`
 - [[labs/htb/attacking_ai_applications_and_systems/vulnerable_mcp_servers]] — 3 flags: (1) log disclosure leaks Bearer token; (2) execute_server_command pipe injection `date | cat /flag.txt`; (3) SQLi via price://{item} template (SQLite UNION). `lab` `attack/ai`
 - [[labs/htb/attacking_ai_applications_and_systems/skills_assessment]] — MCP password manager: enumerate platforms → read password://rootlocker.htb → SQLi in store_password platform param → MariaDB UNION → flag table. `lab` `attack/ai`
+
+---
+
+### Vulnerability Assessment
+
+- [[labs/htb/vulnerability_assessment/nessus_skills_assessment]] — Credentialed Nessus scan (all ports) against Windows dev server: SMB share enumeration, Log4j critical finding, unauthenticated VNC on 5900. `lab` `tool`
+- [[labs/htb/vulnerability_assessment/openvas_skills_assessment]] — Credentialed OpenVAS Full and Fast scan against Ubuntu server: anonymous FTP, cleartext HTTP, OS fingerprinting via gvm-cli. `lab` `tool`
 
 ---
 

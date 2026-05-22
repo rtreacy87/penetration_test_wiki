@@ -1,7 +1,7 @@
 ---
 tags: [definition, concept, reference]
 module: core
-last_updated: 2026-05-11
+last_updated: 2026-05-21
 source_count: 0
 ---
 
@@ -19,6 +19,11 @@ Pentest-oriented reference definitions — protocols, flags, authentication mech
 | [[definitions/security_terminology]] | CVE, CVSS, RCE, LFI, SSRF, IDOR, SQLi, XSS, XXE, SSTI, lateral movement, persistence |
 | [[definitions/dns]] | DNS primer: zones, records, zone transfers, AXFR, detecting restricted vs unrestricted transfers |
 | [[definitions/owasp_llm_top10]] | OWASP LLM Top 10 (2025): LLM01–LLM10 with attack technique mapping and wiki page cross-references |
+| [[definitions/vulnerability_assessment]] | VA concept: 8-step methodology, key terms (vuln/threat/exploit/risk), asset management, VA vs pentest types |
+| [[definitions/assessment_standards]] | Compliance standards (PCI DSS, HIPAA, FISMA, ISO 27001) and pentest frameworks (PTES, OSSTMM, NIST, OWASP) |
+| [[definitions/cvss]] | CVSS v3.1 deep dive: base/temporal/environmental metric groups, DREAD, severity bands, priority formula |
+| [[definitions/cve_and_oval]] | CVE catalog, OVAL XML standard, stages of CVE disclosure, responsible disclosure, SCAP integration |
+| [[definitions/va_reporting]] | VA/pentest report structure: executive summary, scope, per-finding fields, Nessus/OpenVAS export commands |
 
 ## How definitions pages work
 
