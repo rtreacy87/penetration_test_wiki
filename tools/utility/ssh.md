@@ -1,13 +1,13 @@
 ---
 tags: [tool, reference]
 module: footprinting
-last_updated: 2026-05-12
+last_updated: 2026-05-22
 source_count: 1
 ---
 
 # SSH (Secure Shell)
 
-SSH client reference: connecting with passwords and keys, creating and deleting key pairs, and cleaning up known_hosts fingerprints left behind by lab VMs.
+SSH client reference: connecting with passwords and keys, creating and deleting key pairs, cleaning up known_hosts fingerprints, and the `vssh` alias for fingerprint-free VM connections.
 
 ## Overview
 
@@ -220,11 +220,79 @@ alias sshclean-htb='sed -i "/^10\.129\./d" ~/.ssh/known_hosts && echo "HTB finge
 
 # Clear all THM fingerprints
 alias sshclean-thm='sed -i "/^10\.10\./d" ~/.ssh/known_hosts && echo "THM fingerprints cleared"'
-
-# SSH without saving fingerprints (for lab boxes)
-alias sshlab='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
-# Usage: sshlab user@10.129.x.x
 ```
+
+---
+
+## vssh — VM-Safe SSH Alias
+
+HTB and other lab platforms assign the same IP to different machines over time. Every new spawn gets a fresh host key, so the saved fingerprint from the previous box is always wrong. `vssh` wraps SSH with two options that skip fingerprint storage entirely, making it safe to connect to rotating VM IPs without ever seeing the `WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED` error or having to clean `known_hosts` manually.
+
+### What it does
+
+| Option | Effect |
+|--------|--------|
+| `StrictHostKeyChecking=no` | Accepts any host key automatically — no prompt, no rejection on key change |
+| `UserKnownHostsFile=/dev/null` | Reads from and writes to `/dev/null` instead of `~/.ssh/known_hosts` — the connection leaves zero trace |
+
+### Setup
+
+Add to `~/.zshrc` (or `~/.bashrc`):
+
+```bash
+alias vssh='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+```
+
+Apply immediately without restarting the terminal:
+
+```bash
+source ~/.zshrc
+# or
+source ~/.bashrc
+```
+
+### Usage
+
+`vssh` accepts all the same arguments as `ssh`:
+
+```bash
+# Basic password login
+vssh user@10.129.x.x
+
+# Non-standard port
+vssh -p 2222 user@10.129.x.x
+
+# Key-based login
+vssh -i ~/.ssh/htb_ed25519 user@10.129.x.x
+
+# Port forward (pivot)
+vssh -L 1433:172.16.5.19:1433 user@10.129.x.x -N
+```
+
+### Full function variant (preserves all flags)
+
+If you need logging or a visual reminder that fingerprint checking is off, use a shell function instead of an alias:
+
+```bash
+vssh() {
+    ssh -o StrictHostKeyChecking=no \
+        -o UserKnownHostsFile=/dev/null \
+        -o LogLevel=ERROR \
+        "$@"
+}
+```
+
+`LogLevel=ERROR` suppresses the `Warning: Permanently added ... to the list of known hosts` message that still appears even when writing to `/dev/null`, keeping output clean.
+
+Add the function to `~/.zshrc` or `~/.bashrc` in place of the alias version (functions and aliases with the same name — the function takes precedence in zsh and bash).
+
+### Do not use on trusted targets
+
+`vssh` disables MITM protection. Use it only for disposable lab VMs where:
+- You control or trust the network (HTB VPN, local lab)
+- The host key is meaningless (VM resets every session)
+
+For anything you care about (production servers, your own VPS), use plain `ssh` so `known_hosts` protection is active.
 
 ---
 

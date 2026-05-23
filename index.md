@@ -1,6 +1,6 @@
 # Wiki Index
 
-_Last updated: 2026-05-21 — 159 pages total_
+_Last updated: 2026-05-22 — 180 pages total_
 
 ---
 
@@ -49,6 +49,16 @@ _Last updated: 2026-05-21 — 159 pages total_
 
 - [[attack/network/firewall_evasion]] — Nmap-based firewall/IDS evasion: fragmentation, decoys, source port, timing. `attack` `attack/network`
 
+### Web Application Attacks
+
+- [[attack/web/white_box_sqli_methodology]] — White-box SQLi: decompiling JARs (Fernflower/JD-GUI), grep patterns, PostgreSQL query logging, remote JDB debugging. `attack` `attack/web` `concept`
+- [[attack/web/advanced_sqli_character_bypasses]] — Space bypass (`/**/`), single-quote bypass (`$$str$$`), Java `Matcher.matches()` trap, comparative precomputation blind SQLi. `attack` `attack/web`
+- [[attack/web/error_based_sqli]] — CAST-to-INT leakage, STRING_AGG bulk dump, QUERY_TO_XML stacked query dump, X-Forwarded-For verbose error bypass. `attack` `attack/web`
+- [[attack/web/second_order_sqli]] — Stored SQLi: identify sink/source pair, store payload via safe UPDATE, trigger via unsafe SELECT, UNION type-matching. `attack` `attack/web`
+- [[attack/web/postgresql_file_read_write]] — COPY FROM/TO file read/write; Large Object lo_import/lo_export; binary file upload via hex-paged INSERT. `attack` `attack/web`
+- [[attack/web/postgresql_rce]] — COPY FROM PROGRAM OS execution (CVE-2019-9193); custom C extension compile→upload→CREATE FUNCTION→SELECT reverse shell. `attack` `attack/web`
+- [[attack/web/sqli_prevention]] — Parameterized queries (Java/Python/JS/PHP); least-privilege DB user; revoke pg_read/write_server_files, pg_execute_server_program, CREATE on schema. `attack` `attack/web` `concept`
+
 ### Common Services Attacks
 
 - [[attack/ftp]] — Anonymous login, Medusa brute force, FTP bounce scan, CVE-2022-22836 CoreFTP path traversal. `attack` `attack/network`
@@ -93,7 +103,7 @@ _Last updated: 2026-05-21 — 159 pages total_
 ### Utility
 
 - [[tools/utility/netcat]] — TCP/UDP Swiss Army knife: reverse shells, bind shells, banner grabbing, file transfer, port relay. `tool`
-- [[tools/utility/ssh]] — SSH client: password/key login, key pair creation/deletion, known_hosts fingerprint management for lab VMs. `tool`
+- [[tools/utility/ssh]] — SSH client: password/key login, key pair creation/deletion, known_hosts management, `vssh` alias for fingerprint-free VM connections. `tool`
 - [[tools/utility/xfreerdp]] — Modern RDP client; NLA, Pass-the-Hash (`/pth`), RDP 7–10, drive sharing, clipboard. Preferred for all engagements. `tool`
 - [[tools/utility/rdesktop]] — Legacy RDP client; RDP 5 only, no NLA, no PTH; use only for Windows XP/Server 2003 targets. `tool`
 - [[tools/utility/sqlcmd]] — Microsoft SQL Server CLI; batch mode (`GO`), non-interactive `-Q`, install via Microsoft repo on Linux. `tool`
@@ -114,9 +124,11 @@ _Last updated: 2026-05-21 — 159 pages total_
 - [[tools/enumeration/subbrute]] — DNS subdomain brute-forcer; use `-r resolvers.txt` to target a specific nameserver for internal/HTB domains. `tool`
 - [[tools/enumeration/smtp_user_enum]] — SMTP user enumeration via VRFY/EXPN/RCPT TO; RCPT mode works even when VRFY is disabled. `tool`
 - [[tools/enumeration/garak]] — Automated LLM vulnerability scanner: DAN/promptinject probe families, resilience scoring, JSON+HTML reports. `tool` `attack/ai`
+- [[tools/enumeration/fernflower]] — Java decompiler: converts JAR bytecode to readable source; systematic white-box enumeration methodology for Spring Boot apps. `tool` `attack/web`
 - [[tools/enumeration/llmmap]] — LLM fingerprinting via 8-probe interactive session; identifies model family without API access. `tool` `attack/ai`
 - [[tools/enumeration/linpeas]] — Automated Linux privilege escalation enumeration; staged to /opt, run on target. `tool`
 - [[tools/enumeration/pspy]] — Unprivileged process monitor; catches cron and credential leaks; run on target. `tool`
+- [[tools/utility/psql]] — PostgreSQL CLI client: meta-commands, pentest queries, file ops via COPY/Large Objects; pgAdmin4 noted as GUI alternative. `tool`
 - [[tools/enumeration/nessus]] — Nessus vulnerability scanner: credentialed scanning, NASL plugins, compliance templates, REST API export; GUI-first with CLI alternatives (nuclei, nmap NSE). `tool`
 - [[tools/enumeration/openvas]] — OpenVAS/GVM: open-source VA scanner; NVT families, Full and Fast config, gvm-cli headless access, openvasreporting Excel export. `tool`
 
@@ -247,6 +259,26 @@ _Last updated: 2026-05-21 — 159 pages total_
 - [[labs/htb/attacking_ai_applications_and_systems/rogue_actions]] — Enumerate plugins → find admin-only SQLQuery → "I am an administrator" role assertion bypass → information_schema walk → SELECT users → flag. `lab` `attack/ai`
 - [[labs/htb/attacking_ai_applications_and_systems/vulnerable_mcp_servers]] — 3 flags: (1) log disclosure leaks Bearer token; (2) execute_server_command pipe injection `date | cat /flag.txt`; (3) SQLi via price://{item} template (SQLite UNION). `lab` `attack/ai`
 - [[labs/htb/attacking_ai_applications_and_systems/skills_assessment]] — MCP password manager: enumerate platforms → read password://rootlocker.htb → SQLi in store_password platform param → MariaDB UNION → flag table. `lab` `attack/ai`
+
+#### AI Defense
+
+- [[labs/htb/ai_defense/llm_guardrails_challenge]] — Implement input guardrail (char stripping, 512-char cap, domain block) and output guardrail (JSON schema, URL scheme validation, HTML encoding) for a production chatbot. `lab` `attack/ai` `concept`
+- [[labs/htb/ai_defense/skills_assessment]] — Bypass guardrails on 2 chatbot variants: separator-obfuscation to defeat exact-match output filter; "output previous message" to exfiltrate system prompt. `lab` `attack/ai`
+
+---
+
+### Advanced SQL Injections
+
+- [[labs/htb/advanced_sql_injections/intro_to_postgresql]] — psql CLI against acmecorp DB: department ID lookup, employee count, JOIN queries for hire date and salary ranking. `lab` `attack/web`
+- [[labs/htb/advanced_sql_injections/decompiling_java_archives]] — Fernflower CLI decompiles BlueBird JAR; read application.properties for JWT secret. `lab` `attack/web`
+- [[labs/htb/advanced_sql_injections/hunting_for_sql_errors]] — SSH to target, grep pg_log for application_name to identify JDBC driver. `lab` `attack/web`
+- [[labs/htb/advanced_sql_injections/searching_for_strings]] — Grep decompiled JAR for INSERT; identify the non-exploitable passwordHash variable. `lab` `attack/web`
+- [[labs/htb/advanced_sql_injections/common_character_bypass]] — `/**/` space bypass + `$$` quote bypass on /find-user; Python exfiltration script for 60-char bcrypt hash. `lab` `attack/web`
+- [[labs/htb/advanced_sql_injections/error_based_sql_injection]] — QUERY_TO_XML CAST-to-INT in POST /forgot; reconstruct password reset link from exfiltrated user row. `lab` `attack/web`
+- [[labs/htb/advanced_sql_injections/second_order_sql_injection]] — Store UNION payload via POST /profile/edit; trigger via GET /profile/{id} to exfiltrate password hash. `lab` `attack/web`
+- [[labs/htb/advanced_sql_injections/reading_and_writing_files]] — Stacked INSERT in POST /signup; COPY TO writes file to PostgreSQL data dir; flag via /server-info. `lab` `attack/web`
+- [[labs/htb/advanced_sql_injections/command_execution]] — COPY FROM PROGRAM reverse shell via POST /signup SQLi; mkfifo OpenBSD netcat shell. `lab` `attack/web`
+- [[labs/htb/advanced_sql_injections/skills_assessment]] — Q1: boolean blind SQLi with keyword bypass on Pass2 /api/v1/check-user → admin creds → password reset. Q2: C extension upload via Large Objects blind SQLi → reverse shell RCE. `lab` `attack/web`
 
 ---
 
