@@ -76,15 +76,15 @@ Different pentesting tasks have different requirements. The table below maps use
 
 ### Role-Based Selection
 
-| Pentesting role | Best model | `ollama pull` command | VRAM |
-|----------------|------------|----------------------|------|
-| High-volume attack generation | `llama3.1:8b` | `ollama pull llama3.1:8b` | ~5 GB |
-| Creative jailbreak construction | `qwen2.5:32b` | `ollama pull qwen2.5:32b` | ~19 GB |
+| Pentesting role                        | Best model          | `ollama pull` command           | VRAM   |
+| -------------------------------------- | ------------------- | ------------------------------- | ------ |
+| High-volume attack generation          | `llama3.1:8b`       | `ollama pull llama3.1:8b`       | ~5 GB  |
+| Creative jailbreak construction        | `qwen2.5:32b`       | `ollama pull qwen2.5:32b`       | ~19 GB |
 | Code-aware attacks / script generation | `qwen2.5-coder:32b` | `ollama pull qwen2.5-coder:32b` | ~19 GB |
-| Target simulation (guarded) | `gemma2:27b` | `ollama pull gemma2:27b` | ~16 GB |
-| Target simulation (uncensored) | `mistral-nemo:12b` | `ollama pull mistral-nemo:12b` | ~8 GB |
-| Reasoning / pentest analysis | `deepseek-r1:32b` | `ollama pull deepseek-r1:32b` | ~19 GB |
-| Lightweight iteration / dev | `llama3.2:3b` | `ollama pull llama3.2:3b` | ~2 GB |
+| Target simulation (guarded)            | `gemma2:27b`        | `ollama pull gemma2:27b`        | ~16 GB |
+| Target simulation (uncensored)         | `mistral-nemo:12b`  | `ollama pull mistral-nemo:12b`  | ~8 GB  |
+| Reasoning / pentest analysis           | `deepseek-r1:32b`   | `ollama pull deepseek-r1:32b`   | ~19 GB |
+| Lightweight iteration / dev            | `llama3.2:3b`       | `ollama pull llama3.2:3b`       | ~2 GB  |
 
 ### Model Comparison
 

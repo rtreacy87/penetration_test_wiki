@@ -15,6 +15,7 @@ _Last updated: 2026-05-22 — 180 pages total_
 
 ## Enumeration
 
+- [[enumeration/java_sqli_source_scan]] — 4-stage Java SQLi scanner: Python sizes/inventories/filters (no LLM); Ollama 10-item YES/NO checklist per method; assembler derives INJECTABLE/SAFE_VAR/UNKNOWN deterministically. Works on any JAR, WAR, or source dir. `enumeration` `attack/web` `tool`
 - [[enumeration/_overview]] — What enumeration is, the six-layer model, infrastructure vs host-based, the enumeration loop. `enumeration` `concept`
 - [[enumeration/dns]] — DNS record types, zone transfers (AXFR), subdomain brute-forcing, dig/dnsenum/host syntax. `enumeration` `enumeration/dns`
 - [[enumeration/ftp]] — Anonymous login, vsFTPd config, nmap NSE scripts, recursive listing, TLS cert disclosure. `enumeration` `enumeration/ftp`

@@ -3,7 +3,7 @@ tags: [lab, attack/web]
 module: advanced_sql_injections
 last_updated: 2026-05-22
 ---
-
+1
 # Lab: Hunting for SQL Errors
 
 Target access: SSH to the target with `student:academy.hackthebox.com`.

@@ -12,7 +12,7 @@ This lab is fully CLI-based using Fernflower and grep. VS Code is noted as a GUI
 
 ## Tool Installation
 
-See [[labs/htb/advanced_sql_injections/decompiling_java_archives]] for the full setup and troubleshooting. Verified working on Kali rolling (Java 25 default):
+See [[labs/htb/advanced_sql_injections/decompiling_java_archives]] for the full setup and troubleshooting.
 
 **jadx (no Java setup required):**
 ```bash
@@ -20,12 +20,13 @@ sudo apt install jadx -y
 jadx -d BlueBirdSourceCode/ bluebird/BlueBird-0.0.1-SNAPSHOT.jar
 ```
 
-**Fernflower (verified working with `msopenjdk-21`):**
+**Fernflower (verified working with `openjdk-17-jdk`):**
 ```bash
-sudo apt install msopenjdk-21 -y
 git clone https://github.com/fesh0r/fernflower.git
+sudo apt install openjdk-17-jdk -y
+sudo update-java-alternatives --set /usr/lib/jvm/java-1.17.0-openjdk-amd64
 cd fernflower/
-JAVA_HOME=/usr/lib/jvm/msopenjdk-21-amd64 ./gradlew build -x test --no-configuration-cache
+./gradlew build -x test
 cd ..
 ```
 
@@ -33,11 +34,11 @@ cd ..
 
 ## Question 1 — Which variable in the INSERT query cannot be exploited?
 
-**Goal:** Decompile the BlueBird JAR, find all INSERT statements in the source, and identify which variable in an INSERT concatenation cannot be exploited for SQL injection.
+**Goal:** Decompile the BlueBird JAR, find all INSERT statements in the source, and identify which variable in the INSERT concatenation cannot be exploited for SQL injection.
 
 **Why look for INSERT statements specifically:** SQL injection in SELECT queries gets the most attention, but INSERT, UPDATE, and DELETE statements are equally worth auditing. An injectable INSERT can write arbitrary data to the database — and if stacked queries are supported, it can execute additional SQL beyond the INSERT itself. The question frames this as finding the *un*-exploitable variable, which teaches a critical skill: not every concatenated value is a usable injection point, even if it looks like one at first glance.
 
-**Step 1 — Decompile and extract (if not already done)**
+### Step 1 — Acquire and decompile the JAR
 
 ```bash
 scp -r student@<TARGET_IP>:/opt/bluebird ./
@@ -49,70 +50,94 @@ cd BlueBirdSourceCode/
 jar -xf BlueBird-0.0.1-SNAPSHOT.jar
 ```
 
-**Step 2 — Search for INSERT statements**
+After `jar -xf`, the `.java` source files are unpacked into `BOOT-INF/classes/com/bmdyy/bluebird/`. All subsequent commands run from inside `BlueBirdSourceCode/`.
 
-Rather than opening files one by one in a text editor, grep for the SQL keyword directly in the decompiled source:
+### Step 2 — Search for INSERT statements
+
+Rather than opening files one by one, grep for the SQL keyword directly across all decompiled source:
 
 ```bash
 grep -rn "INSERT" BOOT-INF/classes/ --include="*.java"
 ```
 
-The `-n` flag shows line numbers so you can immediately jump to the relevant code. The `--include="*.java"` filter is important — without it, grep will also search `.class` binary files and produce garbage output.
+The `-n` flag includes line numbers so you can jump straight to the relevant code. The `--include="*.java"` filter is critical — without it, grep also searches `.class` binary files and produces garbage output.
 
-This finds the INSERT statement in `AuthController.java`. Write down the file path and line number — you'll read a narrow section of the file rather than the whole thing.
-
-**Why grep before reading:** A real codebase might have hundreds of Java files. Reading them all in a text editor to find SQL queries would take hours. Grep reduces a 45MB JAR to three or four lines of output in seconds.
-
-**Step 3 — Read the relevant controller section**
-
-```bash
-find BOOT-INF/classes -name "AuthController.java"
-grep -A 30 "INSERT" BOOT-INF/classes/com/bluebird/controllers/AuthController.java
+**Expected output:**
+```
+BOOT-INF/classes/com/bmdyy/bluebird/controller/PostController.java:22:         String sql = "INSERT INTO posts (text, author_id, posted_at) VALUES (?, ?, CURRENT_TIMESTAMP);";
+BOOT-INF/classes/com/bmdyy/bluebird/controller/AuthController.java:171:                  String sql = "INSERT INTO users (name, username, email, password) VALUES ('" + name + "', '" + username + "', '" + email + "', '" + passwordHash + "')";
 ```
 
-The `-A 30` flag shows 30 lines after the match, giving you enough context to see the full method.
+**How to read this output:** Two INSERT statements appear. Read the section after the line number carefully:
 
-You'll see the `signupPOST()` method. It contains multiple SQL queries. The key observation is that some of them are parameterized (using `?` placeholders passed through JDBC's `PreparedStatement`) while the final INSERT is not — it builds the query by string concatenation. Note which POST parameters feed directly into the string: `name`, `username`, `email`, and `password`.
+- `PostController.java:22` — the query uses `?` placeholders (`VALUES (?, ?, CURRENT_TIMESTAMP)`). These are JDBC `PreparedStatement` parameters: user input is bound separately, never touching the query string. This INSERT is not injectable.
+- `AuthController.java:171` — the query builds its `VALUES` clause by string concatenation (`'"+ name +"', '"+ username +"'...`). User-supplied values are stitched directly into the SQL string. This is the vulnerable INSERT.
 
-**Step 4 — Identify which variable cannot be exploited**
+The file path in the output is the exact path you need for the next step. Copy it from here — do not guess or retype it from memory.
 
-Look at how each value is prepared before insertion. For most variables, the raw POST parameter value lands directly in the query string. But trace `password`:
+**Why grep before reading:** A real codebase might have hundreds of Java files. Grepping reduces the entire 45 MB JAR to two lines of output in under a second.
 
+### Step 3 — Trace where each variable comes from
+
+The INSERT line names four variables: `name`, `username`, `email`, `passwordHash`. The question is whether each one carries raw user input into the query, or whether something transforms it first. To answer that, look at the code *above* the INSERT, not below it. Use `-B 30` (before) instead of `-A` (after), and target the specific INSERT rather than the generic keyword so you don't pull in the PostController hit:
+
+```bash
+grep -B 30 "INSERT INTO users" BOOT-INF/classes/com/bmdyy/bluebird/controller/AuthController.java
+```
+
+**Expected output (key sections — `<SNIP>` marks validation logic):**
 ```java
-String passwordHash = encoder.encode(password);
+@PostMapping({"/signup"})
+public void signupPOST(@RequestParam String name, @RequestParam String username,
+                       @RequestParam String email, @RequestParam String password,
+                       HttpServletResponse response) throws IOException {
+   if (!name.isEmpty() && !username.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+      <SNIP: duplicate username/email checks using parameterized queries>
+               String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt(12));
+               String sql = "INSERT INTO users (name, username, email, password) VALUES ('" + name + "', '" + username + "', '" + email + "', '" + passwordHash + "')";
 ```
 
-`encoder.encode()` is BCrypt. Whatever value you supply for `password`, it gets hashed through BCrypt before it touches the SQL query. BCrypt output is always a 60-character string in the format `$2b$12$[A-Za-z0-9./]{53}` — a fixed structure using only characters that have no special meaning in SQL.
+**How to read this output — variable-by-variable:**
 
-**Why BCrypt is an effective (if accidental) filter:** You might try to inject SQL through the password field by submitting something like `' OR 1=1--`. After BCrypt encoding, this becomes something like `$2b$12$xK9mU...rQn9z` — a harmless random-looking string. Your SQL metacharacters are gone. The encoding acts as a transformation that strips injection potential, even though it was never designed as a security control for SQLi.
+- `name`, `username`, `email`, `password` — all declared `@RequestParam` in the method signature. `@RequestParam` means the value comes directly from the HTTP POST body, exactly as the client sent it, with no sanitization. These are user-controlled.
+- `password` itself does not appear in the INSERT. The column is named `password` but the value being inserted is `passwordHash`.
+- `passwordHash` — defined on the line immediately before the INSERT as `BCrypt.hashpw(password, BCrypt.gensalt(12))`. This is a transformation: whatever value the user sent for `password` is passed through BCrypt before it reaches the SQL string.
 
-**Why the other variables ARE exploitable:** `name`, `username`, and `email` go into the query as-is, with no transformation. This becomes the attack surface for the [[labs/htb/advanced_sql_injections/reading_and_writing_files]] and [[labs/htb/advanced_sql_injections/command_execution]] labs.
+### Step 4 — Confirm the transformation that blocks injection
 
 ```bash
-grep -n "passwordHash\|encoder.encode" BOOT-INF/classes/com/bluebird/controllers/AuthController.java
+grep -n "passwordHash\|BCrypt.hashpw" BOOT-INF/classes/com/bmdyy/bluebird/controller/AuthController.java
 ```
 
-The answer is `passwordHash` — it cannot be exploited because it is the *hash of* the user-supplied value, not the raw value itself.
+**Expected output:**
+```
+110:            String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt(12));
+112:            this.jdbcTemplate.update(sql, new Object[]{passwordHash, Integer.parseInt(uid)});
+170:                  String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt(12));
+171:                  String sql = "INSERT INTO users (name, username, email, password) VALUES ('" + name + "', '" + username + "', '" + email + "', '" + passwordHash + "')";
+```
 
-**Could you exploit it another way:** Theoretically you could try to craft a password whose BCrypt hash happens to contain SQL metacharacters, but BCrypt output is Base64-like (`./A-Za-z0-9`) and `$` is the only special character that appears — and dollar-sign quoting (`$$`) is actually valid PostgreSQL syntax, not an injection character. In practice: no, this is a dead end.
+There are two occurrences of `passwordHash`. Lines 110–112 are inside a different method (the password reset handler) and use a *parameterized* query (`new Object[]{passwordHash, ...}`) — not relevant here. Lines 170–171 are the ones from `signupPOST`: the `BCrypt.hashpw()` call on 170 feeds directly into the concatenated INSERT on 171.
 
-### GUI alternative evaluation
+**Why BCrypt makes `passwordHash` non-injectable:** `BCrypt.hashpw()` always produces a 60-character string in the format `$2b$12$[A-Za-z0-9./]{53}`. The output character set is letters, digits, `.`, `/`, and `$` — none of which are SQL metacharacters. If you submit `password=' OR '1'='1`, BCrypt hashes that input before it reaches the query string. Your single quotes and SQL keywords are gone. The hashing is not a deliberate SQLi defense — it is a side effect of the password storage design — but the result is the same: the value is not injectable.
 
-VS Code provides syntax highlighting and allows clicking between files. **For this task, grep is faster** — the codebase is small and the INSERT statement is found in one grep pass. VS Code requires a desktop session or X forwarding.
+**Why the other three variables ARE exploitable:** `name`, `username`, and `email` are `@RequestParam` values that flow directly into the `VALUES` clause with zero transformation. Single quotes, dashes, semicolons — anything you send appears literally in the SQL. These become the attack surface in [[labs/htb/advanced_sql_injections/reading_and_writing_files]] and [[labs/htb/advanced_sql_injections/command_execution]].
 
-**Verdict: grep is practical and sufficient. VS Code is optional comfort.**
+**Answer: `passwordHash`**
 
 ---
 
 ## Lessons Learned
 
-- Not every concatenated variable in an unsafe query is exploitable — always trace the variable back to its assignment and look for transformations (encoding, hashing, type conversion)
+- Not every concatenated variable in an unsafe query is exploitable — always trace the variable back to its assignment and look for transformations (encoding, hashing, type conversion) applied before it reaches the query
 - BCrypt, by producing output in a restricted character set, acts as an inadvertent SQLi filter — this is a coincidence of design, not intentional defense
+- Copy file paths from grep output rather than typing them by hand — the Java package name (`com/bmdyy/bluebird/controller/`) differs from the application name (`bluebird`) and is easy to mistype
+- Parameterized queries (`?` placeholders) are immune to injection regardless of input; string concatenation is always the vulnerability to hunt
 - Grep for INSERT/UPDATE/SELECT/DELETE before reading source files — it pinpoints injection sinks immediately and saves hours compared to file browsing
-- The injectable variables in this specific INSERT (`name`, `username`, `email`) are directly exploited in the reading_and_writing_files and command_execution labs
 
 ## Related Pages
 
 - [[attack/web/white_box_sqli_methodology]] — systematic source review with grep patterns
 - [[attack/web/second_order_sqli]] — tracing source/sink pairs
 - [[labs/htb/advanced_sql_injections/decompiling_java_archives]] — decompilation prerequisite
+- [[labs/htb/advanced_sql_injections/common_character_bypass]] — exploiting the `name`/`username`/`email` fields found here
